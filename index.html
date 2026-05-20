@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TI SOM Explorer</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="ti-mark" aria-hidden="true">TI</div>
+          <div>
+            <h1>TI SOM Explorer</h1>
+            <p id="sourceLine">Loading SOM data</p>
+          </div>
+        </div>
+        <div class="toolbar" aria-label="View actions">
+          <button class="tool-button" id="shareView" type="button">Share</button>
+          <button class="tool-button" id="exportCsv" type="button">CSV</button>
+          <button class="tool-button primary" id="printView" type="button">Print</button>
+        </div>
+      </header>
+
+      <main class="workbench">
+        <aside class="control-rail" aria-label="Explorer filters and view controls">
+          <label class="field">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Module, partner, device">
+          </label>
+
+          <fieldset class="field-group">
+            <legend>View</legend>
+            <div class="segmented" role="group" aria-label="Visualization type">
+              <button type="button" class="segment is-active" data-view-mode="board">Graph</button>
+              <button type="button" class="segment" data-view-mode="map">Map</button>
+              <button type="button" class="segment" data-view-mode="partners">Partners</button>
+              <button type="button" class="segment" data-view-mode="formFactors">Form Factors</button>
+              <button type="button" class="segment" data-view-mode="matrix">Matrix</button>
+              <button type="button" class="segment" data-view-mode="directory">Directory</button>
+            </div>
+          </fieldset>
+
+          <label class="field">
+            <span>Group by</span>
+            <select id="groupBy">
+              <option value="device">Device</option>
+              <option value="region">Region</option>
+              <option value="vendor">Partner</option>
+              <option value="formFactorFamily">Form factor</option>
+              <option value="lifecycle">Status</option>
+              <option value="partnerProgram">Partner program</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Color by</span>
+            <select id="colorBy">
+              <option value="formFactorFamily">Form factor</option>
+              <option value="lifecycle">Status</option>
+              <option value="region">Region</option>
+              <option value="partnerProgram">Partner program</option>
+              <option value="device">Device</option>
+            </select>
+          </label>
+
+          <div class="filter-stack" id="filterStack"></div>
+
+          <button class="reset-button" id="resetFilters" type="button">Reset filters</button>
+        </aside>
+
+        <section class="workspace" aria-live="polite">
+          <div class="kpis" id="kpis"></div>
+
+          <div class="view-meta">
+            <div>
+              <p class="eyebrow" id="viewEyebrow">Graph</p>
+              <h2 id="viewTitle">Modules by device</h2>
+            </div>
+            <div class="legend" id="legend" aria-label="Color legend"></div>
+          </div>
+
+          <section class="visualization" id="visualization"></section>
+        </section>
+      </main>
+    </div>
+
+    <aside class="detail-drawer" id="detailDrawer" aria-label="Module details" aria-hidden="true">
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Close details">Close</button>
+      <div id="drawerContent"></div>
+    </aside>
+
+    <noscript>TI SOM Explorer requires JavaScript.</noscript>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
