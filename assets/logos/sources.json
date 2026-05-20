@@ -1,0 +1,141 @@
+{
+  "Aaeon": {
+    "partnerPage": "https://www.ti.com/partner/AAEON",
+    "tiPartnerCode": "AAEON",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/aaeon-logo.png",
+    "localPath": "assets/logos/aaeon.png"
+  },
+  "Beacon Embedded": {
+    "partnerPage": "https://www.ti.com/partner/BEACN",
+    "tiPartnerCode": "BEACN",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/beacon-embeddedworks-logo.png",
+    "localPath": "assets/logos/beacon-embedded.png"
+  },
+  "BeagleBoard": {
+    "partnerPage": "https://www.ti.com/partner/BEAGL",
+    "tiPartnerCode": "BEAGL",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/beagleboard-logo.png",
+    "localPath": "assets/logos/beagleboard.png"
+  },
+  "BytesAtWork": {
+    "partnerPage": "https://www.ti.com/partner/BYTES",
+    "tiPartnerCode": "BYTES",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/bytes-at-work-logo.png",
+    "localPath": "assets/logos/bytesatwork.png"
+  },
+  "Critical Link": {
+    "partnerPage": "https://www.ti.com/partner/CRLNK",
+    "tiPartnerCode": "CRLNK",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/critical-link-logo.png",
+    "localPath": "assets/logos/critical-link.png"
+  },
+  "Engicam": {
+    "partnerPage": "https://www.ti.com/partner/ENGCM",
+    "tiPartnerCode": "ENGCM",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/d-f/engicam-logo.png",
+    "localPath": "assets/logos/engicam.png"
+  },
+  "Ezurio": {
+    "partnerPage": "https://www.ti.com/partner/EZURI",
+    "tiPartnerCode": "EZURI",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/d-f/ezurio-logo.png",
+    "localPath": "assets/logos/ezurio.png"
+  },
+  "Forlinx": {
+    "partnerPage": "https://www.ti.com/partner/FORLX",
+    "tiPartnerCode": "FORLX",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/d-f/forlinx-logo.png",
+    "localPath": "assets/logos/forlinx.png"
+  },
+  "Iesy": {
+    "partnerPage": "https://www.ti.com/partner/IESY",
+    "tiPartnerCode": "IESY",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/g-i/iesy-logo.png",
+    "localPath": "assets/logos/iesy.png"
+  },
+  "iWave": {
+    "partnerPage": "https://www.ti.com/partner/IWAVE",
+    "tiPartnerCode": "IWAVE",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/g-i/iwave-global-logo.png",
+    "localPath": "assets/logos/iwave.png"
+  },
+  "Kontron": {
+    "partnerPage": "https://www.ti.com/partner/KON",
+    "tiPartnerCode": "KON",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/j-l/kontron-logo.png",
+    "localPath": "assets/logos/kontron.png"
+  },
+  "Octavo": {
+    "partnerPage": "https://www.ti.com/partner/OCTVO",
+    "tiPartnerCode": "OCTVO",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/products/legacy-boards/o/octvo-3p-am335x_octvo-3p-am335x-octavo-logo.jpg",
+    "localPath": "assets/logos/octavo.jpg"
+  },
+  "Phytec": {
+    "partnerPage": "https://www.ti.com/partner/PHYTC",
+    "tiPartnerCode": "PHYTC",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/p-r/phytec-logo.png",
+    "localPath": "assets/logos/phytec.png"
+  },
+  "Technexion": {
+    "partnerPage": "https://www.ti.com/partner/TECHNX",
+    "tiPartnerCode": "TECHNX",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/technexion-logo.png",
+    "localPath": "assets/logos/technexion.png"
+  },
+  "Tessolve": {
+    "partnerPage": "https://www.ti.com/partner/TSSLV",
+    "tiPartnerCode": "TSSLV",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/tessolve-logo.png",
+    "localPath": "assets/logos/tessolve.png"
+  },
+  "Toradex": {
+    "partnerPage": "https://www.ti.com/partner/TRDX",
+    "tiPartnerCode": "TRDX",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/toradex-logo.png",
+    "localPath": "assets/logos/toradex.png"
+  },
+  "TQ": {
+    "partnerPage": "https://www.ti.com/partner/TQ",
+    "tiPartnerCode": "TQ",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/tq-group-logo.png",
+    "localPath": "assets/logos/tq.png"
+  },
+  "Tria": {
+    "partnerPage": "https://www.tria-technologies.com/product/tria-sm2s-am62x/",
+    "tiPartnerCode": null,
+    "logoSource": null,
+    "localPath": "assets/logos/tria.svg",
+    "note": "No TI partner profile found; placeholder retained."
+  },
+  "Tronlong": {
+    "partnerPage": "https://www.ti.com/partner/TRONL",
+    "tiPartnerCode": "TRONL",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/tronlong-logo.png",
+    "localPath": "assets/logos/tronlong.png"
+  },
+  "Vanteon": {
+    "partnerPage": "https://www.ti.com/partner/VANWS",
+    "tiPartnerCode": "VANWS",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/u-w/vanteon-wireless-solutions-logo.png",
+    "localPath": "assets/logos/vanteon.png"
+  },
+  "Variscite": {
+    "partnerPage": "https://www.ti.com/partner/VARIS",
+    "tiPartnerCode": "VARIS",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/u-w/variscite-logo.png",
+    "localPath": "assets/logos/variscite.png"
+  },
+  "WEATHINK": {
+    "partnerPage": "https://www.ti.com/partner/WEATH",
+    "tiPartnerCode": "WEATH",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/u-w/weathink-logo.png",
+    "localPath": "assets/logos/weathink.png"
+  },
+  "ZLG": {
+    "partnerPage": "https://www.ti.com/partner/ZLG",
+    "tiPartnerCode": "ZLG",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/x-z/zlg-logo.png",
+    "localPath": "assets/logos/zlg.png"
+  }
+}

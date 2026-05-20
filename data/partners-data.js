@@ -1,4 +1,4 @@
-{
+window.TI_SOM_PARTNERS = {
   "Aaeon": {
     "partnerPage": "https://www.ti.com/partner/AAEON"
   },
@@ -68,4 +68,4 @@
   "ZLG": {
     "partnerPage": "https://www.ti.com/partner/ZLG"
   }
-}
+};

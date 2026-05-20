@@ -18,7 +18,7 @@ const orders = {
   region: ["US", "EU", "China", "India", "Taiwan", "Israel", "Switzerland", "Unknown"],
   formFactorFamily: ["Proprietary connector", "OSM", "SMARC", "Solder down", "SO-DIMM", "Board"],
   lifecycle: ["Concept", "Preview", "Production"],
-  partnerProgram: ["Registered", "Preferred", "Premium", "Unknown"],
+  partnerProgram: ["Premium", "Preferred", "Registered", "Unknown"],
   wireless: ["Yes", "No", "Unknown"],
 };
 
@@ -50,14 +50,20 @@ const palette = {
 
 const fallbackColors = ["#cc0000", "#137f8c", "#1b5fa7", "#2f7d32", "#9b6a00", "#555555", "#6f4aa0", "#006b60"];
 
+const worldMap = {
+  width: 1000,
+  height: 520,
+  scale: 1000 / (2 * Math.PI),
+};
+
 const regionMap = {
-  US: { x: 230, y: 205, labelX: 170, labelY: 145 },
-  EU: { x: 510, y: 185, labelX: 458, labelY: 116 },
-  Switzerland: { x: 520, y: 205, labelX: 505, labelY: 262 },
-  Israel: { x: 565, y: 242, labelX: 580, labelY: 300 },
-  India: { x: 690, y: 295, labelX: 642, labelY: 352 },
-  China: { x: 765, y: 222, labelX: 738, labelY: 150 },
-  Taiwan: { x: 833, y: 279, labelX: 804, labelY: 338 },
+  US: { lon: -98, lat: 39, labelDx: -74, labelDy: -58 },
+  EU: { lon: 10, lat: 51, labelDx: -62, labelDy: -60 },
+  Switzerland: { lon: 8, lat: 47, labelDx: -18, labelDy: 78 },
+  Israel: { lon: 35, lat: 31, labelDx: 28, labelDy: 74 },
+  India: { lon: 78, lat: 22, labelDx: -42, labelDy: 76 },
+  China: { lon: 104, lat: 35, labelDx: -46, labelDy: -66 },
+  Taiwan: { lon: 121, lat: 24, labelDx: 28, labelDy: 60 },
 };
 
 const state = {
@@ -81,6 +87,7 @@ const state = {
 };
 
 const dom = {
+  homeLink: document.querySelector("#homeLink"),
   sourceLine: document.querySelector("#sourceLine"),
   searchInput: document.querySelector("#searchInput"),
   groupBy: document.querySelector("#groupBy"),
@@ -88,8 +95,8 @@ const dom = {
   filterStack: document.querySelector("#filterStack"),
   resetFilters: document.querySelector("#resetFilters"),
   kpis: document.querySelector("#kpis"),
-  viewEyebrow: document.querySelector("#viewEyebrow"),
   viewTitle: document.querySelector("#viewTitle"),
+  filterStatus: document.querySelector("#filterStatus"),
   legend: document.querySelector("#legend"),
   visualization: document.querySelector("#visualization"),
   drawer: document.querySelector("#detailDrawer"),
@@ -101,9 +108,7 @@ const dom = {
 };
 
 async function init() {
-  const response = await fetch(DATA_URL);
-  if (!response.ok) throw new Error(`Unable to load ${DATA_URL}`);
-  state.metadata = await response.json();
+  state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
   state.modules = state.metadata.modules;
   [state.companyLogos, state.formFactorLogos, state.partners] = await Promise.all([loadLogoManifest(), loadFormFactorManifest(), loadPartners()]);
   hydrateFromUrl();
@@ -114,6 +119,8 @@ async function init() {
 }
 
 function bindEvents() {
+  dom.homeLink.addEventListener("click", goHome);
+
   dom.searchInput.addEventListener("input", (event) => {
     state.search = event.target.value.trim();
     updateUrl();
@@ -135,12 +142,7 @@ function bindEvents() {
   document.querySelectorAll("[data-view-mode]").forEach((button) => {
     button.addEventListener("click", () => {
       state.viewMode = button.dataset.viewMode;
-      if (state.viewMode === "map") {
-        state.groupBy = "region";
-        state.colorBy = "region";
-      }
-      if (state.viewMode === "partners") state.groupBy = "vendor";
-      if (state.viewMode === "formFactors") state.groupBy = "formFactorFamily";
+      applyViewDefaults({ resetBoard: true });
       document.querySelectorAll("[data-view-mode]").forEach((item) => item.classList.toggle("is-active", item === button));
       syncControls();
       updateUrl();
@@ -157,21 +159,39 @@ function bindEvents() {
   });
 
   dom.resetFilters.addEventListener("click", () => {
-    state.search = "";
-    Object.keys(state.filters).forEach((key) => {
-      state.filters[key] = "All";
-    });
+    resetFilters();
     syncControls();
     updateUrl();
     render();
+  });
+
+  dom.filterStatus.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-clear-filters]")) return;
+    resetFilters();
+    syncControls();
+    updateUrl();
+    render();
+  });
+
+  dom.legend.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-legend-value]");
+    if (!trigger) return;
+    toggleLegendFilter(trigger.dataset.legendDimension, trigger.dataset.legendValue);
+  });
+
+  dom.legend.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const trigger = event.target.closest("[data-legend-value]");
+    if (!trigger) return;
+    event.preventDefault();
+    toggleLegendFilter(trigger.dataset.legendDimension, trigger.dataset.legendValue);
   });
 
   dom.kpis.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-kpi-view]");
     if (!trigger) return;
     state.viewMode = trigger.dataset.kpiView;
-    if (state.viewMode === "partners") state.groupBy = "vendor";
-    if (state.viewMode === "formFactors") state.groupBy = "formFactorFamily";
+    applyViewDefaults();
     syncControls();
     updateUrl();
     render();
@@ -241,6 +261,31 @@ function bindEvents() {
   dom.printView.addEventListener("click", () => window.print());
 }
 
+function goHome() {
+  state.viewMode = "board";
+  resetFilters();
+  applyViewDefaults({ resetBoard: true });
+  closeDrawer();
+  syncControls();
+  updateUrl();
+  render();
+}
+
+function resetFilters() {
+  state.search = "";
+  Object.keys(state.filters).forEach((key) => {
+    state.filters[key] = "All";
+  });
+}
+
+function toggleLegendFilter(dimension, value) {
+  if (!Object.prototype.hasOwnProperty.call(state.filters, dimension)) return;
+  state.filters[dimension] = state.filters[dimension] === value ? "All" : value;
+  syncControls();
+  updateUrl();
+  render();
+}
+
 function buildFilterControls() {
   const filters = [
     ["region", "Region"],
@@ -296,6 +341,19 @@ function hydrateFromUrl() {
   });
 }
 
+function applyViewDefaults({ resetBoard = false } = {}) {
+  if (state.viewMode === "board" && resetBoard) {
+    state.groupBy = "device";
+    state.colorBy = "formFactorFamily";
+  }
+  if (state.viewMode === "map") {
+    state.groupBy = "region";
+    state.colorBy = "region";
+  }
+  if (state.viewMode === "partners") state.groupBy = "vendor";
+  if (state.viewMode === "formFactors") state.groupBy = "formFactorFamily";
+}
+
 function updateUrl() {
   const params = new URLSearchParams();
   if (state.viewMode !== "board") params.set("view", state.viewMode);
@@ -313,8 +371,8 @@ function render() {
   const modules = filteredModules();
   const grouping = dimensions[state.groupBy];
   dom.sourceLine.textContent = `${state.metadata.summary.modules} modules from ${state.metadata.summary.vendors} partners`;
-  dom.viewEyebrow.textContent = modeLabel(state.viewMode);
   dom.viewTitle.textContent = viewTitle(grouping);
+  renderFilterStatus(modules);
   renderKpis(modules);
   renderLegend(modules);
 
@@ -346,14 +404,63 @@ function renderKpis(modules) {
   `).join("");
 }
 
+function renderFilterStatus(modules) {
+  if (!hasActiveFilters()) {
+    dom.filterStatus.hidden = true;
+    dom.filterStatus.innerHTML = "";
+    return;
+  }
+
+  const status = contentStatus(modules);
+  dom.filterStatus.hidden = false;
+  dom.filterStatus.innerHTML = `
+    <span>Showing ${status.current} out of ${status.total} ${pluralize(status.noun, status.total)}</span>
+    <button class="inline-clear" type="button" data-clear-filters>Clear filters</button>
+  `;
+}
+
+function contentStatus(modules) {
+  if (state.viewMode === "partners") {
+    const current = countUnique(modules, "vendor");
+    return {
+      current,
+      total: countUnique(state.modules, "vendor"),
+      noun: "partner",
+    };
+  }
+
+  if (state.viewMode === "formFactors") {
+    const current = countUnique(modules, "formFactorFamily");
+    return {
+      current,
+      total: countUnique(state.modules, "formFactorFamily"),
+      noun: "form factor",
+    };
+  }
+
+  return {
+    current: modules.length,
+    total: state.modules.length,
+    noun: "module",
+  };
+}
+
+function pluralize(noun, count) {
+  return count === 1 ? noun : `${noun}s`;
+}
+
+function hasActiveFilters() {
+  return Boolean(state.search) || Object.values(state.filters).some((value) => value !== "All");
+}
+
 function renderLegend(modules) {
   const colorDimension = dimensions[state.colorBy];
   const values = sortValues([...new Set(modules.map(colorDimension.get))], state.colorBy);
   dom.legend.innerHTML = values.map((value) => `
-    <span class="legend-item">
+    <button class="legend-item ${state.filters[state.colorBy] === value ? "is-active" : ""}" type="button" data-legend-dimension="${escapeAttr(state.colorBy)}" data-legend-value="${escapeAttr(value)}" aria-pressed="${state.filters[state.colorBy] === value ? "true" : "false"}">
       <span class="legend-swatch" style="--legend-color:${colorForValue(value)}"></span>
       ${escapeHtml(value)}
-    </span>
+    </button>
   `).join("");
 }
 
@@ -392,6 +499,11 @@ function renderMap() {
   const regions = sortValues(Object.keys(regionMap), "region").filter((region) => grouped.has(region));
   const mapRegions = regions.map((region) => {
     const config = regionMap[region];
+    const point = projectRegion(config);
+    const label = {
+      x: point.x + config.labelDx,
+      y: point.y + config.labelDy,
+    };
     const modules = grouped.get(region).sort(moduleSorter);
     const color = colorForValue(region);
     const count = modules.length;
@@ -400,11 +512,11 @@ function renderMap() {
     const muted = selectedRegion !== "All" && !active;
     return `
       <g class="map-region ${active ? "is-active" : ""} ${muted ? "is-muted" : ""}" data-region="${escapeAttr(region)}" style="--region-color:${color}" tabindex="0" role="button" aria-label="${escapeAttr(`${region}: ${count} modules`)}">
-        <circle class="map-pulse" cx="${config.x}" cy="${config.y}" r="${radius * 1.65}"></circle>
-        <circle class="map-dot" cx="${config.x}" cy="${config.y}" r="${radius}"></circle>
-        <rect class="map-label-bg" x="${config.labelX - 12}" y="${config.labelY - 30}" width="${regionLabelWidth(region, count)}" height="48" rx="6"></rect>
-        <text class="map-label" x="${config.labelX}" y="${config.labelY - 10}">${escapeHtml(region)}</text>
-        <text class="map-count" x="${config.labelX}" y="${config.labelY + 8}">${count} ${count === 1 ? "module" : "modules"}</text>
+        <circle class="map-pulse" cx="${point.x}" cy="${point.y}" r="${radius * 1.65}"></circle>
+        <circle class="map-dot" cx="${point.x}" cy="${point.y}" r="${radius}"></circle>
+        <rect class="map-label-bg" x="${label.x - 12}" y="${label.y - 30}" width="${regionLabelWidth(region, count)}" height="48" rx="6"></rect>
+        <text class="map-label" x="${label.x}" y="${label.y - 10}">${escapeHtml(region)}</text>
+        <text class="map-count" x="${label.x}" y="${label.y + 8}">${count} ${count === 1 ? "module" : "modules"}</text>
       </g>
     `;
   }).join("");
@@ -422,19 +534,28 @@ function renderMap() {
       </button>
     `;
   }).join("");
+  const selectedModules = selectedRegion === "All" ? [] : (grouped.get(selectedRegion) || []).slice().sort(moduleSorter);
+  const mapResults = selectedRegion === "All" ? "" : `
+    <section class="map-results" aria-label="${escapeAttr(`${selectedRegion} SOMs`)}">
+      <div class="map-results-head">
+        <h3>${escapeHtml(selectedRegion)} SOMs</h3>
+        <span>${selectedModules.length} ${selectedModules.length === 1 ? "module" : "modules"}</span>
+      </div>
+      <div class="map-result-cards">
+        ${selectedModules.length ? selectedModules.map(moduleCard).join("") : `<div class="empty-state">No modules match the current filters.</div>`}
+      </div>
+    </section>
+  `;
 
   dom.visualization.innerHTML = `
     <div class="map-view">
-      <svg class="world-map" viewBox="0 0 1000 520" role="img" aria-label="World map highlighting SOM regions">
-        <path class="map-graticule" d="M80 90H920M80 180H920M80 270H920M80 360H920M80 450H920M180 55V470M340 55V470M500 55V470M660 55V470M820 55V470"></path>
-        <path class="map-land" d="M105 130 170 92 260 106 322 146 292 207 344 250 302 306 224 292 166 250 110 238 72 184Z"></path>
-        <path class="map-land" d="M303 302 355 342 376 422 344 488 296 436 274 354Z"></path>
-        <path class="map-land" d="M446 148 500 112 578 134 548 190 488 204 436 184Z"></path>
-        <path class="map-land" d="M510 218 585 234 622 304 594 398 534 458 484 386 468 294Z"></path>
-        <path class="map-land" d="M560 142 680 98 825 118 912 182 878 252 794 280 724 332 642 294 604 224Z"></path>
-        <path class="map-land" d="M800 338 884 362 920 422 870 456 790 426Z"></path>
-        ${mapRegions}
-      </svg>
+      <div class="map-stage">
+        <svg class="world-map" viewBox="0 0 1000 520" role="img" aria-label="World map highlighting SOM regions">
+          <image class="map-base" href="./assets/maps/world-map.svg" x="0" y="0" width="1000" height="520" preserveAspectRatio="xMidYMid meet"></image>
+          ${mapRegions}
+        </svg>
+        ${mapResults}
+      </div>
       <aside class="map-panel" aria-label="Region summary">
         <h3>Regions</h3>
         ${cards}
@@ -598,7 +719,7 @@ function openDrawer(moduleId) {
       ${detailItem("Wireless", module.wireless)}
       ${detailItem("Released", module.released)}
     </dl>
-    ${link ? `<a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Open TI.com</a>` : ""}
+    ${link ? `<a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
   `;
   dom.drawer.classList.add("is-open");
   dom.drawer.setAttribute("aria-hidden", "false");
@@ -658,10 +779,11 @@ function sortValues(values, dimensionKey) {
 }
 
 function moduleSorter(a, b) {
-  const deviceCompare = compareByOrder(a.device, b.device, "device");
-  return deviceCompare
+  const programCompare = compareByOrder(a.partnerProgram, b.partnerProgram, "partnerProgram");
+  return programCompare
     || a.vendor.localeCompare(b.vendor, undefined, { sensitivity: "base" })
-    || a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" });
+    || a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" })
+    || compareByOrder(a.device, b.device, "device");
 }
 
 function compareByOrder(a, b, dimensionKey) {
@@ -684,34 +806,45 @@ function regionLabelWidth(region, count) {
   return Math.max(110, region.length * 10 + String(count).length * 8 + 78);
 }
 
+function projectRegion(region) {
+  const x = worldMap.width / 2 + region.lon * Math.PI / 180 * worldMap.scale;
+  const y = worldMap.height / 2 - region.lat * Math.PI / 180 * worldMap.scale;
+  return {
+    x: Number(x.toFixed(1)),
+    y: Number(y.toFixed(1)),
+  };
+}
+
 async function loadLogoManifest() {
-  try {
-    const response = await fetch(LOGO_MANIFEST_URL);
-    if (!response.ok) return {};
-    return await response.json();
-  } catch {
-    return {};
-  }
+  return loadJson(LOGO_MANIFEST_URL, "TI_SOM_LOGOS", {});
 }
 
 async function loadFormFactorManifest() {
-  try {
-    const response = await fetch(FORM_FACTOR_MANIFEST_URL);
-    if (!response.ok) return {};
-    return await response.json();
-  } catch {
-    return {};
-  }
+  return loadJson(FORM_FACTOR_MANIFEST_URL, "TI_SOM_FORM_FACTOR_LOGOS", {});
 }
 
 async function loadPartners() {
+  return loadJson(PARTNERS_URL, "TI_SOM_PARTNERS", {});
+}
+
+async function loadJson(url, globalName, fallback = null) {
+  if (window[globalName]) return structuredCloneSafe(window[globalName]);
   try {
-    const response = await fetch(PARTNERS_URL);
-    if (!response.ok) return {};
+    const response = await fetch(url);
+    if (!response.ok) {
+      if (fallback !== null) return fallback;
+      throw new Error(`Unable to load ${url}`);
+    }
     return await response.json();
-  } catch {
-    return {};
+  } catch (error) {
+    if (fallback !== null) return fallback;
+    throw error;
   }
+}
+
+function structuredCloneSafe(value) {
+  if (typeof structuredClone === "function") return structuredClone(value);
+  return JSON.parse(JSON.stringify(value));
 }
 
 function selectFormFactor(formFactor) {
@@ -808,13 +941,9 @@ function normalizeTiLink(value) {
   return "";
 }
 
-function modeLabel(mode) {
-  return { board: "Graph", map: "Map", partners: "Partners", formFactors: "Form Factors", matrix: "Matrix", directory: "Directory" }[mode] || "Graph";
-}
-
 function viewTitle(grouping) {
   if (state.viewMode === "map") return "Regional SOM map";
-  if (state.viewMode === "partners") return "Partner grid";
+  if (state.viewMode === "partners") return "Partner Directory";
   if (state.viewMode === "formFactors") return "Form factor grid";
   return `Modules by ${grouping.label.toLowerCase()}`;
 }

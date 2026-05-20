@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TI SOM Explorer</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css?v=20260520-filter-status">
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div class="brand">
+        <button class="brand" id="homeLink" type="button" aria-label="Return to TI SOM Explorer home">
           <div class="ti-mark" aria-hidden="true">TI</div>
           <div>
             <h1>TI SOM Explorer</h1>
             <p id="sourceLine">Loading SOM data</p>
           </div>
-        </div>
+        </button>
         <div class="toolbar" aria-label="View actions">
           <button class="tool-button" id="shareView" type="button">Share</button>
           <button class="tool-button" id="exportCsv" type="button">CSV</button>
@@ -33,7 +33,7 @@
           <fieldset class="field-group">
             <legend>View</legend>
             <div class="segmented" role="group" aria-label="Visualization type">
-              <button type="button" class="segment is-active" data-view-mode="board">Graph</button>
+              <button type="button" class="segment is-active" data-view-mode="board">Overview</button>
               <button type="button" class="segment" data-view-mode="map">Map</button>
               <button type="button" class="segment" data-view-mode="partners">Partners</button>
               <button type="button" class="segment" data-view-mode="formFactors">Form Factors</button>
@@ -74,9 +74,9 @@
           <div class="kpis" id="kpis"></div>
 
           <div class="view-meta">
-            <div>
-              <p class="eyebrow" id="viewEyebrow">Graph</p>
+            <div class="view-heading">
               <h2 id="viewTitle">Modules by device</h2>
+              <div class="filter-status" id="filterStatus" hidden></div>
             </div>
             <div class="legend" id="legend" aria-label="Color legend"></div>
           </div>
@@ -92,6 +92,10 @@
     </aside>
 
     <noscript>TI SOM Explorer requires JavaScript.</noscript>
+    <script src="./data/soms-data.js"></script>
+    <script src="./assets/logos/manifest-data.js"></script>
+    <script src="./assets/form-factors/manifest-data.js"></script>
+    <script src="./data/partners-data.js"></script>
     <script src="./app.js" defer></script>
   </body>
 </html>

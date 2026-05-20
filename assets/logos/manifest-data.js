@@ -1,4 +1,4 @@
-{
+window.TI_SOM_LOGOS = {
   "Aaeon": "assets/logos/aaeon.png",
   "Beacon Embedded": "assets/logos/beacon-embedded.png",
   "BeagleBoard": "assets/logos/beagleboard.png",
@@ -22,4 +22,4 @@
   "Variscite": "assets/logos/variscite.png",
   "WEATHINK": "assets/logos/weathink.png",
   "ZLG": "assets/logos/zlg.png"
-}
+};
