@@ -14,8 +14,8 @@ const dimensions = {
 };
 
 const orders = {
-  device: ["AM62L", "AM62", "AM62A", "AM64", "AM243", "AM57", "AM62P", "AM67", "TDA4VM", "AM69", "AM65", "AM437", "AM335"],
-  region: ["US", "EU", "China", "India", "Taiwan", "Israel", "Switzerland", "Unknown"],
+  device: ["AM62L", "AM62x", "AM62", "AM62P", "AM62A", "AM67A", "AM67", "AM64", "AM243", "AM57", "TDA4VM", "AM69", "AM65", "AM437", "AM335"],
+  region: ["North America", "EMEA", "China", "APAC", "Unknown"],
   formFactorFamily: ["Proprietary connector", "OSM", "SMARC", "Solder down", "SO-DIMM", "Board"],
   lifecycle: ["Concept", "Preview", "Production"],
   partnerProgram: ["Premium", "Preferred", "Registered", "Unknown"],
@@ -36,13 +36,10 @@ const palette = {
   Preferred: "#137f8c",
   Premium: "#990000",
   Unknown: "#808080",
-  US: "#cc0000",
-  EU: "#1b5fa7",
-  China: "#137f8c",
-  India: "#9b6a00",
-  Taiwan: "#2f7d32",
-  Israel: "#6f4aa0",
-  Switzerland: "#555555",
+  "North America": "#137f8c",
+  EMEA: "#1b5fa7",
+  China: "#cc0000",
+  APAC: "#2f7d32",
   Yes: "#137f8c",
   No: "#555555",
   Unknown: "#808080",
@@ -57,13 +54,19 @@ const worldMap = {
 };
 
 const regionMap = {
-  US: { lon: -98, lat: 39, labelDx: -74, labelDy: -58 },
-  EU: { lon: 10, lat: 51, labelDx: -62, labelDy: -60 },
-  Switzerland: { lon: 8, lat: 47, labelDx: -18, labelDy: 78 },
-  Israel: { lon: 35, lat: 31, labelDx: 28, labelDy: 74 },
-  India: { lon: 78, lat: 22, labelDx: -42, labelDy: 76 },
-  China: { lon: 104, lat: 35, labelDx: -46, labelDy: -66 },
-  Taiwan: { lon: 121, lat: 24, labelDx: 28, labelDy: 60 },
+  "North America": { lon: -98, lat: 39, labelDx: -116, labelDy: -62 },
+  EMEA: { lon: 18, lat: 40, labelDx: -78, labelDy: -70 },
+  China: { lon: 104, lat: 35, labelDx: -46, labelDy: -74 },
+  APAC: { lon: 92, lat: 13, labelDx: -58, labelDy: 86 },
+};
+
+const legacyRegionAliases = {
+  US: "North America",
+  EU: "EMEA",
+  Switzerland: "EMEA",
+  Israel: "EMEA",
+  India: "APAC",
+  Taiwan: "APAC",
 };
 
 const state = {
@@ -103,11 +106,13 @@ const dom = {
   drawerContent: document.querySelector("#drawerContent"),
   drawerClose: document.querySelector("#drawerClose"),
   shareView: document.querySelector("#shareView"),
+  themeToggle: document.querySelector("#themeToggle"),
   exportCsv: document.querySelector("#exportCsv"),
   printView: document.querySelector("#printView"),
 };
 
 async function init() {
+  syncThemeToggle();
   state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
   state.modules = state.metadata.modules;
   [state.companyLogos, state.formFactorLogos, state.partners] = await Promise.all([loadLogoManifest(), loadFormFactorManifest(), loadPartners()]);
@@ -120,6 +125,7 @@ async function init() {
 
 function bindEvents() {
   dom.homeLink.addEventListener("click", goHome);
+  dom.themeToggle.addEventListener("click", toggleTheme);
 
   dom.searchInput.addEventListener("input", (event) => {
     state.search = event.target.value.trim();
@@ -261,6 +267,28 @@ function bindEvents() {
   dom.printView.addEventListener("click", () => window.print());
 }
 
+function toggleTheme() {
+  const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = nextTheme;
+  try {
+    localStorage.setItem("tiSomTheme", nextTheme);
+  } catch {
+    // Theme persistence is optional; the button still works for this session.
+  }
+  syncThemeToggle();
+}
+
+function syncThemeToggle() {
+  const theme = currentTheme();
+  dom.themeToggle.title = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  dom.themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  dom.themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+}
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+}
+
 function goHome() {
   state.viewMode = "board";
   resetFilters();
@@ -336,7 +364,8 @@ function hydrateFromUrl() {
   if (state.viewMode === "formFactors") state.groupBy = "formFactorFamily";
   if (params.get("q")) state.search = params.get("q");
   Object.keys(state.filters).forEach((key) => {
-    const value = params.get(key);
+    let value = params.get(key);
+    if (key === "region") value = legacyRegionAliases[value] || value;
     if (value) state.filters[key] = value;
   });
 }
@@ -535,15 +564,33 @@ function renderMap() {
     `;
   }).join("");
   const selectedModules = selectedRegion === "All" ? [] : (grouped.get(selectedRegion) || []).slice().sort(moduleSorter);
+  const selectedPartnerGroups = groupModules(selectedModules, "vendor");
+  const selectedPartners = [...selectedPartnerGroups.keys()].sort((a, b) => partnerSorter(a, b, selectedPartnerGroups));
+  const selectedPartnerCards = selectedPartners.map((vendor) => mapPartnerCard(vendor, selectedPartnerGroups.get(vendor))).join("");
   const mapResults = selectedRegion === "All" ? "" : `
     <section class="map-results" aria-label="${escapeAttr(`${selectedRegion} SOMs`)}">
       <div class="map-results-head">
         <h3>${escapeHtml(selectedRegion)} SOMs</h3>
         <span>${selectedModules.length} ${selectedModules.length === 1 ? "module" : "modules"}</span>
       </div>
+      <section class="map-result-section" aria-label="${escapeAttr(`${selectedRegion} partners`)}">
+        <div class="map-section-head">
+          <h4>Partners</h4>
+          <span>${selectedPartners.length} ${selectedPartners.length === 1 ? "partner" : "partners"}</span>
+        </div>
+        <div class="map-partner-list">
+          ${selectedPartnerCards || `<div class="empty-state">No partners match the current filters.</div>`}
+        </div>
+      </section>
+      <section class="map-result-section" aria-label="${escapeAttr(`${selectedRegion} modules`)}">
+        <div class="map-section-head">
+          <h4>Modules</h4>
+          <span>${selectedModules.length} ${selectedModules.length === 1 ? "module" : "modules"}</span>
+        </div>
       <div class="map-result-cards">
         ${selectedModules.length ? selectedModules.map(moduleCard).join("") : `<div class="empty-state">No modules match the current filters.</div>`}
       </div>
+      </section>
     </section>
   `;
 
@@ -567,7 +614,7 @@ function renderMap() {
 function renderPartners(modules) {
   const partnerGridModules = filteredModules(["vendor"]);
   const grouped = groupModules(partnerGridModules, "vendor");
-  const vendors = sortValues([...grouped.keys()], "vendor");
+  const vendors = [...grouped.keys()].sort((a, b) => partnerSorter(a, b, grouped));
   const selectedPartner = state.filters.vendor;
   const partnerModules = selectedPartner === "All" ? [] : partnerGridModules.filter((module) => module.vendor === selectedPartner).sort(moduleSorter);
   const cards = vendors.map((vendor) => {
@@ -694,6 +741,24 @@ function moduleCard(module) {
   `;
 }
 
+function mapPartnerCard(vendor, modules) {
+  const sortedModules = modules.slice().sort(moduleSorter);
+  const devices = sortValues([...new Set(sortedModules.map((module) => module.device))], "device").slice(0, 4).join(", ");
+  const program = partnerProgramForVendor(new Map([[vendor, sortedModules]]), vendor);
+  return `
+    <button class="map-partner-card" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}">
+      <span class="map-partner-logo-wrap">
+        <img class="map-partner-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
+      </span>
+      <span class="map-partner-body">
+        <strong>${escapeHtml(vendor)}</strong>
+        <span>${sortedModules.length} ${sortedModules.length === 1 ? "module" : "modules"} / ${escapeHtml(program)}</span>
+        <span>${escapeHtml(devices || "No matching devices")}</span>
+      </span>
+    </button>
+  `;
+}
+
 function openDrawer(moduleId) {
   const module = state.modules.find((item) => item.id === moduleId);
   if (!module) return;
@@ -786,6 +851,16 @@ function moduleSorter(a, b) {
     || compareByOrder(a.device, b.device, "device");
 }
 
+function partnerSorter(a, b, grouped) {
+  const programCompare = compareByOrder(partnerProgramForVendor(grouped, a), partnerProgramForVendor(grouped, b), "partnerProgram");
+  return programCompare || a.localeCompare(b, undefined, { sensitivity: "base" });
+}
+
+function partnerProgramForVendor(grouped, vendor) {
+  const statuses = [...new Set((grouped.get(vendor) || []).map((module) => module.partnerProgram || "Unknown"))];
+  return sortValues(statuses, "partnerProgram")[0] || "Unknown";
+}
+
 function compareByOrder(a, b, dimensionKey) {
   const order = orders[dimensionKey] || [];
   const ai = order.indexOf(a);
@@ -857,7 +932,7 @@ function selectFormFactor(formFactor) {
 
 function selectPartner(vendor) {
   state.filters.vendor = state.filters.vendor === vendor ? "All" : vendor;
-  state.groupBy = "vendor";
+  state.groupBy = state.viewMode === "map" ? "region" : "vendor";
   syncControls();
   updateUrl();
   render();

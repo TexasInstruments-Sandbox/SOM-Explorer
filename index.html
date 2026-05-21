@@ -4,7 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TI SOM Explorer</title>
-    <link rel="stylesheet" href="./styles.css?v=20260520-filter-status">
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("tiSomTheme") || "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=20260520-map-partners">
   </head>
   <body>
     <div class="app-shell">
@@ -17,6 +24,9 @@
           </div>
         </button>
         <div class="toolbar" aria-label="View actions">
+          <button class="tool-button theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+            <span class="theme-icon" aria-hidden="true"></span>
+          </button>
           <button class="tool-button" id="shareView" type="button">Share</button>
           <button class="tool-button" id="exportCsv" type="button">CSV</button>
           <button class="tool-button primary" id="printView" type="button">Print</button>
@@ -92,10 +102,10 @@
     </aside>
 
     <noscript>TI SOM Explorer requires JavaScript.</noscript>
-    <script src="./data/soms-data.js"></script>
+    <script src="./data/soms-data.js?v=20260520-region-rollup"></script>
     <script src="./assets/logos/manifest-data.js"></script>
     <script src="./assets/form-factors/manifest-data.js"></script>
     <script src="./data/partners-data.js"></script>
-    <script src="./app.js" defer></script>
+    <script src="./app.js?v=20260520-region-color-swap" defer></script>
   </body>
 </html>

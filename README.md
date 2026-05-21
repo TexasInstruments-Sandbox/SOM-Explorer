@@ -40,6 +40,23 @@ The app reads `data/soms.json`, generated from:
 
 Normalized form-factor families are included alongside the original workbook form-factor value.
 
+## Local Data Editor
+
+Start the same local server, then open:
+
+```text
+http://localhost:5173/editor.html
+```
+
+Use the visual editor to add or edit SOM boards. When finished, download both generated files and replace:
+
+```text
+data/soms.json
+data/soms-data.js
+```
+
+Review the Explorer, then commit and push the changed files.
+
 ## Logos
 
 Partner logo placeholders live in:

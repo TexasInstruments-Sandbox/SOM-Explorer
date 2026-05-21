@@ -7,7 +7,7 @@ window.TI_SOM_DATA = {
     "modules": 48,
     "vendors": 23,
     "devices": 13,
-    "regions": 7,
+    "regions": 4,
     "formFactorFamilies": [
       "Board",
       "OSM",
@@ -25,7 +25,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "OSM-M",
       "formFactorFamily": "OSM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "EZURI-3P-CARBONAM62",
       "partnerProgram": "Registered",
       "wireless": "Yes",
@@ -34,7 +34,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 2,
-      "searchText": "carbonam62 ezurio am62 osm-m osm us registered yes production"
+      "searchText": "carbonam62 ezurio am62 osm-m osm north america registered yes production"
     },
     {
       "id": "carbonam67-ezurio-am67",
@@ -43,7 +43,7 @@ window.TI_SOM_DATA = {
       "device": "AM67",
       "formFactorRaw": "OSM-M",
       "formFactorFamily": "OSM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "https://www.ti.com/tool/EZURI-3P-CARBONAM67",
       "partnerProgram": "Registered",
       "wireless": "Yes",
@@ -52,7 +52,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 3,
-      "searchText": "carbonam67 ezurio am67 osm-m osm us registered yes production"
+      "searchText": "carbonam67 ezurio am67 osm-m osm north america registered yes production"
     },
     {
       "id": "ig-g69m-iwave-am62l",
@@ -61,7 +61,7 @@ window.TI_SOM_DATA = {
       "device": "AM62L",
       "formFactorRaw": "OSM-S",
       "formFactorFamily": "OSM",
-      "region": "India",
+      "region": "APAC",
       "tiLink": "https://www.ti.com/tool/IWAVE-3P-OSM-LF-AM62LX#order-start-development",
       "partnerProgram": "Registered",
       "wireless": "No",
@@ -70,7 +70,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 4,
-      "searchText": "ig-g69m iwave am62l osm-s osm india registered no production"
+      "searchText": "ig-g69m iwave am62l osm-s osm apac registered no production"
     },
     {
       "id": "iw-rainbow-g55m-iwave-am62a",
@@ -79,7 +79,7 @@ window.TI_SOM_DATA = {
       "device": "AM62A",
       "formFactorRaw": "OSM-M",
       "formFactorFamily": "OSM",
-      "region": "India",
+      "region": "APAC",
       "tiLink": "https://www.ti.com/tool/IWAVE-3P-OSM-LF-AM62A",
       "partnerProgram": "Registered",
       "wireless": "Unknown",
@@ -88,7 +88,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 5,
-      "searchText": "iw-rainbow-g55m iwave am62a osm-m osm india registered unknown production"
+      "searchText": "iw-rainbow-g55m iwave am62a osm-m osm apac registered unknown production"
     },
     {
       "id": "m62xx-t-zlg-am62",
@@ -187,7 +187,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "SO-DIMM",
       "formFactorFamily": "SO-DIMM",
-      "region": "Israel",
+      "region": "EMEA",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -196,7 +196,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 11,
-      "searchText": "var-som-am62 variscite am62 so-dimm so-dimm israel unknown unknown production"
+      "searchText": "var-som-am62 variscite am62 so-dimm so-dimm emea unknown unknown production"
     },
     {
       "id": "var-som-am62px-variscite-am62p",
@@ -205,7 +205,7 @@ window.TI_SOM_DATA = {
       "device": "AM62P",
       "formFactorRaw": "SO-DIMM",
       "formFactorFamily": "SO-DIMM",
-      "region": "Israel",
+      "region": "EMEA",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -214,7 +214,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 12,
-      "searchText": "var-som-am62px variscite am62p so-dimm so-dimm israel unknown unknown production"
+      "searchText": "var-som-am62px variscite am62p so-dimm so-dimm emea unknown unknown production"
     },
     {
       "id": "vanws-vgateway-vanteon-am335",
@@ -223,7 +223,7 @@ window.TI_SOM_DATA = {
       "device": "AM335",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "US",
+      "region": "North America",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -232,7 +232,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 13,
-      "searchText": "vanws-vgateway vanteon am335 not specified proprietary connector us unknown unknown production"
+      "searchText": "vanws-vgateway vanteon am335 not specified proprietary connector north america unknown unknown production"
     },
     {
       "id": "som-tl62x-tronlong-am62",
@@ -313,16 +313,16 @@ window.TI_SOM_DATA = {
       "device": "AM65",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 18,
-      "searchText": "tqma65xx tq am65 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma65xx tq am65 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "tqma243xl-tq-am243",
@@ -331,16 +331,16 @@ window.TI_SOM_DATA = {
       "device": "AM243",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 19,
-      "searchText": "tqma243xl tq am243 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma243xl tq am243 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "tqma62xx-tq-am62",
@@ -349,16 +349,16 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 20,
-      "searchText": "tqma62xx tq am62 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma62xx tq am62 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "tqma64xxl-tq-am64",
@@ -367,16 +367,16 @@ window.TI_SOM_DATA = {
       "device": "AM64",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 21,
-      "searchText": "tqma64xxl tq am64 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma64xxl tq am64 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "tqma335x-tq-am335",
@@ -385,16 +385,16 @@ window.TI_SOM_DATA = {
       "device": "AM335",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 22,
-      "searchText": "tqma335x tq am335 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma335x tq am335 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "tqma57xx-tq-am57",
@@ -403,16 +403,16 @@ window.TI_SOM_DATA = {
       "device": "AM57",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 23,
-      "searchText": "tqma57xx tq am57 not specified proprietary connector eu unknown unknown production"
+      "searchText": "tqma57xx tq am57 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "verdin-am62-toradex-am62",
@@ -421,16 +421,16 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 24,
-      "searchText": "verdin-am62 toradex am62 not specified proprietary connector eu unknown unknown production"
+      "searchText": "verdin-am62 toradex am62 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "aquila-am69-toradex-am69",
@@ -439,16 +439,16 @@ window.TI_SOM_DATA = {
       "device": "AM69",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 25,
-      "searchText": "aquila-am69 toradex am69 not specified proprietary connector eu unknown unknown production"
+      "searchText": "aquila-am69 toradex am69 not specified proprietary connector emea premium unknown production"
     },
     {
       "id": "axon-am62x-technexion-am62",
@@ -457,7 +457,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "Taiwan",
+      "region": "APAC",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -466,7 +466,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 26,
-      "searchText": "axon-am62x technexion am62 not specified proprietary connector taiwan unknown unknown production"
+      "searchText": "axon-am62x technexion am62 not specified proprietary connector apac unknown unknown production"
     },
     {
       "id": "rovy-4vm-technexion-tda4vm",
@@ -475,7 +475,7 @@ window.TI_SOM_DATA = {
       "device": "TDA4VM",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "Taiwan",
+      "region": "APAC",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -484,7 +484,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 27,
-      "searchText": "rovy-4vm technexion tda4vm not specified proprietary connector taiwan unknown unknown production"
+      "searchText": "rovy-4vm technexion tda4vm not specified proprietary connector apac unknown unknown production"
     },
     {
       "id": "phycore-am62x-phytec-am62",
@@ -493,16 +493,16 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 28,
-      "searchText": "phycore-am62x phytec am62 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am62x phytec am62 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am62x-dsc-phytec-am62",
@@ -511,16 +511,16 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 29,
-      "searchText": "phycore-am62x-dsc phytec am62 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am62x-dsc phytec am62 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am67x-phytec-am67",
@@ -529,16 +529,16 @@ window.TI_SOM_DATA = {
       "device": "AM67",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 30,
-      "searchText": "phycore-am67x phytec am67 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am67x phytec am67 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am62a-phytec-am62a",
@@ -547,16 +547,16 @@ window.TI_SOM_DATA = {
       "device": "AM62A",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 31,
-      "searchText": "phycore-am62a phytec am62a not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am62a phytec am62a not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am64x-phytec-am64",
@@ -565,16 +565,16 @@ window.TI_SOM_DATA = {
       "device": "AM64",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 32,
-      "searchText": "phycore-am64x phytec am64 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am64x phytec am64 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am57x-phytec-am57",
@@ -583,16 +583,16 @@ window.TI_SOM_DATA = {
       "device": "AM57",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 33,
-      "searchText": "phycore-am57x phytec am57 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am57x phytec am57 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "phycore-am335x-phytec-am335",
@@ -601,16 +601,16 @@ window.TI_SOM_DATA = {
       "device": "AM335",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
-      "partnerProgram": "Unknown",
+      "partnerProgram": "Premium",
       "wireless": "Unknown",
       "flash": "",
       "ddr": "",
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 34,
-      "searchText": "phycore-am335x phytec am335 not specified proprietary connector eu unknown unknown preview"
+      "searchText": "phycore-am335x phytec am335 not specified proprietary connector emea premium unknown preview"
     },
     {
       "id": "osd62x-octavo-am62",
@@ -619,7 +619,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "SIP",
       "formFactorFamily": "Solder down",
-      "region": "US",
+      "region": "North America",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -628,7 +628,7 @@ window.TI_SOM_DATA = {
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 35,
-      "searchText": "osd62x octavo am62 sip solder down us unknown unknown preview"
+      "searchText": "osd62x octavo am62 sip solder down north america unknown unknown preview"
     },
     {
       "id": "tria-sm2s-am62x-tria-am62",
@@ -637,7 +637,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "SMARC",
       "formFactorFamily": "SMARC",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "No",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -646,7 +646,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 36,
-      "searchText": "tria-sm2s-am62x tria am62 smarc smarc eu unknown unknown production"
+      "searchText": "tria-sm2s-am62x tria am62 smarc smarc emea unknown unknown production"
     },
     {
       "id": "m2a-am62xx-tessolve-am62",
@@ -655,7 +655,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "SMARC",
       "formFactorFamily": "SMARC",
-      "region": "India",
+      "region": "APAC",
       "tiLink": "No",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -664,7 +664,7 @@ window.TI_SOM_DATA = {
       "released": "Unknown",
       "lifecycle": "Preview",
       "sourceRow": 37,
-      "searchText": "m2a-am62xx tessolve am62 smarc smarc india unknown unknown preview"
+      "searchText": "m2a-am62xx tessolve am62 smarc smarc apac unknown unknown preview"
     },
     {
       "id": "be-am6254-bytesatwork-am62",
@@ -673,7 +673,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "HDI",
       "formFactorFamily": "Solder down",
-      "region": "Switzerland",
+      "region": "EMEA",
       "tiLink": "https://www.ti.com/tool/BYTES-3P-BE-AM6254",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -682,7 +682,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 38,
-      "searchText": "be-am6254 bytesatwork am62 hdi solder down switzerland unknown unknown production"
+      "searchText": "be-am6254 bytesatwork am62 hdi solder down emea unknown unknown production"
     },
     {
       "id": "fet6254-c-forlinx-am62",
@@ -709,7 +709,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "OSM-L",
       "formFactorFamily": "OSM",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "https://www.ti.com/tool/IESY-3P-OSM-LF-AM62",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -718,7 +718,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 40,
-      "searchText": "osm-lf-am62 iesy am62 osm-l osm eu unknown unknown production"
+      "searchText": "osm-lf-am62 iesy am62 osm-l osm emea unknown unknown production"
     },
     {
       "id": "mitysom-am62-critical-link-am62",
@@ -727,7 +727,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "SO-DIMM",
       "formFactorFamily": "SO-DIMM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "https://www.ti.com/tool/CRLNK-3P-MITYSOM-AM62",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -736,7 +736,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 41,
-      "searchText": "mitysom-am62 critical link am62 so-dimm so-dimm us unknown unknown production"
+      "searchText": "mitysom-am62 critical link am62 so-dimm so-dimm north america unknown unknown production"
     },
     {
       "id": "mitysom-am62a-critical-link-am62a",
@@ -745,7 +745,7 @@ window.TI_SOM_DATA = {
       "device": "AM62A",
       "formFactorRaw": "SO-DIMM",
       "formFactorFamily": "SO-DIMM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "https://www.ti.com/tool/CRLNK-3P-MITYSOM-AM62A",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -754,7 +754,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 42,
-      "searchText": "mitysom-am62a critical link am62a so-dimm so-dimm us unknown unknown production"
+      "searchText": "mitysom-am62a critical link am62a so-dimm so-dimm north america unknown unknown production"
     },
     {
       "id": "mitysom-am62p-critical-link-am62p",
@@ -763,7 +763,7 @@ window.TI_SOM_DATA = {
       "device": "AM62P",
       "formFactorRaw": "SO-DIMM",
       "formFactorFamily": "SO-DIMM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "https://www.ti.com/tool/CRLNK-3P-MITYSOM-AM62P",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -772,7 +772,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 43,
-      "searchText": "mitysom-am62p critical link am62p so-dimm so-dimm us unknown unknown production"
+      "searchText": "mitysom-am62p critical link am62p so-dimm so-dimm north america unknown unknown production"
     },
     {
       "id": "mitysom-am57x-critical-link-am57",
@@ -781,7 +781,7 @@ window.TI_SOM_DATA = {
       "device": "AM57",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "US",
+      "region": "North America",
       "tiLink": "https://www.ti.com/tool/CRLNK-3P-SOMS",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -790,7 +790,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 44,
-      "searchText": "mitysom-am57x critical link am57 not specified proprietary connector us unknown unknown production"
+      "searchText": "mitysom-am57x critical link am57 not specified proprietary connector north america unknown unknown production"
     },
     {
       "id": "beacon-am62l-beacon-embedded-am62l",
@@ -799,7 +799,7 @@ window.TI_SOM_DATA = {
       "device": "AM62L",
       "formFactorRaw": "HDI",
       "formFactorFamily": "Solder down",
-      "region": "US",
+      "region": "North America",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -808,7 +808,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 45,
-      "searchText": "beacon-am62l beacon embedded am62l hdi solder down us unknown unknown production"
+      "searchText": "beacon-am62l beacon embedded am62l hdi solder down north america unknown unknown production"
     },
     {
       "id": "icore-am62x-engicam-am62",
@@ -817,7 +817,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Not specified",
       "formFactorFamily": "Proprietary connector",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -826,7 +826,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 46,
-      "searchText": "icore-am62x engicam am62 not specified proprietary connector eu unknown unknown production"
+      "searchText": "icore-am62x engicam am62 not specified proprietary connector emea unknown unknown production"
     },
     {
       "id": "pico-am62-aaeon-am62",
@@ -835,7 +835,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "Pico-ITX",
       "formFactorFamily": "Board",
-      "region": "Taiwan",
+      "region": "APAC",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -844,7 +844,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 47,
-      "searchText": "pico-am62 aaeon am62 pico-itx board taiwan unknown unknown production"
+      "searchText": "pico-am62 aaeon am62 pico-itx board apac unknown unknown production"
     },
     {
       "id": "beaglemod-am62-beagleboard-am62",
@@ -853,7 +853,7 @@ window.TI_SOM_DATA = {
       "device": "AM62",
       "formFactorRaw": "OSM-M",
       "formFactorFamily": "OSM",
-      "region": "US",
+      "region": "North America",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -862,7 +862,7 @@ window.TI_SOM_DATA = {
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 48,
-      "searchText": "beaglemod-am62 beagleboard am62 osm-m osm us unknown unknown production"
+      "searchText": "beaglemod-am62 beagleboard am62 osm-m osm north america unknown unknown production"
     },
     {
       "id": "smarc-sam67-kontron-am67",
@@ -871,7 +871,7 @@ window.TI_SOM_DATA = {
       "device": "AM67",
       "formFactorRaw": "SMARC",
       "formFactorFamily": "SMARC",
-      "region": "EU",
+      "region": "EMEA",
       "tiLink": "",
       "partnerProgram": "Unknown",
       "wireless": "Unknown",
@@ -880,7 +880,7 @@ window.TI_SOM_DATA = {
       "released": "No",
       "lifecycle": "Concept",
       "sourceRow": 49,
-      "searchText": "smarc-sam67 kontron am67 smarc smarc eu unknown unknown concept"
+      "searchText": "smarc-sam67 kontron am67 smarc smarc emea unknown unknown concept"
     }
   ]
 };

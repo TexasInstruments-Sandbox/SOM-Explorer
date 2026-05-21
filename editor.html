@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TI SOM Data Editor</title>
+    <link rel="stylesheet" href="./editor.css">
+  </head>
+  <body>
+    <div class="editor-shell">
+      <header class="editor-topbar">
+        <div class="editor-brand">
+          <div class="ti-mark" aria-hidden="true">TI</div>
+          <div>
+            <h1>TI SOM Data Editor</h1>
+            <p id="editorStatus">Loading SOM data</p>
+          </div>
+        </div>
+        <div class="editor-actions" aria-label="Editor actions">
+          <a class="button ghost" href="./index.html">Open Explorer</a>
+          <button class="button ghost" id="importJson" type="button">Import JSON</button>
+          <button class="button ghost" id="copyJson" type="button">Copy JSON</button>
+          <button class="button" id="downloadJson" type="button">Download JSON</button>
+          <button class="button primary" id="downloadDataScript" type="button">Download data script</button>
+          <input id="jsonFile" type="file" accept="application/json,.json" hidden>
+        </div>
+      </header>
+
+      <main class="editor-workspace">
+        <aside class="record-panel" aria-label="SOM records">
+          <div class="panel-head">
+            <div>
+              <h2>Boards</h2>
+              <p id="recordCount">0 records</p>
+            </div>
+            <button class="button primary compact" id="newRecord" type="button">Add board</button>
+          </div>
+
+          <label class="field">
+            <span>Search</span>
+            <input id="recordSearch" type="search" placeholder="Board, partner, device">
+          </label>
+
+          <div class="filter-grid">
+            <label class="field">
+              <span>Partner</span>
+              <select id="vendorFilter"></select>
+            </label>
+            <label class="field">
+              <span>Device</span>
+              <select id="deviceFilter"></select>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select id="programFilter"></select>
+            </label>
+          </div>
+
+          <div class="summary-grid" id="summaryGrid" aria-label="Data summary"></div>
+          <div class="record-list" id="recordList"></div>
+        </aside>
+
+        <section class="form-panel" aria-label="SOM editor">
+          <div class="form-head">
+            <div>
+              <p class="eyebrow" id="formMode">Editing board</p>
+              <h2 id="formTitle">Select a board</h2>
+            </div>
+            <div class="form-actions">
+              <button class="button ghost" id="duplicateRecord" type="button">Duplicate</button>
+              <button class="button danger" id="deleteRecord" type="button">Delete</button>
+            </div>
+          </div>
+
+          <form id="recordForm">
+            <section class="form-section">
+              <h3>Board Identity</h3>
+              <div class="form-grid">
+                <label class="field">
+                  <span>Board name</span>
+                  <input id="name" name="name" required>
+                </label>
+                <label class="field">
+                  <span>Partner</span>
+                  <input id="vendor" name="vendor" list="vendorOptions" required>
+                </label>
+                <label class="field">
+                  <span>Device</span>
+                  <input id="device" name="device" list="deviceOptions" required>
+                </label>
+                <label class="field">
+                  <span>Region</span>
+                  <input id="region" name="region" list="regionOptions" required>
+                  <small class="field-note">Applies to every board from this partner.</small>
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h3>Hardware Details</h3>
+              <div class="form-grid">
+                <label class="field">
+                  <span>Original form factor</span>
+                  <input id="formFactorRaw" name="formFactorRaw" placeholder="OSM-M, Custom - B2B, SO-DIMM">
+                </label>
+                <label class="field">
+                  <span>Form factor family</span>
+                  <select id="formFactorFamily" name="formFactorFamily"></select>
+                </label>
+                <label class="field">
+                  <span>Wireless</span>
+                  <select id="wireless" name="wireless"></select>
+                </label>
+                <label class="field">
+                  <span>Released</span>
+                  <select id="released" name="released"></select>
+                </label>
+                <label class="field">
+                  <span>Flash</span>
+                  <input id="flash" name="flash">
+                </label>
+                <label class="field">
+                  <span>DDR</span>
+                  <input id="ddr" name="ddr">
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h3>Program And Links</h3>
+              <div class="form-grid">
+                <label class="field">
+                  <span>Partner Program Status</span>
+                  <select id="partnerProgram" name="partnerProgram"></select>
+                  <small class="field-note">Applies to every board from this partner.</small>
+                </label>
+                <label class="field">
+                  <span>Lifecycle</span>
+                  <select id="lifecycle" name="lifecycle"></select>
+                </label>
+                <label class="field full">
+                  <span>TI.com link or tool ID</span>
+                  <input id="tiLink" name="tiLink" placeholder="https://www.ti.com/tool/... or TOOL-ID">
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h3>Generated Fields</h3>
+              <div class="form-grid">
+                <label class="field">
+                  <span>Record ID</span>
+                  <input id="id" name="id" readonly>
+                </label>
+                <label class="field">
+                  <span>Source row</span>
+                  <input id="sourceRow" name="sourceRow" type="number" min="1" readonly>
+                </label>
+                <label class="field full">
+                  <span>Search text</span>
+                  <textarea id="searchText" name="searchText" rows="2" readonly></textarea>
+                </label>
+              </div>
+            </section>
+          </form>
+
+          <aside class="help-panel">
+            <h3>How to use this editor</h3>
+            <ol>
+              <li>Edit a board or click Add board.</li>
+              <li>Download both files when finished.</li>
+              <li>Replace <code>data/soms.json</code> and <code>data/soms-data.js</code> in the repo.</li>
+              <li>Review the Explorer, then commit and push.</li>
+            </ol>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <datalist id="vendorOptions"></datalist>
+    <datalist id="deviceOptions"></datalist>
+    <datalist id="regionOptions"></datalist>
+
+    <noscript>TI SOM Data Editor requires JavaScript.</noscript>
+    <script src="./data/soms-data.js?v=20260520-region-rollup"></script>
+    <script src="./editor.js?v=20260520-partner-region-fields" defer></script>
+  </body>
+</html>
