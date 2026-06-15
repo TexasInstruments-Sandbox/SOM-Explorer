@@ -153,6 +153,12 @@ h1 {
   font-weight: 700;
 }
 
+a.tool-button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .tool-button:hover,
 .reset-button:hover,
 .segment:hover {
