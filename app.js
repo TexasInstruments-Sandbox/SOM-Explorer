@@ -228,6 +228,10 @@ function bindEvents() {
 
     const trigger = event.target.closest("[data-module-id]");
     if (!trigger) return;
+    if (dom.drawer.classList.contains("is-open") && dom.drawer.dataset.openModuleId === trigger.dataset.moduleId) {
+      closeDrawer();
+      return;
+    }
     openDrawer(trigger.dataset.moduleId);
   });
 
@@ -786,6 +790,7 @@ function openDrawer(moduleId) {
     </dl>
     ${link ? `<a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
   `;
+  dom.drawer.dataset.openModuleId = moduleId;
   dom.drawer.classList.add("is-open");
   dom.drawer.setAttribute("aria-hidden", "false");
 }
@@ -793,6 +798,7 @@ function openDrawer(moduleId) {
 function closeDrawer() {
   dom.drawer.classList.remove("is-open");
   dom.drawer.setAttribute("aria-hidden", "true");
+  delete dom.drawer.dataset.openModuleId;
 }
 
 function detailItem(label, value) {
