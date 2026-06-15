@@ -233,6 +233,11 @@ function bindEvents() {
       return;
     }
     openDrawer(trigger.dataset.moduleId);
+    const openedId = trigger.dataset.moduleId;
+    window.setTimeout(() => {
+      const card = dom.visualization.querySelector(`[data-module-id="${openedId}"]`);
+      if (card) card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    }, 200);
   });
 
   dom.visualization.addEventListener("keydown", (event) => {

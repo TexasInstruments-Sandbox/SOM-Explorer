@@ -198,11 +198,18 @@ html[data-theme="dark"] .theme-icon::before {
   box-shadow: inset -5px -2px 0 1px currentColor;
 }
 
+.content-area {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
 .workbench {
   display: grid;
   grid-template-columns: 292px minmax(0, 1fr);
   gap: 0;
-  min-height: calc(100vh - 96px);
+  flex: 1;
+  min-width: 0;
 }
 
 .control-rail {
@@ -1204,23 +1211,22 @@ h2 {
 }
 
 .detail-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 50;
-  width: min(420px, 92vw);
-  height: 100vh;
-  padding: 22px;
-  transform: translateX(104%);
-  transition: transform 180ms ease;
-  border-left: 5px solid var(--ti-red);
+  width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
   background: var(--ti-white);
-  box-shadow: var(--shadow);
-  overflow-y: auto;
+  transition: width 180ms ease;
 }
 
 .detail-drawer.is-open {
-  transform: translateX(0);
+  width: min(420px, 35vw);
+  overflow-y: auto;
+  border-left: 5px solid var(--ti-red);
+}
+
+.drawer-inner {
+  width: min(420px, 35vw);
+  padding: 22px;
 }
 
 .drawer-close {
@@ -1502,9 +1508,7 @@ html[data-theme="dark"] .map-region.is-active .map-dot {
 }
 
 @media print {
-  .topbar,
-  .control-rail,
-  .detail-drawer {
+  .topbar {
     position: static;
   }
 
