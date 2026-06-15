@@ -1226,6 +1226,7 @@ h2 {
 .drawer-close {
   float: right;
   min-height: 34px;
+  margin-left: 16px;
   border: 0;
   border-radius: 6px;
   padding: 0 12px;
