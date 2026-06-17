@@ -881,6 +881,24 @@ window.TI_SOM_DATA = {
       "lifecycle": "Concept",
       "sourceRow": 49,
       "searchText": "smarc-sam67 kontron am67 smarc smarc emea unknown unknown concept"
+    },
+    {
+      "id": "phyflex-am62l-phytec-am62l",
+      "name": "PHYFLEX-AM62L",
+      "vendor": "Phytec",
+      "device": "AM62L",
+      "formFactorRaw": "FPSC",
+      "formFactorFamily": "Proprietary connector",
+      "region": "EMEA",
+      "tiLink": "https://www.ti.com/tool/PHYTC-3P-PHYFLEX-AM62L",
+      "partnerProgram": "Premium",
+      "wireless": "Unknown",
+      "flash": "",
+      "ddr": "",
+      "released": "Unknown",
+      "lifecycle": "Preview",
+      "sourceRow": 50,
+      "searchText": "phyflex-am62l phytec am62l fpsc proprietary connector emea premium unknown preview"
     }
   ]
 };
