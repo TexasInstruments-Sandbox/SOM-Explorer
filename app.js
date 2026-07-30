@@ -132,7 +132,6 @@ async function init() {
 }
 
 function bindEvents() {
-  document.addEventListener("error", handleImageError, true);
   dom.homeLink.addEventListener("click", goHome);
   dom.themeToggle.addEventListener("click", toggleTheme);
 
@@ -642,7 +641,6 @@ function renderPartners(modules) {
     return `
       <button class="company-card partner-logo-card ${active ? "is-active" : ""}" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}" aria-label="${escapeAttr(`${vendor} ${program} partner`)}">
         <span class="company-logo-wrap">${companyLogoMarkup(vendor, "company-logo")}</span>
-        <span class="partner-company-name">${escapeHtml(vendor)}</span>
         ${partnerBadgeMarkup(program, "partner-card-tier")}
       </button>
     `;
@@ -759,7 +757,6 @@ function moduleCard(module) {
       <span class="vendor">${escapeHtml(module.vendor)}</span>
       <span class="module-name">${escapeHtml(module.name)}</span>
       <span class="module-meta">${escapeHtml(module.device)} / ${escapeHtml(module.formFactorFamily)} / ${escapeHtml(module.lifecycle)}</span>
-      <span class="module-program">${escapeHtml(module.partnerProgram)} partner</span>
     </button>
   `;
 }
@@ -1021,28 +1018,13 @@ function companyLogoSrc(vendor) {
 }
 
 function companyLogoMarkup(vendor, className) {
-  return `
-    <img class="${escapeAttr(className)}" data-company-logo src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
-    <span class="company-logo-fallback" hidden>${escapeHtml(vendor)}</span>
-  `;
-}
-
-function handleImageError(event) {
-  const image = event.target;
-  if (!(image instanceof HTMLImageElement) || !image.matches("[data-company-logo]")) return;
-  image.hidden = true;
-  const fallback = image.nextElementSibling;
-  if (fallback?.classList.contains("company-logo-fallback")) fallback.hidden = false;
+  return `<img class="${escapeAttr(className)}" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">`;
 }
 
 function partnerBadgeMarkup(status, className = "") {
   const src = state.partnerBadges[status];
-  return `
-    <span class="partner-program-mark ${escapeAttr(className)}">
-      ${src ? `<img class="partner-tier-badge" src="${escapeAttr(src)}" alt="">` : ""}
-      <span class="partner-program-label">${escapeHtml(status)} partner</span>
-    </span>
-  `;
+  if (!src) return "";
+  return `<img class="partner-tier-badge ${escapeAttr(className)}" src="${escapeAttr(src)}" alt="${escapeAttr(`${status} partner`)}">`;
 }
 
 function formFactorLogoSrc(formFactor) {
