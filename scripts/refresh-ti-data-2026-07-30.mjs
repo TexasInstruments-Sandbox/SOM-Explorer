@@ -297,8 +297,8 @@ const specificationPatches = {
     specSource: "https://docs.toradex.com/115514-aquila_am69_datasheet.pdf?v=2",
   },
   "axon-am62x-technexion-am62": {
-    ddr: "RAM (capacity not published)",
-    flash: "eMMC (capacity not published)",
+    ddr: "RAM",
+    flash: "eMMC",
     wireless: "Optional",
     specSource: "https://www.ti.com/tool/TECHN-3P-SOM-AXON-AM62",
   },
@@ -405,8 +405,8 @@ const specificationPatches = {
     specSource: "https://www.criticallink.com/product/mitysom-am57/",
   },
   "beacon-am62l-beacon-embedded-am62l": {
-    ddr: "LPDDR4 or DDR4 (capacity not published)",
-    flash: "eMMC (capacity not published)",
+    ddr: "LPDDR4 or DDR4",
+    flash: "eMMC",
     wireless: "Optional",
     specSource: "https://beaconembedded.com/project/am62l-som/",
   },
@@ -442,7 +442,7 @@ const specificationPatches = {
   },
   "carbonam62l-ezurio-am62l": {
     ddr: "512 MB / 1 GB / 2 GB LPDDR4",
-    flash: "eMMC (capacity not published)",
+    flash: "eMMC",
     wireless: "Optional",
     specSource: "https://www.ti.com/tool/EZURI-3P-CARBONAM62L",
   },
