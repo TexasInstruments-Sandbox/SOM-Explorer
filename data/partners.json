@@ -14,6 +14,9 @@
   "Critical Link": {
     "partnerPage": "https://www.ti.com/partner/CRLNK"
   },
+  "Conclusive Engineering": {
+    "partnerPage": "https://www.ti.com/partner/CONCL"
+  },
   "Engicam": {
     "partnerPage": "https://www.ti.com/partner/ENGCM"
   },
@@ -23,6 +26,9 @@
   "Forlinx": {
     "partnerPage": "https://www.ti.com/partner/FORLX"
   },
+  "HZHYTECH": {
+    "partnerPage": "https://www.ti.com/partner/HZHYT"
+  },
   "Iesy": {
     "partnerPage": "https://www.ti.com/partner/IESY"
   },
@@ -31,6 +37,9 @@
   },
   "Kontron": {
     "partnerPage": "https://www.ti.com/partner/KON"
+  },
+  "MYIR": {
+    "partnerPage": "https://www.ti.com/partner/MYIR"
   },
   "Octavo": {
     "partnerPage": "https://www.ti.com/partner/OCTVO"
@@ -50,9 +59,6 @@
   "TQ": {
     "partnerPage": "https://www.ti.com/partner/TQ"
   },
-  "Tria": {
-    "partnerPage": "https://www.tria-technologies.com/product/tria-sm2s-am62x/"
-  },
   "Tronlong": {
     "partnerPage": "https://www.ti.com/partner/TRONL"
   },
@@ -67,5 +73,8 @@
   },
   "ZLG": {
     "partnerPage": "https://www.ti.com/partner/ZLG"
+  },
+  "congatec": {
+    "partnerPage": "https://www.ti.com/partner/CONGA"
   }
 }

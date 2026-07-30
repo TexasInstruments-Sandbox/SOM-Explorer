@@ -1,5 +1,6 @@
 const DATA_URL = "./data/soms.json";
 const LOGO_MANIFEST_URL = "./assets/logos/manifest.json";
+const PARTNER_BADGE_MANIFEST_URL = "./assets/partner-badges/manifest.json";
 const FORM_FACTOR_MANIFEST_URL = "./assets/form-factors/manifest.json";
 const PARTNERS_URL = "./data/partners.json";
 
@@ -14,12 +15,12 @@ const dimensions = {
 };
 
 const orders = {
-  device: ["AM62L", "AM62x", "AM62", "AM62P", "AM62A", "AM67A", "AM67", "AM64", "AM243", "AM57", "TDA4VM", "AM69", "AM65", "AM437", "AM335"],
+  device: ["AM62L", "AM62x", "AM62", "AM62P", "AM62A", "AM67A", "AM67", "AM68", "AM64", "AM243", "AM57", "TDA4VM", "AM69", "AM65", "AM437", "AM335"],
   region: ["North America", "EMEA", "China", "APAC", "Unknown"],
   formFactorFamily: ["Proprietary connector", "OSM", "SMARC", "Solder down", "SO-DIMM", "Board"],
   lifecycle: ["Concept", "Preview", "Production"],
   partnerProgram: ["Premium", "Preferred", "Registered", "Unknown"],
-  wireless: ["Yes", "No", "Unknown"],
+  wireless: ["Yes", "Optional", "No", "Unknown"],
 };
 
 const palette = {
@@ -41,6 +42,7 @@ const palette = {
   China: "#cc0000",
   APAC: "#2f7d32",
   Yes: "#137f8c",
+  Optional: "#9b6a00",
   No: "#555555",
   Unknown: "#808080",
 };
@@ -73,6 +75,7 @@ const state = {
   modules: [],
   metadata: {},
   companyLogos: {},
+  partnerBadges: {},
   formFactorLogos: {},
   partners: {},
   viewMode: "board",
@@ -115,7 +118,12 @@ async function init() {
   syncThemeToggle();
   state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
   state.modules = state.metadata.modules;
-  [state.companyLogos, state.formFactorLogos, state.partners] = await Promise.all([loadLogoManifest(), loadFormFactorManifest(), loadPartners()]);
+  [state.companyLogos, state.partnerBadges, state.formFactorLogos, state.partners] = await Promise.all([
+    loadLogoManifest(),
+    loadPartnerBadgeManifest(),
+    loadFormFactorManifest(),
+    loadPartners(),
+  ]);
   hydrateFromUrl();
   bindEvents();
   buildFilterControls();
@@ -408,7 +416,8 @@ function updateUrl() {
 function render() {
   const modules = filteredModules();
   const grouping = dimensions[state.groupBy];
-  dom.sourceLine.textContent = `${state.metadata.summary.modules} modules from ${state.metadata.summary.vendors} partners`;
+  const verified = state.metadata.lastVerified ? ` / TI.com verified ${state.metadata.lastVerified}` : "";
+  dom.sourceLine.textContent = `${state.metadata.summary.modules} modules from ${state.metadata.summary.vendors} partners${verified}`;
   dom.viewTitle.textContent = viewTitle(grouping);
   renderFilterStatus(modules);
   renderKpis(modules);
@@ -628,11 +637,13 @@ function renderPartners(modules) {
   const partnerModules = selectedPartner === "All" ? [] : partnerGridModules.filter((module) => module.vendor === selectedPartner).sort(moduleSorter);
   const cards = vendors.map((vendor) => {
     const active = selectedPartner === vendor;
+    const program = partnerProgramForVendor(grouped, vendor);
     return `
-      <button class="company-card partner-logo-card ${active ? "is-active" : ""}" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}" aria-label="${escapeAttr(`${vendor} partner`)}">
+      <button class="company-card partner-logo-card ${active ? "is-active" : ""}" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}" aria-label="${escapeAttr(`${vendor} ${program} partner`)}">
         <span class="company-logo-wrap">
           <img class="company-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
         </span>
+        ${partnerBadgeMarkup(program, "partner-card-tier")}
       </button>
     `;
   }).join("");
@@ -761,7 +772,8 @@ function mapPartnerCard(vendor, modules) {
       </span>
       <span class="map-partner-body">
         <strong>${escapeHtml(vendor)}</strong>
-        <span>${sortedModules.length} ${sortedModules.length === 1 ? "module" : "modules"} / ${escapeHtml(program)}</span>
+        <span>${sortedModules.length} ${sortedModules.length === 1 ? "module" : "modules"}</span>
+        ${partnerBadgeMarkup(program, "map-partner-tier")}
         <span>${escapeHtml(devices || "No matching devices")}</span>
       </span>
     </button>
@@ -771,10 +783,11 @@ function mapPartnerCard(vendor, modules) {
 function openDrawer(moduleId) {
   const module = state.modules.find((item) => item.id === moduleId);
   if (!module) return;
-  const link = normalizeTiLink(module.tiLink);
+  const link = normalizeTiLink(module.tiLink || module.tiToolId);
   dom.drawerContent.innerHTML = `
     <div class="drawer-company">
       <img class="drawer-logo" src="${escapeAttr(companyLogoSrc(module.vendor))}" alt="${escapeAttr(`${module.vendor} logo`)}">
+      ${partnerBadgeMarkup(module.partnerProgram, "drawer-tier-badge")}
     </div>
     <h2 class="drawer-title">${escapeHtml(module.name)}</h2>
     <p class="drawer-subtitle">${escapeHtml(module.vendor)} / ${escapeHtml(module.device)}</p>
@@ -791,7 +804,11 @@ function openDrawer(moduleId) {
       ${detailItem("Region", module.region)}
       ${detailItem("Partner Program Status", module.partnerProgram)}
       ${detailItem("Wireless", module.wireless)}
+      ${detailItem("DDR", module.ddr)}
+      ${detailItem("Flash", module.flash)}
       ${detailItem("Released", module.released)}
+      ${detailItem("TI tool ID", module.tiToolId)}
+      ${detailItem("TI.com verified", module.lastVerified)}
     </dl>
     ${link ? `<a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
   `;
@@ -905,6 +922,10 @@ async function loadLogoManifest() {
   return loadJson(LOGO_MANIFEST_URL, "TI_SOM_LOGOS", {});
 }
 
+async function loadPartnerBadgeManifest() {
+  return loadJson(PARTNER_BADGE_MANIFEST_URL, "TI_PARTNER_PROGRAM_BADGES", {});
+}
+
 async function loadFormFactorManifest() {
   return loadJson(FORM_FACTOR_MANIFEST_URL, "TI_SOM_FORM_FACTOR_LOGOS", {});
 }
@@ -969,10 +990,12 @@ function formFactorProfile(formFactor, modules) {
 
 function partnerProfile(vendor, modules) {
   const page = partnerPageUrl(vendor);
+  const program = partnerProgramForVendor(new Map([[vendor, modules]]), vendor);
   return `
     <section class="partner-profile" style="--company-color:${colorForValue(vendor)}">
       <div class="partner-profile-head">
         <img class="partner-profile-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
+        ${partnerBadgeMarkup(program, "partner-profile-tier")}
         <a class="partner-page-link" href="${escapeAttr(page)}" target="_blank" rel="noreferrer">Partner page</a>
       </div>
       <div class="partner-soms">
@@ -993,6 +1016,12 @@ function partnerPageUrl(vendor) {
 
 function companyLogoSrc(vendor) {
   return state.companyLogos[vendor] || `assets/logos/${slugify(vendor)}.svg`;
+}
+
+function partnerBadgeMarkup(status, className = "") {
+  const src = state.partnerBadges[status];
+  if (!src) return "";
+  return `<img class="partner-tier-badge ${escapeAttr(className)}" src="${escapeAttr(src)}" alt="${escapeAttr(`${status} partner`)}">`;
 }
 
 function formFactorLogoSrc(formFactor) {
@@ -1054,7 +1083,7 @@ function shareCurrentView() {
 
 function exportCsv() {
   const rows = filteredModules();
-  const headers = ["Name", "Vendor", "Device", "Form Factor", "Form Family", "Region", "Partner Program", "Wireless", "Released", "Status", "TI.com Link"];
+  const headers = ["Name", "Vendor", "Device", "Form Factor", "Form Family", "Region", "Partner Program", "Wireless", "DDR", "Flash", "Released", "Status", "TI Tool ID", "Last Verified", "TI.com Link"];
   const csvRows = [
     headers,
     ...rows.map((module) => [
@@ -1066,9 +1095,13 @@ function exportCsv() {
       module.region,
       module.partnerProgram,
       module.wireless,
+      module.ddr,
+      module.flash,
       module.released,
       module.lifecycle,
-      normalizeTiLink(module.tiLink),
+      module.tiToolId,
+      module.lastVerified,
+      normalizeTiLink(module.tiLink || module.tiToolId),
     ]),
   ];
   const csv = csvRows.map((row) => row.map(csvEscape).join(",")).join("\n");

@@ -765,6 +765,18 @@ h2 {
   min-height: 104px;
 }
 
+.partner-tier-badge {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+  object-fit: contain;
+}
+
+.partner-card-tier {
+  max-width: 154px;
+}
+
 .partner-profile {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
@@ -788,6 +800,10 @@ h2 {
   border: 1px solid var(--ti-gray-300);
   border-radius: var(--radius);
   background: var(--ti-white);
+}
+
+.partner-profile-tier {
+  max-width: 220px;
 }
 
 .partner-page-link {
@@ -1141,6 +1157,11 @@ h2 {
   line-height: 1.2;
 }
 
+.map-partner-tier {
+  max-width: 142px;
+  margin: 2px 0;
+}
+
 .map-result-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -1272,6 +1293,11 @@ h2 {
   max-width: 260px;
   max-height: 104px;
   object-fit: contain;
+}
+
+.drawer-tier-badge {
+  max-width: 230px;
+  margin-top: 10px;
 }
 
 .drawer-title {
@@ -1519,6 +1545,28 @@ html[data-theme="dark"] .map-region.is-active .map-dot {
 
   .world-map {
     min-height: 390px;
+  }
+
+  .detail-drawer.is-open {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    width: 100vw;
+    border-left: 0;
+    border-top: 5px solid var(--ti-red);
+  }
+
+  .drawer-inner {
+    width: 100%;
+    padding: 18px 16px 28px;
+  }
+
+  .drawer-title {
+    font-size: 28px;
+  }
+
+  .detail-item {
+    grid-template-columns: minmax(108px, 38%) 1fr;
   }
 }
 
