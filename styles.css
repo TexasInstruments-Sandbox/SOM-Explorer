@@ -100,17 +100,11 @@ button {
 }
 
 .ti-mark {
-  display: grid;
+  display: block;
   width: 54px;
   height: 54px;
-  place-items: center;
   flex: 0 0 auto;
-  border-radius: 3px;
-  background: var(--ti-red);
-  color: var(--ti-white);
-  font-weight: 900;
-  font-size: 22px;
-  letter-spacing: 0;
+  object-fit: contain;
 }
 
 h1,
@@ -592,6 +586,21 @@ h2 {
   line-height: 1.2;
 }
 
+.module-card .module-program {
+  width: fit-content;
+  margin-top: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--ti-white);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
 .matrix-wrap {
   overflow: auto;
   padding: 18px;
@@ -755,7 +764,7 @@ h2 {
 }
 
 .partner-logo-card {
-  min-height: 142px;
+  min-height: 174px;
   place-items: center;
   padding: 12px;
 }
@@ -763,6 +772,29 @@ h2 {
 .partner-logo-card .company-logo-wrap {
   width: 100%;
   min-height: 104px;
+}
+
+.partner-company-name {
+  color: var(--ti-black);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.company-logo-fallback {
+  color: var(--ti-red);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.partner-program-mark {
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  gap: 3px;
 }
 
 .partner-tier-badge {
@@ -774,7 +806,17 @@ h2 {
 }
 
 .partner-card-tier {
+  width: 100%;
   max-width: 154px;
+}
+
+.partner-program-label {
+  color: var(--ti-gray-700);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.025em;
+  line-height: 1.1;
+  text-transform: uppercase;
 }
 
 .partner-profile {
@@ -1203,7 +1245,7 @@ h2 {
 
 .directory-row {
   display: grid;
-  grid-template-columns: minmax(160px, 1.2fr) minmax(120px, 0.8fr) repeat(4, minmax(92px, 0.6fr));
+  grid-template-columns: minmax(160px, 1.2fr) minmax(120px, 0.8fr) repeat(5, minmax(92px, 0.6fr));
   animation: card-in 160ms ease;
   gap: 8px;
   align-items: center;
@@ -1442,6 +1484,10 @@ html[data-theme="dark"] .module-card {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.34);
 }
 
+html[data-theme="dark"] .partner-program-label {
+  color: #d7dce3;
+}
+
 html[data-theme="dark"] .world-map {
   background: #f8fafb;
 }
@@ -1531,7 +1577,6 @@ html[data-theme="dark"] .map-region.is-active .map-dot {
   .ti-mark {
     width: 44px;
     height: 44px;
-    font-size: 18px;
   }
 
   .toolbar {

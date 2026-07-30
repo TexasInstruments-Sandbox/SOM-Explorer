@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TI SOM Explorer</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/ti-bug.svg?v=20260730-logo-status-fix">
     <script>
       try {
         document.documentElement.dataset.theme = localStorage.getItem("tiSomTheme") || "light";
@@ -11,13 +12,13 @@
         document.documentElement.dataset.theme = "light";
       }
     </script>
-    <link rel="stylesheet" href="./styles.css?v=20260730-spec-audit">
+    <link rel="stylesheet" href="./styles.css?v=20260730-logo-status-fix">
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <button class="brand" id="homeLink" type="button" aria-label="Return to TI SOM Explorer home">
-          <div class="ti-mark" aria-hidden="true">TI</div>
+          <img class="ti-mark" src="./assets/ti-bug.svg?v=20260730-logo-status-fix" alt="">
           <div>
             <h1>TI SOM Explorer</h1>
             <p id="sourceLine">Loading SOM data</p>
@@ -107,10 +108,10 @@
 
     <noscript>TI SOM Explorer requires JavaScript.</noscript>
     <script src="./data/soms-data.js?v=20260730-spec-audit"></script>
-    <script src="./assets/logos/manifest-data.js?v=20260730-ti-refresh"></script>
-    <script src="./assets/partner-badges/manifest-data.js?v=20260730-partner-badges"></script>
+    <script src="./assets/logos/manifest-data.js?v=20260730-logo-status-fix"></script>
+    <script src="./assets/partner-badges/manifest-data.js?v=20260730-logo-status-fix"></script>
     <script src="./assets/form-factors/manifest-data.js"></script>
     <script src="./data/partners-data.js?v=20260730-ti-refresh"></script>
-    <script src="./app.js?v=20260730-spec-audit" defer></script>
+    <script src="./app.js?v=20260730-logo-status-fix" defer></script>
   </body>
 </html>

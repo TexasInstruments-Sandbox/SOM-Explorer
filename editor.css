@@ -60,16 +60,11 @@ button {
 }
 
 .ti-mark {
-  display: grid;
+  display: block;
   width: 54px;
   height: 54px;
-  place-items: center;
   flex: 0 0 auto;
-  border-radius: 3px;
-  background: var(--ti-red);
-  color: var(--ti-white);
-  font-size: 22px;
-  font-weight: 900;
+  object-fit: contain;
 }
 
 h1,
@@ -392,6 +387,11 @@ code {
 }
 
 @media (max-width: 640px) {
+  .ti-mark {
+    width: 44px;
+    height: 44px;
+  }
+
   .editor-topbar,
   .record-panel,
   .form-panel {

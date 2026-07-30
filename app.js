@@ -132,6 +132,7 @@ async function init() {
 }
 
 function bindEvents() {
+  document.addEventListener("error", handleImageError, true);
   dom.homeLink.addEventListener("click", goHome);
   dom.themeToggle.addEventListener("click", toggleTheme);
 
@@ -640,9 +641,8 @@ function renderPartners(modules) {
     const program = partnerProgramForVendor(grouped, vendor);
     return `
       <button class="company-card partner-logo-card ${active ? "is-active" : ""}" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}" aria-label="${escapeAttr(`${vendor} ${program} partner`)}">
-        <span class="company-logo-wrap">
-          <img class="company-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
-        </span>
+        <span class="company-logo-wrap">${companyLogoMarkup(vendor, "company-logo")}</span>
+        <span class="partner-company-name">${escapeHtml(vendor)}</span>
         ${partnerBadgeMarkup(program, "partner-card-tier")}
       </button>
     `;
@@ -735,7 +735,8 @@ function renderDirectory(modules) {
         <span>Device</span>
         <span>Region</span>
         <span>Form factor</span>
-        <span>Status</span>
+        <span>Lifecycle</span>
+        <span>Partner program</span>
       </div>
       ${rows.map((module) => `
         <article class="directory-row" style="--row-color:${colorForModule(module)}">
@@ -745,6 +746,7 @@ function renderDirectory(modules) {
           <span>${escapeHtml(module.region)}</span>
           <span>${escapeHtml(module.formFactorFamily)}</span>
           <span class="badge" style="--badge-color:${colorForValue(module.lifecycle)}">${escapeHtml(module.lifecycle)}</span>
+          <span class="badge" style="--badge-color:${colorForValue(module.partnerProgram)}">${escapeHtml(module.partnerProgram)}</span>
         </article>
       `).join("")}
     </div>
@@ -757,6 +759,7 @@ function moduleCard(module) {
       <span class="vendor">${escapeHtml(module.vendor)}</span>
       <span class="module-name">${escapeHtml(module.name)}</span>
       <span class="module-meta">${escapeHtml(module.device)} / ${escapeHtml(module.formFactorFamily)} / ${escapeHtml(module.lifecycle)}</span>
+      <span class="module-program">${escapeHtml(module.partnerProgram)} partner</span>
     </button>
   `;
 }
@@ -767,9 +770,7 @@ function mapPartnerCard(vendor, modules) {
   const program = partnerProgramForVendor(new Map([[vendor, sortedModules]]), vendor);
   return `
     <button class="map-partner-card" type="button" data-company="${escapeAttr(vendor)}" style="--company-color:${colorForValue(vendor)}">
-      <span class="map-partner-logo-wrap">
-        <img class="map-partner-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
-      </span>
+      <span class="map-partner-logo-wrap">${companyLogoMarkup(vendor, "map-partner-logo")}</span>
       <span class="map-partner-body">
         <strong>${escapeHtml(vendor)}</strong>
         <span>${sortedModules.length} ${sortedModules.length === 1 ? "module" : "modules"}</span>
@@ -786,7 +787,7 @@ function openDrawer(moduleId) {
   const link = normalizeTiLink(module.tiLink || module.tiToolId);
   dom.drawerContent.innerHTML = `
     <div class="drawer-company">
-      <img class="drawer-logo" src="${escapeAttr(companyLogoSrc(module.vendor))}" alt="${escapeAttr(`${module.vendor} logo`)}">
+      ${companyLogoMarkup(module.vendor, "drawer-logo")}
       ${partnerBadgeMarkup(module.partnerProgram, "drawer-tier-badge")}
     </div>
     <h2 class="drawer-title">${escapeHtml(module.name)}</h2>
@@ -998,7 +999,7 @@ function partnerProfile(vendor, modules) {
   return `
     <section class="partner-profile" style="--company-color:${colorForValue(vendor)}">
       <div class="partner-profile-head">
-        <img class="partner-profile-logo" src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
+        ${companyLogoMarkup(vendor, "partner-profile-logo")}
         ${partnerBadgeMarkup(program, "partner-profile-tier")}
         <a class="partner-page-link" href="${escapeAttr(page)}" target="_blank" rel="noreferrer">Partner page</a>
       </div>
@@ -1022,10 +1023,29 @@ function companyLogoSrc(vendor) {
   return state.companyLogos[vendor] || `assets/logos/${slugify(vendor)}.svg`;
 }
 
+function companyLogoMarkup(vendor, className) {
+  return `
+    <img class="${escapeAttr(className)}" data-company-logo src="${escapeAttr(companyLogoSrc(vendor))}" alt="${escapeAttr(`${vendor} logo`)}">
+    <span class="company-logo-fallback" hidden>${escapeHtml(vendor)}</span>
+  `;
+}
+
+function handleImageError(event) {
+  const image = event.target;
+  if (!(image instanceof HTMLImageElement) || !image.matches("[data-company-logo]")) return;
+  image.hidden = true;
+  const fallback = image.nextElementSibling;
+  if (fallback?.classList.contains("company-logo-fallback")) fallback.hidden = false;
+}
+
 function partnerBadgeMarkup(status, className = "") {
   const src = state.partnerBadges[status];
-  if (!src) return "";
-  return `<img class="partner-tier-badge ${escapeAttr(className)}" src="${escapeAttr(src)}" alt="${escapeAttr(`${status} partner`)}">`;
+  return `
+    <span class="partner-program-mark ${escapeAttr(className)}">
+      ${src ? `<img class="partner-tier-badge" src="${escapeAttr(src)}" alt="">` : ""}
+      <span class="partner-program-label">${escapeHtml(status)} partner</span>
+    </span>
+  `;
 }
 
 function formFactorLogoSrc(formFactor) {
