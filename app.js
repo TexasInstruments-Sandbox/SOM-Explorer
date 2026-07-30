@@ -108,10 +108,7 @@ const dom = {
   drawer: document.querySelector("#detailDrawer"),
   drawerContent: document.querySelector("#drawerContent"),
   drawerClose: document.querySelector("#drawerClose"),
-  shareView: document.querySelector("#shareView"),
   themeToggle: document.querySelector("#themeToggle"),
-  exportCsv: document.querySelector("#exportCsv"),
-  printView: document.querySelector("#printView"),
 };
 
 async function init() {
@@ -279,9 +276,6 @@ function bindEvents() {
     if (event.key === "Escape") closeDrawer();
   });
 
-  dom.shareView.addEventListener("click", shareCurrentView);
-  dom.exportCsv.addEventListener("click", exportCsv);
-  dom.printView.addEventListener("click", () => window.print());
 }
 
 function toggleTheme() {
@@ -416,8 +410,7 @@ function updateUrl() {
 function render() {
   const modules = filteredModules();
   const grouping = dimensions[state.groupBy];
-  const verified = state.metadata.lastVerified ? ` / TI.com verified ${state.metadata.lastVerified}` : "";
-  dom.sourceLine.textContent = `${state.metadata.summary.modules} modules from ${state.metadata.summary.vendors} partners${verified}`;
+  dom.sourceLine.textContent = `${state.metadata.summary.modules} modules from ${state.metadata.summary.vendors} partners`;
   dom.viewTitle.textContent = viewTitle(grouping);
   renderFilterStatus(modules);
   renderKpis(modules);
@@ -1070,59 +1063,6 @@ function normalizeViewMode(mode) {
   return mode === "companies" ? "partners" : mode;
 }
 
-function shareCurrentView() {
-  const url = window.location.href;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(() => {
-      dom.shareView.textContent = "Copied";
-      window.setTimeout(() => {
-        dom.shareView.textContent = "Share";
-      }, 1200);
-    });
-    return;
-  }
-  window.prompt("Share URL", url);
-}
-
-function exportCsv() {
-  const rows = filteredModules();
-  const headers = ["Name", "Vendor", "Device", "Form Factor", "Form Family", "Region", "Partner Program", "Wireless", "DDR", "Flash", "Released", "Status", "TI Tool ID", "TI.com Verified", "TI.com Link", "Specs Verified", "Spec Source"];
-  const csvRows = [
-    headers,
-    ...rows.map((module) => [
-      module.name,
-      module.vendor,
-      module.device,
-      module.formFactorRaw,
-      module.formFactorFamily,
-      module.region,
-      module.partnerProgram,
-      module.wireless,
-      module.ddr,
-      module.flash,
-      module.released,
-      module.lifecycle,
-      module.tiToolId,
-      module.lastVerified,
-      normalizeTiLink(module.tiLink || module.tiToolId),
-      module.specVerified,
-      module.specSource,
-    ]),
-  ];
-  const csv = csvRows.map((row) => row.map(csvEscape).join(",")).join("\n");
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = "ti-som-explorer-view.csv";
-  anchor.click();
-  URL.revokeObjectURL(url);
-}
-
-function csvEscape(value) {
-  const text = String(value ?? "");
-  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
-}
 
 function validValue(value, options, fallback) {
   return options.includes(value) ? value : fallback;
