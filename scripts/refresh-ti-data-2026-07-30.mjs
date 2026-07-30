@@ -285,13 +285,13 @@ const specificationPatches = {
     specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma57xx/",
   },
   "verdin-am62-toradex-am62": {
-    ddr: "512 MB / 1 GB / 2 GB LPDDR4 with inline ECC",
+    ddr: "512 MB / 1 GB / 2 GB LPDDR4",
     flash: "4 GB / 8 GB / 16 GB eMMC",
     wireless: "Optional",
     specSource: "https://docs.toradex.com/113758-verdin-am62-datasheet.pdf",
   },
   "aquila-am69-toradex-am69": {
-    ddr: "16 GB / 32 GB LPDDR4 with inline ECC",
+    ddr: "16 GB / 32 GB LPDDR4",
     flash: "64 GB / 128 GB eMMC",
     wireless: "Optional",
     specSource: "https://docs.toradex.com/115514-aquila_am69_datasheet.pdf?v=2",
@@ -375,7 +375,7 @@ const specificationPatches = {
     specSource: "https://www.forlinx.net/product/am625x-system-on-module-127.html",
   },
   "osm-lf-am62-iesy-am62": {
-    ddr: "512 MB / 1 GB LPDDR4 with ECC",
+    ddr: "512 MB / 1 GB LPDDR4",
     flash: "8 GB / 16 GB eMMC",
     wireless: "No",
     specSource: "https://www.ti.com/tool/IESY-3P-OSM-LF-AM62",
@@ -465,7 +465,7 @@ const specificationPatches = {
     specSource: "https://www.myirtech.com/list.asp?id=730",
   },
   "tqma67xx-tq-am67": {
-    ddr: "Up to 8 GB LPDDR4 with ECC",
+    ddr: "Up to 8 GB LPDDR4",
     flash: "Up to 128 GB eMMC; up to 256 MB NOR",
     wireless: "No",
     specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma67xx/",
@@ -477,7 +477,7 @@ const specificationPatches = {
     specSource: "https://www.phytec.com/product/phycore-am68a/",
   },
   "conga-stda4-congatec-tda4vm": {
-    ddr: "Up to 8 GB LPDDR4 with inline ECC",
+    ddr: "Up to 8 GB LPDDR4",
     flash: "32 GB eMMC default; up to 128 GB eMMC 5.1",
     wireless: "Optional",
     specSource: "https://www.congatec.com/en/products/smarc/conga-stda4/",
@@ -565,7 +565,7 @@ const newModules = [
     partnerProgram: "Premium",
     wireless: "Unknown",
     flash: "Up to 128 GB eMMC; 256 MB NOR",
-    ddr: "Up to 8 GB LPDDR4 with ECC",
+    ddr: "Up to 8 GB LPDDR4",
     released: "Yes",
     lifecycle: "Production",
     sourceRow: 55,
