@@ -23,6 +23,18 @@
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/bytes-at-work-logo.png",
     "localPath": "assets/logos/bytesatwork.png"
   },
+  "Conclusive Engineering": {
+    "partnerPage": "https://www.ti.com/partner/CONCL",
+    "tiPartnerCode": "CONCL",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/conclusive-engineering-logo.png",
+    "localPath": "assets/logos/conclusive-engineering.png"
+  },
+  "congatec": {
+    "partnerPage": "https://www.ti.com/partner/CONGA",
+    "tiPartnerCode": "CONGA",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/a-c/congatec-logo.png",
+    "localPath": "assets/logos/congatec.png"
+  },
   "Critical Link": {
     "partnerPage": "https://www.ti.com/partner/CRLNK",
     "tiPartnerCode": "CRLNK",
@@ -47,6 +59,12 @@
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/d-f/forlinx-logo.png",
     "localPath": "assets/logos/forlinx.png"
   },
+  "HZHYTECH": {
+    "partnerPage": "https://www.ti.com/partner/HZHYT",
+    "tiPartnerCode": "HZHYT",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/g-i/hzhytech-logo.png",
+    "localPath": "assets/logos/hzhytech.png"
+  },
   "Iesy": {
     "partnerPage": "https://www.ti.com/partner/IESY",
     "tiPartnerCode": "IESY",
@@ -64,6 +82,12 @@
     "tiPartnerCode": "KON",
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/j-l/kontron-logo.png",
     "localPath": "assets/logos/kontron.png"
+  },
+  "MYIR": {
+    "partnerPage": "https://www.ti.com/partner/MYIR",
+    "tiPartnerCode": "MYIR",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/m-o/myir-logo.png",
+    "localPath": "assets/logos/myir.png"
   },
   "Octavo": {
     "partnerPage": "https://www.ti.com/partner/OCTVO",
@@ -100,13 +124,6 @@
     "tiPartnerCode": "TQ",
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/s-t/tq-group-logo.png",
     "localPath": "assets/logos/tq.png"
-  },
-  "Tria": {
-    "partnerPage": "https://www.tria-technologies.com/product/tria-sm2s-am62x/",
-    "tiPartnerCode": null,
-    "logoSource": null,
-    "localPath": "assets/logos/tria.svg",
-    "note": "No TI partner profile found; placeholder retained."
   },
   "Tronlong": {
     "partnerPage": "https://www.ti.com/partner/TRONL",

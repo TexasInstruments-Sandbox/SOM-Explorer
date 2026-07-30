@@ -32,13 +32,37 @@ http://localhost:5173
 
 ## Data
 
-The app reads `data/soms.json`, generated from:
+The app reads `data/soms.json`. The initial catalog was generated from:
 
 ```text
-/Users/grippy/Downloads/TI-SOM-List-Dec11-Rev01.xlsx
+TI-SOM-List-Dec11-Rev01.xlsx (not committed)
 ```
 
-Normalized form-factor families are included alongside the original workbook form-factor value.
+The catalog was refreshed against TI.com on July 30, 2026. Each matched module includes a TI tool ID and its last-verification date. Normalized form-factor families are included alongside the source form-factor value.
+
+Partner program levels use TI.com's Premium, Preferred, and Registered badges. When a partner has a TI.com profile but the page does not expose a clear level, the catalog treats the partner as Registered. Partners without a TI.com profile remain Unknown.
+
+The maintained scope is partner-sourced SOM families for TI Arm-based processors. Development kits and carrier boards are not separate records. Older TI tool folders remain excluded until their lifecycle and availability are confirmed.
+
+## Data Validation
+
+After editing `data/soms.json`, regenerate the browser data file and summary:
+
+```sh
+node scripts/sync-data.mjs
+```
+
+Check that the JSON, browser data file, summary, IDs, source rows, TI links, partner-level consistency, company logos, and TI partner badges agree:
+
+```sh
+node scripts/sync-data.mjs --check
+```
+
+The dated TI.com refresh can be reapplied safely with:
+
+```sh
+node scripts/refresh-ti-data-2026-07-30.mjs
+```
 
 ## Local Data Editor
 
@@ -75,7 +99,7 @@ Partner page links live in:
 data/partners.json
 ```
 
-The current links are placeholders and can be replaced with the final partner URLs.
+Partner links are mapped to their TI partner profiles when available.
 
 ## Form Factor Logos
 

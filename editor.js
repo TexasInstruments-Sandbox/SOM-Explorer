@@ -6,6 +6,8 @@ const fieldNames = [
   "formFactorFamily",
   "region",
   "tiLink",
+  "tiToolId",
+  "lastVerified",
   "partnerProgram",
   "wireless",
   "flash",
@@ -20,7 +22,7 @@ const fieldNames = [
 const choiceFields = {
   formFactorFamily: ["Proprietary connector", "OSM", "SMARC", "Solder down", "SO-DIMM", "Board"],
   partnerProgram: ["Premium", "Preferred", "Registered", "Unknown"],
-  wireless: ["Yes", "No", "Unknown"],
+  wireless: ["Yes", "Optional", "No", "Unknown"],
   released: ["Yes", "No", "Unknown"],
   lifecycle: ["Concept", "Preview", "Production"],
 };
@@ -264,6 +266,8 @@ function addRecord() {
     formFactorFamily: "Proprietary connector",
     region: "Unknown",
     tiLink: "",
+    tiToolId: "",
+    lastVerified: "",
     partnerProgram: "Unknown",
     wireless: "Unknown",
     flash: "",
@@ -364,7 +368,9 @@ function normalizeModule(module) {
   module.formFactorRaw = module.formFactorRaw || "";
   module.formFactorFamily = validChoice(module.formFactorFamily, choiceFields.formFactorFamily, "Proprietary connector");
   module.region = valueOr(module.region, "Unknown");
-  module.tiLink = module.tiLink || "";
+  module.tiToolId = toolIdFromLink(module.tiToolId || module.tiLink);
+  module.tiLink = module.tiToolId ? `https://www.ti.com/tool/${module.tiToolId}` : "";
+  module.lastVerified = module.lastVerified || "";
   module.partnerProgram = validChoice(module.partnerProgram, choiceFields.partnerProgram, "Unknown");
   module.wireless = validChoice(module.wireless, choiceFields.wireless, "Unknown");
   module.flash = module.flash || "";
@@ -484,8 +490,16 @@ function buildSearchText(module) {
     module.region,
     module.partnerProgram,
     module.wireless,
+    module.flash,
+    module.ddr,
     module.lifecycle,
+    module.tiToolId,
   ].filter(Boolean).join(" ").toLowerCase();
+}
+
+function toolIdFromLink(value) {
+  const match = String(value || "").match(/(?:ti\.com\/tool\/)?([a-z0-9-]+)(?:[#?].*)?$/i);
+  return match?.[1] || "";
 }
 
 function validChoice(value, choices, fallback) {

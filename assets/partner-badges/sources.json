@@ -1,0 +1,14 @@
+{
+  "Premium": {
+    "source": "https://www.ti.com/content/dam/ticom/images/identities/ti-brand/ti-symbol-premium-partner-badge-hz.png",
+    "localPath": "assets/partner-badges/premium.png"
+  },
+  "Preferred": {
+    "source": "https://www.ti.com/content/dam/ticom/images/identities/ti-brand/ti-symbol-preferred-partner-badge-hz.png",
+    "localPath": "assets/partner-badges/preferred.png"
+  },
+  "Registered": {
+    "source": "https://www.ti.com/content/dam/ticom/images/identities/ti-brand/ti-symbol-registered-partner-badge-hz.png",
+    "localPath": "assets/partner-badges/registered.png"
+  }
+}
