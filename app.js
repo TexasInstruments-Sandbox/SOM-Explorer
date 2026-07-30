@@ -809,8 +809,12 @@ function openDrawer(moduleId) {
       ${detailItem("Released", module.released)}
       ${detailItem("TI tool ID", module.tiToolId)}
       ${detailItem("TI.com verified", module.lastVerified)}
+      ${detailItem("Specs verified", module.specVerified)}
     </dl>
-    ${link ? `<a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
+    <div class="drawer-actions">
+      ${module.specSource ? `<a class="drawer-link" href="${escapeAttr(module.specSource)}" target="_blank" rel="noreferrer">View spec source</a>` : ""}
+      ${link ? `<a class="drawer-link secondary" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
+    </div>
   `;
   dom.drawer.dataset.openModuleId = moduleId;
   dom.drawer.classList.add("is-open");
@@ -1083,7 +1087,7 @@ function shareCurrentView() {
 
 function exportCsv() {
   const rows = filteredModules();
-  const headers = ["Name", "Vendor", "Device", "Form Factor", "Form Family", "Region", "Partner Program", "Wireless", "DDR", "Flash", "Released", "Status", "TI Tool ID", "Last Verified", "TI.com Link"];
+  const headers = ["Name", "Vendor", "Device", "Form Factor", "Form Family", "Region", "Partner Program", "Wireless", "DDR", "Flash", "Released", "Status", "TI Tool ID", "TI.com Verified", "TI.com Link", "Specs Verified", "Spec Source"];
   const csvRows = [
     headers,
     ...rows.map((module) => [
@@ -1102,6 +1106,8 @@ function exportCsv() {
       module.tiToolId,
       module.lastVerified,
       normalizeTiLink(module.tiLink || module.tiToolId),
+      module.specVerified,
+      module.specSource,
     ]),
   ];
   const csv = csvRows.map((row) => row.map(csvEscape).join(",")).join("\n");

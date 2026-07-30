@@ -8,6 +8,8 @@ const fieldNames = [
   "tiLink",
   "tiToolId",
   "lastVerified",
+  "specSource",
+  "specVerified",
   "partnerProgram",
   "wireless",
   "flash",
@@ -268,6 +270,8 @@ function addRecord() {
     tiLink: "",
     tiToolId: "",
     lastVerified: "",
+    specSource: "",
+    specVerified: "",
     partnerProgram: "Unknown",
     wireless: "Unknown",
     flash: "",
@@ -371,6 +375,8 @@ function normalizeModule(module) {
   module.tiToolId = toolIdFromLink(module.tiToolId || module.tiLink);
   module.tiLink = module.tiToolId ? `https://www.ti.com/tool/${module.tiToolId}` : "";
   module.lastVerified = module.lastVerified || "";
+  module.specSource = module.specSource || "";
+  module.specVerified = module.specVerified || "";
   module.partnerProgram = validChoice(module.partnerProgram, choiceFields.partnerProgram, "Unknown");
   module.wireless = validChoice(module.wireless, choiceFields.wireless, "Unknown");
   module.flash = module.flash || "";

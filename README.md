@@ -38,7 +38,16 @@ The app reads `data/soms.json`. The initial catalog was generated from:
 TI-SOM-List-Dec11-Rev01.xlsx (not committed)
 ```
 
-The catalog was refreshed against TI.com on July 30, 2026. Each matched module includes a TI tool ID and its last-verification date. Normalized form-factor families are included alongside the source form-factor value.
+The catalog was refreshed against TI.com and primary manufacturer sources on July 30, 2026. Each matched module includes a TI tool ID and its last-verification date. DDR, onboard flash, and wireless values include a specification source and verification date. Normalized form-factor families are included alongside the source form-factor value.
+
+Wireless values describe radios mounted on the SOM itself:
+
+- `Yes`: included on the published module configuration.
+- `Optional`: available on some orderable module configurations.
+- `No`: no onboard radio is published; carrier-board or add-on expansion does not count.
+- `Unknown`: the primary source does not provide enough information.
+
+`Not published` is used for DDR or flash capacities that a primary source confirms exist but does not quantify. It is not an estimated value.
 
 Partner program levels use TI.com's Premium, Preferred, and Registered badges. When a partner has a TI.com profile but the page does not expose a clear level, the catalog treats the partner as Registered. Partners without a TI.com profile remain Unknown.
 
@@ -83,13 +92,13 @@ Review the Explorer, then commit and push the changed files.
 
 ## Logos
 
-Partner logo placeholders live in:
+Partner logos live in:
 
 ```text
 assets/logos/
 ```
 
-Replace any partner SVG in that folder with the real logo using the same filename, or update `assets/logos/manifest.json` if a different filename is preferred.
+Logo provenance and local paths are recorded in `assets/logos/sources.json`; `scripts/sync-data.mjs --check` rejects missing or placeholder partner logos.
 
 ## Partner Pages
 

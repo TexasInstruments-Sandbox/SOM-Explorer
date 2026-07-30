@@ -147,6 +147,343 @@ const fieldPatches = {
   },
 };
 
+// Hardware specifications are kept separately from TI catalog metadata so a
+// future TI.com refresh cannot silently replace manufacturer-verified values.
+// "Wireless" describes a radio mounted on the module itself: carrier-board or
+// add-on expansion alone is recorded as "No".
+const specificationPatches = {
+  "carbonam62-ezurio-am62": {
+    ddr: "1 GB / 2 GB / 4 GB LPDDR4",
+    flash: "16 GB eMMC default; up to 128 GB",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/EZURI-3P-CARBONAM62",
+  },
+  "carbonam67-ezurio-am67": {
+    ddr: "4 GB / 8 GB LPDDR4",
+    flash: "16 GB eMMC default; up to 128 GB",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/EZURI-3P-CARBONAM67",
+  },
+  "ig-g69m-iwave-am62l": {
+    ddr: "1 GB–2 GB LPDDR4",
+    flash: "8 GB eMMC; higher capacities available",
+    wireless: "No",
+    specSource: "https://iwave-global.com/product/ti-am62lx-size-sf-osm/",
+  },
+  "iw-rainbow-g55m-iwave-am62a": {
+    ddr: "2 GB–8 GB LPDDR4",
+    flash: "16 GB–128 GB eMMC; 16 Mb QSPI NOR",
+    wireless: "Yes",
+    specSource: "https://www.iwavesystems.com/product/ti-am62ax-based-osm-lf-module/",
+  },
+  "m62xx-t-zlg-am62": {
+    ddr: "1 GB DDR4",
+    flash: "8 GB eMMC; 8 MB QSPI NOR",
+    wireless: "Optional",
+    specSource: "https://www.zlg.cn/ipc/ipc/product/id/336.html",
+  },
+  "m64xx-zlg-am64": {
+    ddr: "1 GB DDR4",
+    flash: "4 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.zlg.cn/ipc/ipc/product/id/335.html",
+  },
+  "m65xx-zlg-am65": {
+    ddr: "1 GB / 2 GB DDR3L; optional ECC",
+    flash: "4 GB / 8 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.zlg.cn/ipc/ipc/product/id/315.html",
+  },
+  "m335x-t-zlg-am335": {
+    ddr: "128 MB–512 MB DDR3",
+    flash: "128 MB–1 GB NAND",
+    wireless: "No",
+    specSource: "https://www.zlg.cn/data/upload/software/Public/Industrial_Internet.pdf",
+  },
+  "wtc-am6254s-weathink-am62": {
+    ddr: "512 MB / 1 GB / 2 GB / 4 GB DDR4",
+    flash: "8 GB / 16 GB / 32 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.weathink.cn/products/hexinban/11.html",
+  },
+  "var-som-am62-variscite-am62": {
+    ddr: "512 MB–4 GB DDR4",
+    flash: "8 GB–128 GB eMMC",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/VAR-3P-SOM-AM62",
+  },
+  "var-som-am62p-variscite-am62p": {
+    ddr: "512 MB–4 GB LPDDR4",
+    flash: "8 GB–128 GB eMMC",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/VAR-3P-SOM-AM62P",
+  },
+  "vanws-vgateway-vanteon-am335": {
+    ddr: "Not published",
+    flash: "Not published",
+    wireless: "Yes",
+    specSource: "https://www.ti.com/tool/VANWS-3P-VGATEWAY",
+  },
+  "som-tl62x-tronlong-am62": {
+    ddr: "512 MB / 1 GB / 2 GB DDR4",
+    flash: "4 GB / 8 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.tronlong.com/index.php/productinfo174.html",
+  },
+  "som-tl64x-tronlong-am64": {
+    ddr: "512 MB / 1 GB / 2 GB DDR4",
+    flash: "4 GB / 8 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.tronlong.com/productinfo182.html",
+  },
+  "som-am335-tronlong-am335": {
+    ddr: "256 MB / 512 MB DDR3",
+    flash: "4 GB / 8 GB eMMC or 256 MB / 512 MB NAND; 8 MB SPI NOR",
+    wireless: "No",
+    specSource: "https://www.tronlong.com/productinfo93.html",
+  },
+  "som-am437-tronlong-am437": {
+    ddr: "512 MB / 1 GB DDR3",
+    flash: "512 MB / 1 GB NAND",
+    wireless: "No",
+    specSource: "https://www.tronlong.com/productinfo94.html",
+  },
+  "tqma65xx-tq-am65": {
+    ddr: "Up to 4 GB DDR4 with ECC",
+    flash: "Up to 64 GB eMMC; up to 512 MB QSPI NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma65xx/",
+  },
+  "tqma243xl-tq-am243": {
+    ddr: "Up to 2 GB SDRAM",
+    flash: "Up to 64 GB eMMC; up to 256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma243xl/",
+  },
+  "tqma62xx-tq-am62": {
+    ddr: "Up to 2 GB LPDDR4",
+    flash: "Up to 64 GB eMMC; up to 256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma62xx/",
+  },
+  "tqma64xxl-tq-am64": {
+    ddr: "Up to 2 GB LPDDR4",
+    flash: "Up to 64 GB eMMC; up to 256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma64xxl/",
+  },
+  "tqma335x-tq-am335": {
+    ddr: "Up to 512 MB DDR3L",
+    flash: "Up to 16 GB eMMC; up to 128 MB NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma335x/",
+  },
+  "tqma57xx-tq-am57": {
+    ddr: "Up to 4 GB DDR3L",
+    flash: "Up to 32 GB eMMC; up to 256 MB QSPI NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma57xx/",
+  },
+  "verdin-am62-toradex-am62": {
+    ddr: "512 MB / 1 GB / 2 GB LPDDR4 with inline ECC",
+    flash: "4 GB / 8 GB / 16 GB eMMC",
+    wireless: "Optional",
+    specSource: "https://docs.toradex.com/113758-verdin-am62-datasheet.pdf",
+  },
+  "aquila-am69-toradex-am69": {
+    ddr: "16 GB / 32 GB LPDDR4 with inline ECC",
+    flash: "64 GB / 128 GB eMMC",
+    wireless: "Optional",
+    specSource: "https://docs.toradex.com/115514-aquila_am69_datasheet.pdf?v=2",
+  },
+  "axon-am62x-technexion-am62": {
+    ddr: "RAM (capacity not published)",
+    flash: "eMMC (capacity not published)",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/TECHN-3P-SOM-AXON-AM62",
+  },
+  "rovy-4vm-technexion-tda4vm": {
+    ddr: "Up to 8 GB LPDDR4",
+    flash: "Up to 256 GB UFS; 64 MB OSPI NOR",
+    wireless: "No",
+    specSource: "https://www.ti.com/content/dam/videos/external-videos/en-us/10/3816841626001/build-cost-effective-robots-faster-rovy-4vm.mp4/subassets/build-cost-effective-robots-faster-rovy-4vm-presentation.pdf",
+  },
+  "phycore-am62x-phytec-am62": {
+    ddr: "2 GB–4 GB DDR4",
+    flash: "32 GB eMMC default; up to 128 GB; 64 MB–256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am62x/",
+  },
+  "phycore-am62x-dsc-phytec-am62": {
+    ddr: "2 GB–4 GB DDR4",
+    flash: "16 GB–128 GB eMMC; 64 MB–256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am62x/",
+  },
+  "phycore-am67x-phytec-am67": {
+    ddr: "Up to 8 GB LPDDR4",
+    flash: "Up to 128 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am67x/",
+  },
+  "phycore-am62a-phytec-am62a": {
+    ddr: "2 GB–4 GB LPDDR4",
+    flash: "16 GB–128 GB eMMC; 64 MB–256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am62a/",
+  },
+  "phycore-am64x-phytec-am64": {
+    ddr: "1 GB–2 GB DDR4",
+    flash: "4 GB–128 GB eMMC; 64 MB–256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am64x/",
+  },
+  "phycore-am57x-phytec-am57": {
+    ddr: "2 GB–4 GB DDR3; 256 MB DDR3 ECC",
+    flash: "4 GB–32 GB eMMC or up to 4 GB NAND",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am57x/",
+  },
+  "phycore-am335x-phytec-am335": {
+    ddr: "128 MB–1 GB DDR3",
+    flash: "Up to 64 GB eMMC or 128 MB–2 GB NAND; 8 MB NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am335x/",
+  },
+  "osd62x-octavo-am62": {
+    ddr: "1 GB / 2 GB DDR4",
+    flash: "No onboard flash",
+    wireless: "No",
+    specSource: "https://octavosystems.com/app_notes/osd62x-pm-power-application-note/",
+  },
+  "m2a-am62xx-tessolve-am62": {
+    ddr: "Up to 2 GB DDR4",
+    flash: "Up to 64 GB eMMC; 64 MB OSPI NOR",
+    wireless: "No",
+    specSource: "https://www.tessolve.com/wp-content/uploads/2023/01/TI-Module-Datasheet.pdf",
+  },
+  "be-am6254-bytesatwork-am62": {
+    ddr: "512 MB–2 GB LPDDR4",
+    flash: "8 GB / 16 GB / 32 GB / 64 GB eMMC",
+    wireless: "No",
+    specSource: "https://bytesatwork.io/wp-content/uploads/2023/09/Datasheet_byteENGINE_AM62xx_v1.2.pdf",
+  },
+  "fet6254-c-forlinx-am62": {
+    ddr: "1 GB / 2 GB DDR4",
+    flash: "8 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.forlinx.net/product/am625x-system-on-module-127.html",
+  },
+  "osm-lf-am62-iesy-am62": {
+    ddr: "512 MB / 1 GB LPDDR4 with ECC",
+    flash: "8 GB / 16 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.ti.com/tool/IESY-3P-OSM-LF-AM62",
+  },
+  "mitysom-am62-critical-link-am62": {
+    ddr: "4 GB DDR4",
+    flash: "32 GB eMMC; 256 MB Octal/Quad SPI NOR",
+    wireless: "No",
+    specSource: "https://www.criticallink.com/product/mitysom-am62/",
+  },
+  "mitysom-am62a-critical-link-am62a": {
+    ddr: "Up to 16 GB LPDDR4",
+    flash: "Up to 128 GB eMMC; 256 MB Octal/Quad SPI NOR",
+    wireless: "No",
+    specSource: "https://www.criticallink.com/product/mitysom-am62a/",
+  },
+  "mitysom-am62p-critical-link-am62p": {
+    ddr: "8 GB LPDDR4",
+    flash: "Up to 256 GB eMMC; 256 MB Octal/Quad SPI NOR",
+    wireless: "No",
+    specSource: "https://www.criticallink.com/product/mitysom-am62p-system-on-module/",
+  },
+  "mitysom-am57x-critical-link-am57": {
+    ddr: "2 GB DDR3",
+    flash: "32 MB NOR; no onboard eMMC",
+    wireless: "No",
+    specSource: "https://www.criticallink.com/product/mitysom-am57/",
+  },
+  "beacon-am62l-beacon-embedded-am62l": {
+    ddr: "LPDDR4 or DDR4 (capacity not published)",
+    flash: "eMMC (capacity not published)",
+    wireless: "Optional",
+    specSource: "https://beaconembedded.com/project/am62l-som/",
+  },
+  "i-core-am62x-engicam-am62": {
+    ddr: "1 GB / 2 GB DDR4",
+    flash: "8 GB or greater eMMC",
+    wireless: "No",
+    specSource: "https://www.ti.com/tool/ENGCM-3P-ICORE-AM62X",
+  },
+  "pico-am62-aaeon-am62": {
+    ddr: "Up to 4 GB DDR4",
+    flash: "16 GB eMMC; optional 32 GB / 64 GB / 128 GB",
+    wireless: "No",
+    specSource: "https://www.aaeon.com/en/product/detail/gateway-boardexpansion-board-pico-am62/specification",
+  },
+  "beaglemod-am62-beagleboard-am62": {
+    ddr: "2 GB DDR4; expandable to 4 GB",
+    flash: "16 GB eMMC; 32 Kb EEPROM",
+    wireless: "No",
+    specSource: "https://www.ti.com/tool/BEAGL-3P-BEAGLEMOD-AM62",
+  },
+  "smarc-sam67-kontron-am67": {
+    ddr: "Up to 8 GB LPDDR4",
+    flash: "Up to 64 GB eMMC 5.1",
+    wireless: "No",
+    specSource: "https://www.kontron.com/landingpages/cn/products/smarc-sam67/p186374",
+  },
+  "phyflex-am62l-phytec-am62l": {
+    ddr: "512 MB–4 GB DDR4",
+    flash: "4 GB–256 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.phytec.eu/en/produkte/system-on-modules/phyflex-am62lx-fpsc/",
+  },
+  "carbonam62l-ezurio-am62l": {
+    ddr: "512 MB / 1 GB / 2 GB LPDDR4",
+    flash: "eMMC (capacity not published)",
+    wireless: "Optional",
+    specSource: "https://www.ti.com/tool/EZURI-3P-CARBONAM62L",
+  },
+  "rchd-am62-conclusive-engineering-am62": {
+    ddr: "512 MB–8 GB DDR4",
+    flash: "4 GB–64 GB eMMC",
+    wireless: "Yes",
+    specSource: "https://conclusive.tech/products/rchd-am62-industrial-som/",
+  },
+  "hz-core-am62x-hzhytech-am62": {
+    ddr: "2 GB DDR4",
+    flash: "8 GB eMMC",
+    wireless: "No",
+    specSource: "https://www.ti.com/tool/HZHYT-3P-HZ-CORE-AM62X",
+  },
+  "myc-ym62x-myir-am62": {
+    ddr: "1 GB / 2 GB DDR4; up to 4 GB supported",
+    flash: "8 GB eMMC; up to 128 GB supported",
+    wireless: "No",
+    specSource: "https://www.myirtech.com/list.asp?id=730",
+  },
+  "tqma67xx-tq-am67": {
+    ddr: "Up to 8 GB LPDDR4 with ECC",
+    flash: "Up to 128 GB eMMC; up to 256 MB NOR",
+    wireless: "No",
+    specSource: "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma67xx/",
+  },
+  "phycore-am68a-phytec-am68": {
+    ddr: "Up to 2 × 8 GB LPDDR4",
+    flash: "Up to 256 GB eMMC; 64 MB QSPI NOR",
+    wireless: "No",
+    specSource: "https://www.phytec.com/product/phycore-am68a/",
+  },
+  "conga-stda4-congatec-tda4vm": {
+    ddr: "Up to 8 GB LPDDR4 with inline ECC",
+    flash: "32 GB eMMC default; up to 128 GB eMMC 5.1",
+    wireless: "Optional",
+    specSource: "https://www.congatec.com/en/products/smarc/conga-stda4/",
+  },
+};
+
 const newModules = [
   {
     id: "carbonam62l-ezurio-am62l",
@@ -299,6 +636,9 @@ newModules.forEach((module) => {
 
 data.modules.forEach((module) => {
   module.partnerProgram = partnerPrograms[module.vendor] || "Unknown";
+  const specification = specificationPatches[module.id];
+  if (!specification) throw new Error(`Missing specification audit for ${module.id}`);
+  Object.assign(module, specification, { specVerified: verifiedOn });
 });
 
 fs.writeFileSync(jsonPath, `${JSON.stringify(data, null, 2)}\n`);

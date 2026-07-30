@@ -123,6 +123,14 @@
                   <span>DDR</span>
                   <input id="ddr" name="ddr">
                 </label>
+                <label class="field full">
+                  <span>Specification source</span>
+                  <input id="specSource" name="specSource" type="url" placeholder="https://manufacturer.example/product-or-datasheet">
+                </label>
+                <label class="field">
+                  <span>Specifications verified</span>
+                  <input id="specVerified" name="specVerified" type="date">
+                </label>
               </div>
             </section>
 
@@ -190,7 +198,7 @@
     <datalist id="regionOptions"></datalist>
 
     <noscript>TI SOM Data Editor requires JavaScript.</noscript>
-    <script src="./data/soms-data.js?v=20260730-ti-refresh"></script>
-    <script src="./editor.js?v=20260730-ti-refresh" defer></script>
+    <script src="./data/soms-data.js?v=20260730-spec-audit"></script>
+    <script src="./editor.js?v=20260730-spec-audit" defer></script>
   </body>
 </html>

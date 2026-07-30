@@ -42,6 +42,8 @@ function normalizeData(data, generatedOn = data.generatedOn) {
   normalized.modules.forEach((module) => {
     module.tiToolId ||= "";
     module.lastVerified ||= "";
+    module.specSource ||= "";
+    module.specVerified ||= "";
     module.searchText = buildSearchText(module);
   });
   normalized.summary = {
@@ -57,11 +59,12 @@ function normalizeData(data, generatedOn = data.generatedOn) {
 
 function validateData(data) {
   const errors = [];
-  const requiredFields = ["id", "name", "vendor", "device", "formFactorRaw", "formFactorFamily", "region", "lifecycle"];
+  const requiredFields = ["id", "name", "vendor", "device", "formFactorRaw", "formFactorFamily", "region", "lifecycle", "wireless", "ddr", "flash", "specSource", "specVerified"];
   const ids = new Set();
   const sourceRows = new Set();
   const partnerProgramsByVendor = new Map();
   const allowedPartnerPrograms = new Set(["Premium", "Preferred", "Registered", "Unknown"]);
+  const allowedWirelessValues = new Set(["Yes", "Optional", "No", "Unknown"]);
 
   data.modules.forEach((module, index) => {
     requiredFields.forEach((field) => {
@@ -77,6 +80,13 @@ function validateData(data) {
     if (module.lastVerified && !module.tiToolId) {
       errors.push(`${module.id} has lastVerified without a TI tool ID`);
     }
+    if (!String(module.specSource).startsWith("https://")) {
+      errors.push(`${module.id} has an invalid specification source`);
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(module.specVerified)) {
+      errors.push(`${module.id} has an invalid specification verification date`);
+    }
+    if (!allowedWirelessValues.has(module.wireless)) errors.push(`${module.id} has invalid wireless value: ${module.wireless}`);
     if (!allowedPartnerPrograms.has(module.partnerProgram)) errors.push(`${module.id} has invalid partnerProgram: ${module.partnerProgram}`);
     if (!partnerProgramsByVendor.has(module.vendor)) partnerProgramsByVendor.set(module.vendor, new Set());
     partnerProgramsByVendor.get(module.vendor).add(module.partnerProgram);
