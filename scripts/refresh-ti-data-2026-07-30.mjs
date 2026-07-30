@@ -82,6 +82,20 @@ const toolIds = {
   "phyflex-am62l-phytec-am62l": "PHYTC-3P-PHYFLEX-AM62L",
 };
 
+const lifecyclePatches = {
+  "phycore-am62x-phytec-am62": { released: "Yes", lifecycle: "Production" },
+  "phycore-am62x-dsc-phytec-am62": { released: "Yes", lifecycle: "Production" },
+  "phycore-am67x-phytec-am67": { released: "Yes", lifecycle: "Production" },
+  "phycore-am62a-phytec-am62a": { released: "Yes", lifecycle: "Production" },
+  "phycore-am64x-phytec-am64": { released: "Yes", lifecycle: "Production" },
+  "phycore-am57x-phytec-am57": { released: "Yes", lifecycle: "Production" },
+  "phycore-am335x-phytec-am335": { released: "Yes", lifecycle: "Production" },
+  "osd62x-octavo-am62": { released: "Yes", lifecycle: "Production" },
+  "m2a-am62xx-tessolve-am62": { released: "Yes", lifecycle: "Production" },
+  "smarc-sam67-kontron-am67": { released: "No", lifecycle: "Preview" },
+  "phyflex-am62l-phytec-am62l": { released: "Yes", lifecycle: "Production" },
+};
+
 const fieldPatches = {
   "carbonam62-ezurio-am62": {
     formFactorRaw: "OSM-MF",
@@ -624,6 +638,7 @@ data.modules.forEach((module) => {
     module.lastVerified = "";
   }
   Object.assign(module, fieldPatches[originalId] || {});
+  Object.assign(module, lifecyclePatches[originalId] || {});
 });
 
 newModules.forEach((module) => {
