@@ -812,10 +812,7 @@ function openDrawer(moduleId) {
       ${detailItem("TI.com verified", module.lastVerified)}
       ${detailItem("Specs verified", module.specVerified)}
     </dl>
-    <div class="drawer-actions">
-      ${module.specSource ? `<a class="drawer-link" href="${escapeAttr(module.specSource)}" target="_blank" rel="noreferrer">View spec source</a>` : ""}
-      ${link ? `<a class="drawer-link secondary" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a>` : ""}
-    </div>
+    ${link ? `<div class="drawer-actions"><a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a></div>` : ""}
   `;
   dom.drawer.dataset.openModuleId = moduleId;
   dom.drawer.classList.add("is-open");

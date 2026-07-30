@@ -1409,11 +1409,6 @@ h2 {
   gap: 10px;
 }
 
-.drawer-link.secondary {
-  color: var(--ti-black);
-  background: var(--ti-gray-200);
-}
-
 html[data-theme="dark"] body,
 html[data-theme="dark"] .app-shell {
   background: #10141a;
@@ -1473,11 +1468,6 @@ html[data-theme="dark"] .partner-page-link,
 html[data-theme="dark"] .drawer-link {
   color: #ffffff;
   background: var(--ti-red);
-}
-
-html[data-theme="dark"] .drawer-link.secondary {
-  color: #ffffff;
-  background: #343c48;
 }
 
 html[data-theme="dark"] .module-card {
