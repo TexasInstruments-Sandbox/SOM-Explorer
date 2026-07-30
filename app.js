@@ -89,6 +89,7 @@ const state = {
     formFactorFamily: "All",
     lifecycle: "All",
     partnerProgram: "All",
+    wireless: "All",
   },
 };
 
@@ -333,6 +334,7 @@ function buildFilterControls() {
     ["formFactorFamily", "Form factor"],
     ["lifecycle", "Status"],
     ["partnerProgram", "Partner Program Status"],
+    ["wireless", "Wireless"],
   ];
 
   dom.filterStack.innerHTML = filters.map(([key, label]) => {
@@ -828,9 +830,16 @@ function filteredModules(ignoreFilters = []) {
   const terms = state.search.toLowerCase().split(/\s+/).filter(Boolean);
   return state.modules.filter((module) => {
     const matchesSearch = terms.every((term) => module.searchText.includes(term));
-    const matchesFilters = Object.entries(state.filters).every(([key, value]) => ignoreFilters.includes(key) || value === "All" || module[key] === value);
+    const matchesFilters = Object.entries(state.filters).every(([key, value]) => ignoreFilters.includes(key) || matchesModuleFilter(module, key, value));
     return matchesSearch && matchesFilters;
   });
+}
+
+function matchesModuleFilter(module, key, value) {
+  if (value === "All") return true;
+  if (key === "wireless" && value === "Yes") return module.wireless === "Yes" || module.wireless === "Optional";
+  if (key === "wireless" && value === "No") return module.wireless === "No";
+  return module[key] === value;
 }
 
 function groupModules(modules, dimensionKey) {
@@ -846,6 +855,7 @@ function groupModules(modules, dimensionKey) {
 
 function uniqueValues(key) {
   if (key === "partnerProgram") return orders.partnerProgram;
+  if (key === "wireless") return ["Yes", "No"];
   return sortValues([...new Set(state.modules.map((module) => module[key] || "Unknown"))], key);
 }
 
