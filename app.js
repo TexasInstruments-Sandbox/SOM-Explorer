@@ -801,8 +801,6 @@ function openDrawer(moduleId) {
       ${detailItem("Flash", module.flash)}
       ${detailItem("Released", module.released)}
       ${detailItem("TI tool ID", module.tiToolId)}
-      ${detailItem("TI.com verified", module.lastVerified)}
-      ${detailItem("Specs verified", module.specVerified)}
     </dl>
     ${link ? `<div class="drawer-actions"><a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a></div>` : ""}
   `;
