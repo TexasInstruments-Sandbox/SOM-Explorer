@@ -15,7 +15,7 @@ const dimensions = {
 };
 
 const orders = {
-  device: ["AM62L", "AM62x", "AM62", "AM62P", "AM62A", "AM67A", "AM67", "AM68", "AM64", "AM243", "AM57", "TDA4VM", "AM69", "AM65", "AM437", "AM335"],
+  device: ["AM62L", "AM62", "AM62x", "AM62P", "AM62A", "AM64", "AM67", "AM67A", "AM68", "AM69", "AM243", "AM57", "TDA4VM", "AM65", "AM437", "AM335"],
   region: ["North America", "EMEA", "China", "APAC", "Unknown"],
   formFactorFamily: ["Proprietary connector", "OSM", "SMARC", "Solder down", "SO-DIMM", "Board"],
   lifecycle: ["Concept", "Preview", "Production"],
