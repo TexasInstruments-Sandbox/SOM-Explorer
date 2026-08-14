@@ -51,7 +51,7 @@ Wireless values describe radios mounted on the SOM itself:
 
 Partner program levels use TI.com's Premium, Preferred, and Registered badges. When a partner has a TI.com profile but the page does not expose a clear level, the catalog treats the partner as Registered. Partners without a TI.com profile remain Unknown.
 
-The maintained scope is partner-sourced SOM families for TI Arm-based processors. Development kits and carrier boards are not separate records. Older TI tool folders remain excluded until their lifecycle and availability are confirmed.
+The maintained scope is partner-sourced SOM families for TI Arm-based processors, plus explicitly reviewed board-class products such as Pico-AM62 and G405. Development kits and carrier boards are not separate records. Older TI tool folders remain excluded until their lifecycle and availability are confirmed.
 
 ## Data Validation
 

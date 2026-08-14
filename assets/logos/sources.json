@@ -137,6 +137,12 @@
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/u-w/vanteon-wireless-solutions-logo.png",
     "localPath": "assets/logos/vanteon.png"
   },
+  "Vantron": {
+    "partnerPage": "https://www.ti.com/partner/VTR",
+    "tiPartnerCode": "VTR",
+    "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/u-w/vantron-logo.png",
+    "localPath": "assets/logos/vantron.png"
+  },
   "Variscite": {
     "partnerPage": "https://www.ti.com/partner/VARIS",
     "tiPartnerCode": "VARIS",

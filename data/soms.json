@@ -2,10 +2,10 @@
   "appName": "TI SOM Explorer",
   "sourceWorkbook": "TI-SOM-List-Dec11-Rev01.xlsx (not committed)",
   "sourceSheet": "Sheet1",
-  "generatedOn": "2026-08-04",
+  "generatedOn": "2026-08-14",
   "summary": {
-    "modules": 56,
-    "vendors": 26,
+    "modules": 57,
+    "vendors": 27,
     "devices": 14,
     "regions": 4,
     "formFactorFamilies": [
@@ -1029,6 +1029,28 @@
       "lastVerified": "2026-07-30",
       "specSource": "https://www.aaeon.com/en/product/detail/gateway-boardexpansion-board-pico-am62/specification",
       "specVerified": "2026-07-30"
+    },
+    {
+      "id": "g405-vantron-am64",
+      "name": "G405",
+      "vendor": "Vantron",
+      "device": "AM64",
+      "formFactorRaw": "Edge computing gateway",
+      "formFactorFamily": "Board",
+      "region": "North America",
+      "tiLink": "https://www.ti.com/tool/VANTRON-3P-AM6411",
+      "partnerProgram": "Registered",
+      "wireless": "Yes",
+      "flash": "16 GB eMMC",
+      "ddr": "1 GB DDR4",
+      "released": "Yes",
+      "lifecycle": "Production",
+      "sourceRow": 59,
+      "searchText": "g405 vantron am64 edge computing gateway board north america registered yes 16 gb emmc 1 gb ddr4 production vantron-3p-am6411",
+      "tiToolId": "VANTRON-3P-AM6411",
+      "lastVerified": "2026-08-14",
+      "specSource": "https://vantrontech.us/product/3249",
+      "specVerified": "2026-08-14"
     },
     {
       "id": "beaglemod-am62-beagleboard-am62",

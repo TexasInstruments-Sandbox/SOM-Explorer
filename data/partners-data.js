@@ -65,6 +65,9 @@ window.TI_SOM_PARTNERS = {
   "Vanteon": {
     "partnerPage": "https://www.ti.com/partner/VANWS"
   },
+  "Vantron": {
+    "partnerPage": "https://www.ti.com/partner/VTR"
+  },
   "Variscite": {
     "partnerPage": "https://www.ti.com/partner/VARIS"
   },
