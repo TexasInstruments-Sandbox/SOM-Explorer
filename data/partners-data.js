@@ -32,6 +32,10 @@ window.TI_SOM_PARTNERS = {
   "Iesy": {
     "partnerPage": "https://www.ti.com/partner/IESY"
   },
+  "InHand": {
+    "partnerPage": "https://www.ti.com/partner/INHAND",
+    "tiPartnerCode": "INHAND"
+  },
   "iWave": {
     "partnerPage": "https://www.ti.com/partner/IWAVE"
   },

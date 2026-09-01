@@ -71,6 +71,12 @@
     "logoSource": "https://www.ti.com/content/dam/ticom/images/identities/third-party/g-i/iesy-logo.png",
     "localPath": "assets/logos/iesy.png"
   },
+  "InHand": {
+    "partnerPage": "https://www.ti.com/partner/INHAND",
+    "tiPartnerCode": "INHAND",
+    "logoSource": "https://raw.githubusercontent.com/inhandnet/documents/dec6cbf11dcb50e6098dcdcdec92fde57ba458d2/docs/en/assets/logo.png",
+    "localPath": "assets/logos/inhand.png"
+  },
   "iWave": {
     "partnerPage": "https://www.ti.com/partner/IWAVE",
     "tiPartnerCode": "IWAVE",

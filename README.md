@@ -38,7 +38,7 @@ The app reads `data/soms.json`. The initial catalog was generated from:
 TI-SOM-List-Dec11-Rev01.xlsx (not committed)
 ```
 
-The catalog was refreshed against TI.com and primary manufacturer sources on July 30, 2026. Each matched module includes a TI tool ID and its last-verification date. DDR, onboard flash, and wireless values include a specification source and verification date. Normalized form-factor families are included alongside the source form-factor value.
+The catalog was refreshed against TI.com and primary manufacturer sources through September 1, 2026. Each matched module includes a TI tool ID and its last-verification date. DDR, onboard flash, and wireless values include a specification source and verification date. Normalized form-factor families are included alongside the source form-factor value.
 
 Wireless values describe radios mounted on the SOM itself:
 
@@ -51,7 +51,7 @@ Wireless values describe radios mounted on the SOM itself:
 
 Partner program levels use TI.com's Premium, Preferred, and Registered badges. When a partner has a TI.com profile but the page does not expose a clear level, the catalog treats the partner as Registered. Partners without a TI.com profile remain Unknown.
 
-The maintained scope is partner-sourced SOM families for TI Arm-based processors, plus explicitly reviewed board-class products such as Pico-AM62 and G405. Development kits and carrier boards are not separate records. Older TI tool folders remain excluded until their lifecycle and availability are confirmed.
+The maintained scope is partner-sourced SOM families for TI Arm-based processors, plus explicitly reviewed board-class products. Board-class exceptions include Pico-AM62, G405, BeagleBoard single-board products, and InHand Mo AI modules. Development kits and carrier boards are not separate records. Older TI tool folders remain excluded until their lifecycle and availability are confirmed.
 
 ## Data Validation
 
@@ -67,11 +67,7 @@ Check that the JSON, browser data file, summary, IDs, source rows, TI links, par
 node scripts/sync-data.mjs --check
 ```
 
-The dated TI.com refresh can be reapplied safely with:
-
-```sh
-node scripts/refresh-ti-data-2026-07-30.mjs
-```
+`scripts/refresh-ti-data-2026-07-30.mjs` is retained as a historical record of the July 30 refresh. It predates the expanded catalog and must not be reapplied to current data.
 
 ## Local Data Editor
 
