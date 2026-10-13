@@ -30,6 +30,12 @@ Open:
 http://localhost:5173
 ```
 
+## Mobile Explorer
+
+Phones open the module directory by default, with search, a view picker, and a Filters button above the results. Filters and display settings open in a sheet; module details open in a full-screen panel. Both panels contain keyboard focus and restore it when closed. Shared URLs retain the selected view and filters.
+
+The phone layout applies below 768 CSS pixels, and to short landscape screens up to 980 pixels wide. Expanded screens from 768 to 980 pixels use a compact side-by-side filter rail and workspace. Resizing between these layouts preserves the current search, filters, view, and selected module. Safe-area padding and dynamic viewport heights support iPhone layouts. Foldable support adapts to available width; physical hinge positioning is not inferred from the device name.
+
 ## Data
 
 The app reads `data/soms.json`. The initial catalog was generated from:

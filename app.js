@@ -4,6 +4,9 @@ const PARTNER_BADGE_MANIFEST_URL = "./assets/partner-badges/manifest.json";
 const FORM_FACTOR_MANIFEST_URL = "./assets/form-factors/manifest.json";
 const PARTNERS_URL = "./data/partners.json";
 const { DDR_TYPES, deriveDdrTypes } = window.TI_SOM_DDR;
+const mobileLayout = window.matchMedia("(max-width: 767px), (max-width: 980px) and (max-height: 520px)");
+let filterReturnFocus = null;
+let detailReturnFocus = null;
 
 const dimensions = {
   device: { label: "Device", plural: "devices", get: (m) => m.device },
@@ -113,6 +116,18 @@ const dom = {
   drawerContent: document.querySelector("#drawerContent"),
   drawerClose: document.querySelector("#drawerClose"),
   themeToggle: document.querySelector("#themeToggle"),
+  mobileSearchInput: document.querySelector("#mobileSearchInput"),
+  mobileViewMode: document.querySelector("#mobileViewMode"),
+  mobileFiltersButton: document.querySelector("#mobileFiltersButton"),
+  mobileFilterCount: document.querySelector("#mobileFilterCount"),
+  mobileFiltersClose: document.querySelector("#mobileFiltersClose"),
+  mobileApplyFilters: document.querySelector("#mobileApplyFilters"),
+  filterBackdrop: document.querySelector("#filterBackdrop"),
+  controlRail: document.querySelector("#explorerControls"),
+  workspace: document.querySelector(".workspace"),
+  workbench: document.querySelector(".workbench"),
+  topbar: document.querySelector(".topbar"),
+  footer: document.querySelector(".site-footer"),
 };
 
 async function init() {
@@ -134,17 +149,29 @@ async function init() {
   buildFilterControls();
   syncControls();
   render();
+  syncOverlayAccessibility();
 }
 
 function bindEvents() {
   dom.homeLink.addEventListener("click", goHome);
   dom.themeToggle.addEventListener("click", toggleTheme);
 
-  dom.searchInput.addEventListener("input", (event) => {
-    state.search = event.target.value.trim();
-    updateUrl();
-    render();
+  [dom.searchInput, dom.mobileSearchInput].forEach((input) => {
+    input.addEventListener("input", (event) => {
+      state.search = event.target.value.trim();
+      const otherInput = input === dom.searchInput ? dom.mobileSearchInput : dom.searchInput;
+      otherInput.value = event.target.value;
+      updateUrl();
+      render();
+    });
   });
+
+  dom.mobileFiltersButton.addEventListener("click", openFilters);
+  dom.mobileFiltersClose.addEventListener("click", closeFilters);
+  dom.mobileApplyFilters.addEventListener("click", closeFilters);
+  dom.filterBackdrop.addEventListener("click", closeFilters);
+  dom.mobileViewMode.addEventListener("change", (event) => selectViewMode(event.target.value));
+  mobileLayout.addEventListener("change", handleLayoutChange);
 
   dom.groupBy.addEventListener("change", (event) => {
     state.groupBy = event.target.value;
@@ -160,12 +187,7 @@ function bindEvents() {
 
   document.querySelectorAll("[data-view-mode]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.viewMode = button.dataset.viewMode;
-      applyViewDefaults({ resetBoard: true });
-      document.querySelectorAll("[data-view-mode]").forEach((item) => item.classList.toggle("is-active", item === button));
-      syncControls();
-      updateUrl();
-      render();
+      selectViewMode(button.dataset.viewMode);
     });
   });
 
@@ -245,9 +267,9 @@ function bindEvents() {
       closeDrawer();
       return;
     }
-    openDrawer(trigger.dataset.moduleId);
+    openDrawer(trigger.dataset.moduleId, trigger);
     const openedId = trigger.dataset.moduleId;
-    window.setTimeout(() => {
+    if (!mobileLayout.matches) window.setTimeout(() => {
       const card = dom.visualization.querySelector(`[data-module-id="${openedId}"]`);
       if (card) card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
     }, 200);
@@ -281,9 +303,123 @@ function bindEvents() {
 
   dom.drawerClose.addEventListener("click", closeDrawer);
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeDrawer();
+    if (event.key === "Escape") {
+      if (dom.drawer.classList.contains("is-open")) closeDrawer();
+      else if (document.body.classList.contains("filters-open")) closeFilters();
+      return;
+    }
+    if (event.key === "Tab" && mobileLayout.matches) {
+      const overlay = dom.drawer.classList.contains("is-open") ? dom.drawer
+        : document.body.classList.contains("filters-open") ? dom.controlRail : null;
+      if (overlay) trapOverlayFocus(event, overlay);
+    }
   });
 
+}
+
+function selectViewMode(viewMode) {
+  state.viewMode = viewMode;
+  applyViewDefaults({ resetBoard: true });
+  syncControls();
+  updateUrl();
+  render();
+}
+
+function renderMobileControls(modules) {
+  const activeCount = Object.values(state.filters).filter((value) => value !== "All").length;
+  dom.mobileFilterCount.hidden = activeCount === 0;
+  dom.mobileFilterCount.textContent = activeCount;
+  dom.mobileFiltersButton.setAttribute("aria-label", `Filters and display${activeCount ? `, ${activeCount} active ${pluralize("filter", activeCount)}` : ""}`);
+  dom.mobileApplyFilters.textContent = `Show ${modules.length} ${pluralize("module", modules.length)}`;
+  dom.mobileViewMode.value = state.viewMode;
+}
+
+function openFilters() {
+  if (!mobileLayout.matches) return;
+  closeDrawer({ restoreFocus: false });
+  filterReturnFocus = dom.mobileFiltersButton;
+  document.body.classList.add("filters-open");
+  dom.controlRail.scrollTop = 0;
+  syncOverlayAccessibility();
+  dom.mobileFiltersClose.focus({ preventScroll: true });
+}
+
+function closeFilters({ restoreFocus = true } = {}) {
+  const wasOpen = document.body.classList.contains("filters-open");
+  document.body.classList.remove("filters-open");
+  syncOverlayAccessibility();
+  if (wasOpen && restoreFocus) {
+    const target = filterReturnFocus?.isConnected ? filterReturnFocus : dom.mobileFiltersButton;
+    target.focus({ preventScroll: true });
+  }
+  filterReturnFocus = null;
+}
+
+function syncOverlayAccessibility() {
+  const filterOpen = mobileLayout.matches && document.body.classList.contains("filters-open");
+  const drawerOpen = dom.drawer.classList.contains("is-open");
+  const modalDetails = mobileLayout.matches && drawerOpen;
+  dom.mobileFiltersButton.setAttribute("aria-expanded", String(filterOpen));
+  dom.filterBackdrop.hidden = !filterOpen;
+  dom.controlRail.inert = modalDetails || (mobileLayout.matches && !filterOpen);
+  dom.workspace.inert = filterOpen || modalDetails;
+  dom.workbench.inert = modalDetails;
+  dom.topbar.inert = filterOpen || modalDetails;
+  dom.footer.inert = filterOpen || modalDetails;
+  dom.drawer.inert = !drawerOpen;
+  document.body.classList.toggle("details-open", drawerOpen);
+
+  if (mobileLayout.matches) {
+    dom.controlRail.setAttribute("role", "dialog");
+    dom.controlRail.setAttribute("aria-labelledby", "mobileFiltersTitle");
+    dom.controlRail.setAttribute("aria-hidden", String(!filterOpen));
+  } else {
+    dom.controlRail.removeAttribute("role");
+    dom.controlRail.removeAttribute("aria-labelledby");
+    dom.controlRail.removeAttribute("aria-hidden");
+  }
+  if (filterOpen) dom.controlRail.setAttribute("aria-modal", "true");
+  else dom.controlRail.removeAttribute("aria-modal");
+  if (modalDetails) {
+    dom.drawer.setAttribute("role", "dialog");
+    dom.drawer.setAttribute("aria-modal", "true");
+    dom.drawer.setAttribute("aria-labelledby", "moduleDetailsTitle");
+  } else {
+    dom.drawer.removeAttribute("role");
+    dom.drawer.removeAttribute("aria-modal");
+    dom.drawer.removeAttribute("aria-labelledby");
+  }
+}
+
+function trapOverlayFocus(event, overlay) {
+  const focusable = [...overlay.querySelectorAll('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
+    .filter((element) => !element.disabled && element.getClientRects().length && !element.closest("[inert]"));
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (!first) return;
+  if (!overlay.contains(document.activeElement) || (event.shiftKey && document.activeElement === first)) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function handleLayoutChange() {
+  const wasFilterOpen = document.body.classList.contains("filters-open");
+  const focusWasInRail = dom.controlRail.contains(document.activeElement);
+  if (!mobileLayout.matches) document.body.classList.remove("filters-open");
+  syncOverlayAccessibility();
+  // Retain the current view, filters, search, and selected module when a phone unfolds.
+  render();
+  if (mobileLayout.matches && dom.drawer.classList.contains("is-open")) {
+    if (!dom.drawer.contains(document.activeElement)) dom.drawerClose.focus({ preventScroll: true });
+  } else if (mobileLayout.matches && focusWasInRail && !wasFilterOpen) {
+    dom.mobileFiltersButton.focus({ preventScroll: true });
+  } else if (!mobileLayout.matches && wasFilterOpen && document.activeElement.getClientRects().length === 0) {
+    dom.groupBy.focus({ preventScroll: true });
+  }
 }
 
 function toggleTheme() {
@@ -309,10 +445,13 @@ function currentTheme() {
 }
 
 function goHome() {
-  state.viewMode = "board";
+  state.viewMode = mobileLayout.matches ? "directory" : "board";
+  state.groupBy = "device";
+  state.colorBy = "formFactorFamily";
   resetFilters();
   applyViewDefaults({ resetBoard: true });
-  closeDrawer();
+  closeFilters({ restoreFocus: false });
+  closeDrawer({ restoreFocus: false });
   syncControls();
   updateUrl();
   render();
@@ -361,6 +500,8 @@ function buildFilterControls() {
 
 function syncControls() {
   dom.searchInput.value = state.search;
+  dom.mobileSearchInput.value = state.search;
+  dom.mobileViewMode.value = state.viewMode;
   dom.groupBy.value = state.groupBy;
   dom.colorBy.value = state.colorBy;
   document.querySelectorAll("[data-view-mode]").forEach((button) => {
@@ -374,6 +515,7 @@ function syncControls() {
 
 function hydrateFromUrl() {
   const params = new URLSearchParams(window.location.search);
+  if (!params.get("view") && mobileLayout.matches) state.viewMode = "directory";
   if (params.get("view")) state.viewMode = validValue(normalizeViewMode(params.get("view")), ["board", "map", "partners", "formFactors", "matrix", "directory"], state.viewMode);
   if (params.get("group")) state.groupBy = validValue(params.get("group"), Object.keys(dimensions), state.groupBy);
   if (params.get("color")) state.colorBy = validValue(params.get("color"), Object.keys(dimensions), state.colorBy);
@@ -406,7 +548,8 @@ function applyViewDefaults({ resetBoard = false } = {}) {
 
 function updateUrl() {
   const params = new URLSearchParams();
-  if (state.viewMode !== "board") params.set("view", state.viewMode);
+  // An explicit view stays portable between phone and desktop entry defaults.
+  params.set("view", state.viewMode);
   if (state.groupBy !== "device") params.set("group", state.groupBy);
   if (state.colorBy !== "formFactorFamily") params.set("color", state.colorBy);
   if (state.search) params.set("q", state.search);
@@ -425,6 +568,7 @@ function render() {
   renderFilterStatus(modules);
   renderKpis(modules);
   renderLegend(modules);
+  renderMobileControls(modules);
 
   if (modules.length === 0) {
     dom.visualization.innerHTML = `<div class="empty-state">No modules match the current filters.</div>`;
@@ -741,13 +885,15 @@ function renderDirectory(modules) {
       </div>
       ${rows.map((module) => `
         <article class="directory-row" style="--row-color:${colorForModule(module)}">
-          <button type="button" data-module-id="${module.id}">${escapeHtml(module.name)}</button>
-          <span>${escapeHtml(module.vendor)}</span>
-          <span>${escapeHtml(module.device)}</span>
-          <span>${escapeHtml(module.region)}</span>
-          <span>${escapeHtml(module.formFactorFamily)}</span>
-          <span class="badge" style="--badge-color:${colorForValue(module.lifecycle)}">${escapeHtml(module.lifecycle)}</span>
-          <span class="badge" style="--badge-color:${colorForValue(module.partnerProgram)}">${escapeHtml(module.partnerProgram)}</span>
+          <button class="directory-module" type="button" data-module-id="${module.id}">${escapeHtml(module.name)}</button>
+          <span data-label="Partner">${escapeHtml(module.vendor)}</span>
+          <span data-label="Device">${escapeHtml(module.device)}</span>
+          <span data-label="Region">${escapeHtml(module.region)}</span>
+          <span data-label="Form factor">${escapeHtml(module.formFactorFamily)}</span>
+          <span data-label="Status" class="badge" style="--badge-color:${colorForValue(module.lifecycle)}">${escapeHtml(module.lifecycle)}</span>
+          <span data-label="Partner program" class="badge" style="--badge-color:${colorForValue(module.partnerProgram)}">${escapeHtml(module.partnerProgram)}</span>
+          <span class="directory-spec" data-label="DDR">${escapeHtml(module.ddr)}</span>
+          <span class="directory-spec" data-label="Flash">${escapeHtml(module.flash)}</span>
         </article>
       `).join("")}
     </div>
@@ -760,6 +906,10 @@ function moduleCard(module) {
       <span class="vendor">${escapeHtml(module.vendor)}</span>
       <span class="module-name">${escapeHtml(module.name)}</span>
       <span class="module-meta">${escapeHtml(module.device)} / ${escapeHtml(module.formFactorFamily)} / ${escapeHtml(module.lifecycle)}</span>
+      <span class="mobile-module-specs">
+        <span>DDR: ${escapeHtml(module.ddr)}</span>
+        <span>Flash: ${escapeHtml(module.flash)}</span>
+      </span>
     </button>
   `;
 }
@@ -781,16 +931,18 @@ function mapPartnerCard(vendor, modules) {
   `;
 }
 
-function openDrawer(moduleId) {
+function openDrawer(moduleId, trigger) {
   const module = state.modules.find((item) => item.id === moduleId);
   if (!module) return;
+  // A tap does not focus its button in every browser, so retain the actual trigger.
+  detailReturnFocus = trigger || dom.visualization.querySelector(`[data-module-id="${moduleId}"]`);
   const link = normalizeTiLink(module.tiLink || module.tiToolId);
   dom.drawerContent.innerHTML = `
     <div class="drawer-company">
       ${companyLogoMarkup(module.vendor, "drawer-logo")}
       ${partnerBadgeMarkup(module.partnerProgram, "drawer-tier-badge")}
     </div>
-    <h2 class="drawer-title">${escapeHtml(module.name)}</h2>
+    <h2 class="drawer-title" id="moduleDetailsTitle">${escapeHtml(module.name)}</h2>
     <p class="drawer-subtitle">${escapeHtml(module.vendor)} / ${escapeHtml(module.device)}</p>
     <div class="drawer-badges">
       <span class="badge" style="--badge-color:${colorForValue(module.formFactorFamily)}">${escapeHtml(module.formFactorFamily)}</span>
@@ -815,12 +967,24 @@ function openDrawer(moduleId) {
   dom.drawer.dataset.openModuleId = moduleId;
   dom.drawer.classList.add("is-open");
   dom.drawer.setAttribute("aria-hidden", "false");
+  syncOverlayAccessibility();
+  dom.drawer.scrollTop = 0;
+  if (mobileLayout.matches) dom.drawerClose.focus({ preventScroll: true });
 }
 
-function closeDrawer() {
+function closeDrawer({ restoreFocus = true } = {}) {
+  const wasOpen = dom.drawer.classList.contains("is-open");
+  const moduleId = dom.drawer.dataset.openModuleId;
   dom.drawer.classList.remove("is-open");
   dom.drawer.setAttribute("aria-hidden", "true");
   delete dom.drawer.dataset.openModuleId;
+  syncOverlayAccessibility();
+  if (wasOpen && restoreFocus) {
+    const target = detailReturnFocus?.isConnected ? detailReturnFocus
+      : dom.visualization.querySelector(`[data-module-id="${moduleId}"]`);
+    target?.focus({ preventScroll: true });
+  }
+  detailReturnFocus = null;
 }
 
 function detailItem(label, value) {
@@ -1071,6 +1235,7 @@ function normalizeTiLink(value) {
 }
 
 function viewTitle(grouping) {
+  if (state.viewMode === "directory" && mobileLayout.matches) return "Modules";
   if (state.viewMode === "map") return "Regional SOM map";
   if (state.viewMode === "partners") return "Partner Directory";
   if (state.viewMode === "formFactors") return "Form factor grid";

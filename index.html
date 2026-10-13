@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>TI SOM Explorer</title>
     <link rel="icon" type="image/svg+xml" href="./assets/ti-bug.svg?v=20260730-logo-status-fix">
     <script>
@@ -12,7 +12,7 @@
         document.documentElement.dataset.theme = "light";
       }
     </script>
-    <link rel="stylesheet" href="./styles.css?v=20260730-compact-footer">
+    <link rel="stylesheet" href="./styles.css?v=20261013-mobile-view">
   </head>
   <body>
     <div class="app-shell">
@@ -33,13 +33,17 @@
 
     <div class="content-area">
       <main class="workbench">
-        <aside class="control-rail" aria-label="Explorer filters and view controls">
-          <label class="field">
+        <aside class="control-rail" id="explorerControls" aria-label="Explorer filters and view controls">
+          <div class="mobile-filter-heading">
+            <h2 id="mobileFiltersTitle">Filters and display</h2>
+            <button id="mobileFiltersClose" class="tool-button" type="button" aria-label="Close filters">Close</button>
+          </div>
+          <label class="field desktop-search">
             <span>Search</span>
             <input id="searchInput" type="search" placeholder="Module, partner, device">
           </label>
 
-          <fieldset class="field-group">
+          <fieldset class="field-group desktop-view">
             <legend>View</legend>
             <div class="segmented" role="group" aria-label="Visualization type">
               <button type="button" class="segment is-active" data-view-mode="board">Overview</button>
@@ -77,15 +81,39 @@
           <div class="filter-stack" id="filterStack"></div>
 
           <button class="reset-button" id="resetFilters" type="button">Reset filters</button>
+          <div class="mobile-filter-actions">
+            <button id="mobileApplyFilters" class="tool-button primary" type="button">Show modules</button>
+          </div>
         </aside>
 
-        <section class="workspace" aria-live="polite">
+        <section class="workspace">
+          <div class="mobile-controls" aria-label="Mobile explorer controls">
+            <label class="mobile-search">
+              <span class="sr-only">Search modules</span>
+              <input id="mobileSearchInput" type="search" placeholder="Module, partner, device" autocomplete="off">
+            </label>
+            <label class="mobile-view">
+              <span class="sr-only">View</span>
+              <select id="mobileViewMode">
+                <option value="directory">Modules</option>
+                <option value="board">Overview</option>
+                <option value="partners">Partners</option>
+                <option value="formFactors">Form factors</option>
+                <option value="map">Map</option>
+                <option value="matrix">Matrix</option>
+              </select>
+            </label>
+            <button id="mobileFiltersButton" class="mobile-filter-button tool-button" type="button" aria-controls="explorerControls" aria-expanded="false" aria-haspopup="dialog">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="var(--ti-white)"/><circle cx="15" cy="17" r="3" fill="var(--ti-white)"/></svg>
+              Filters <span id="mobileFilterCount" hidden>0</span>
+            </button>
+          </div>
           <div class="kpis" id="kpis"></div>
 
           <div class="view-meta">
             <div class="view-heading">
               <h2 id="viewTitle">Modules by device</h2>
-              <div class="filter-status" id="filterStatus" hidden></div>
+              <div class="filter-status" id="filterStatus" aria-live="polite" hidden></div>
             </div>
             <div class="legend" id="legend" aria-label="Color legend"></div>
           </div>
@@ -94,6 +122,7 @@
         </section>
       </main>
 
+      <button id="filterBackdrop" type="button" tabindex="-1" aria-hidden="true" hidden></button>
       <aside class="detail-drawer" id="detailDrawer" aria-label="Module details" aria-hidden="true">
         <div class="drawer-inner">
           <button class="drawer-close" id="drawerClose" type="button" aria-label="Close details">Close</button>
@@ -119,7 +148,7 @@
     <script src="./assets/partner-badges/manifest-data.js?v=20260730-logo-status-fix"></script>
     <script src="./assets/form-factors/manifest-data.js"></script>
     <script src="./data/partners-data.js?v=20260901-catalog-refresh"></script>
-    <script src="./app.js?v=20261013-ddr-filter" defer></script>
+    <script src="./app.js?v=20261013-mobile-view" defer></script>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "065d709d-d587-46d7-bccf-224148861c48"}'></script><!-- End Cloudflare Web Analytics -->
   </body>
 </html>
