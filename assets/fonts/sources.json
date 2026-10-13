@@ -1,0 +1,35 @@
+{
+  "fontFamily": "Roboto",
+  "upstreamCopyright": "Copyright 2015 Google Inc. All Rights Reserved.",
+  "license": "Apache-2.0",
+  "licenseSource": "https://github.com/googlefonts/roboto-2/blob/main/LICENSE",
+  "observedDate": "2026-10-13",
+  "fontDefinitionsSource": "https://www.ti.com/assets/fonts/font.css",
+  "notes": "TI.com maps Roboto Medium (upstream weight 500) to CSS font-weight 600. Fonts are hosted locally because TI.com's font responses permit cross-origin access only from https://www.ti.com.",
+  "files": [
+    {
+      "file": "roboto-light.woff2",
+      "source": "https://www.ti.com/assets/fonts/roboto-v20-latin-ext_latin_greek-300.woff2",
+      "upstreamWeight": 300,
+      "cssWeight": 300,
+      "bytes": 50812,
+      "sha256": "dc3fe423eb6c56fd8551c06a35e81db17226207f7892223c64b83b597ec56513"
+    },
+    {
+      "file": "roboto-regular.woff2",
+      "source": "https://www.ti.com/assets/fonts/roboto-v20-latin-ext_latin_greek-regular.woff2",
+      "upstreamWeight": 400,
+      "cssWeight": 400,
+      "bytes": 51116,
+      "sha256": "a7bf1f115e60e0c8f3b335df66d4d77baaae4eb11d2cea2cf7c5b4693403a46f"
+    },
+    {
+      "file": "roboto-medium.woff2",
+      "source": "https://www.ti.com/assets/fonts/roboto-v20-latin-ext_latin_greek-500.woff2",
+      "upstreamWeight": 500,
+      "cssWeight": 600,
+      "bytes": 51400,
+      "sha256": "44e2c42df34b1029bff5762f2d9c0c7dc5b4268b965d70d4cc2cb66dafc52423"
+    }
+  ]
+}

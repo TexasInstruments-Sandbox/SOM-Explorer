@@ -38,9 +38,10 @@ const palette = {
   Concept: "#b00000",
   Preview: "#137f8c",
   Production: "#777777",
-  Registered: "#cc0000",
-  Preferred: "#137f8c",
-  Premium: "#990000",
+  // Solid tones from TI's Registered, Preferred, and Premium badge SVGs.
+  Registered: "#383838",
+  Preferred: "#1e5465",
+  Premium: "#c42912",
   Unknown: "#808080",
   "North America": "#137f8c",
   EMEA: "#1b5fa7",
@@ -115,7 +116,8 @@ const dom = {
   drawer: document.querySelector("#detailDrawer"),
   drawerContent: document.querySelector("#drawerContent"),
   drawerClose: document.querySelector("#drawerClose"),
-  themeToggle: document.querySelector("#themeToggle"),
+  drawerInner: document.querySelector(".drawer-inner"),
+  drawerCloseActions: document.querySelector("#drawerCloseActions"),
   mobileSearchInput: document.querySelector("#mobileSearchInput"),
   mobileViewMode: document.querySelector("#mobileViewMode"),
   mobileFiltersButton: document.querySelector("#mobileFiltersButton"),
@@ -131,7 +133,6 @@ const dom = {
 };
 
 async function init() {
-  syncThemeToggle();
   state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
   state.modules = state.metadata.modules.map((module) => ({
     ...module,
@@ -154,7 +155,6 @@ async function init() {
 
 function bindEvents() {
   dom.homeLink.addEventListener("click", goHome);
-  dom.themeToggle.addEventListener("click", toggleTheme);
 
   [dom.searchInput, dom.mobileSearchInput].forEach((input) => {
     input.addEventListener("input", (event) => {
@@ -329,7 +329,7 @@ function renderMobileControls(modules) {
   const activeCount = Object.values(state.filters).filter((value) => value !== "All").length;
   dom.mobileFilterCount.hidden = activeCount === 0;
   dom.mobileFilterCount.textContent = activeCount;
-  dom.mobileFiltersButton.setAttribute("aria-label", `Filters and display${activeCount ? `, ${activeCount} active ${pluralize("filter", activeCount)}` : ""}`);
+  dom.mobileFiltersButton.setAttribute("aria-label", `Filters${activeCount ? `, ${activeCount} active ${pluralize("filter", activeCount)}` : ""}`);
   dom.mobileApplyFilters.textContent = `Show ${modules.length} ${pluralize("module", modules.length)}`;
   dom.mobileViewMode.value = state.viewMode;
 }
@@ -389,6 +389,16 @@ function syncOverlayAccessibility() {
     dom.drawer.removeAttribute("aria-modal");
     dom.drawer.removeAttribute("aria-labelledby");
   }
+  syncDrawerClosePlacement();
+}
+
+function syncDrawerClosePlacement() {
+  const wasFocused = document.activeElement === dom.drawerClose;
+  const target = mobileLayout.matches ? dom.drawerInner.lastElementChild : dom.drawerInner.firstElementChild;
+  if (target === dom.drawerCloseActions) return;
+  if (mobileLayout.matches) dom.drawerInner.append(dom.drawerCloseActions);
+  else dom.drawerInner.prepend(dom.drawerCloseActions);
+  if (wasFocused && dom.drawer.classList.contains("is-open")) dom.drawerClose.focus({ preventScroll: true });
 }
 
 function trapOverlayFocus(event, overlay) {
@@ -422,28 +432,6 @@ function handleLayoutChange() {
   }
 }
 
-function toggleTheme() {
-  const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = nextTheme;
-  try {
-    localStorage.setItem("tiSomTheme", nextTheme);
-  } catch {
-    // Theme persistence is optional; the button still works for this session.
-  }
-  syncThemeToggle();
-}
-
-function syncThemeToggle() {
-  const theme = currentTheme();
-  dom.themeToggle.title = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-  dom.themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-  dom.themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
-}
-
-function currentTheme() {
-  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-}
-
 function goHome() {
   state.viewMode = mobileLayout.matches ? "directory" : "board";
   state.groupBy = "device";
@@ -473,29 +461,40 @@ function toggleLegendFilter(dimension, value) {
 }
 
 function buildFilterControls() {
-  const filters = [
-    ["region", "Region"],
-    ["device", "Device"],
-    ["vendor", "Partner"],
-    ["formFactorFamily", "Form factor"],
-    ["ddrType", "DDR type"],
-    ["lifecycle", "Status"],
-    ["partnerProgram", "Partner Program Status"],
-    ["wireless", "Wireless"],
+  const groups = [
+    { key: "partner", label: "Partner details", filters: [
+      ["vendor", "Partner", true],
+      ["region", "Region"],
+      ["partnerProgram", "Program status"],
+    ] },
+    { key: "technical", label: "Technical specs", filters: [
+      ["device", "Device"],
+      ["ddrType", "DDR type"],
+      ["formFactorFamily", "Form factor", true],
+      ["wireless", "Wireless"],
+      ["lifecycle", "Module status"],
+    ] },
   ];
 
-  dom.filterStack.innerHTML = filters.map(([key, label]) => {
-    const options = uniqueValues(key).map((value) => `<option value="${escapeAttr(value)}">${escapeHtml(value)}</option>`).join("");
-    return `
-      <label class="field">
-        <span>${label}</span>
-        <select data-filter="${key}">
-          <option value="All">All</option>
-          ${options}
-        </select>
-      </label>
-    `;
-  }).join("");
+  dom.filterStack.innerHTML = groups.map(({ key, label, filters }) => `
+    <fieldset class="filter-section filter-${key}">
+      <legend>${label}</legend>
+      <div class="filter-grid">
+        ${filters.map(([key, fieldLabel, wide]) => {
+          const options = uniqueValues(key).map((value) => `<option value="${escapeAttr(value)}">${escapeHtml(value)}</option>`).join("");
+          return `
+            <label class="field${wide ? " filter-field-wide" : ""}">
+              <span>${fieldLabel}</span>
+              <select data-filter="${key}">
+                <option value="All">All</option>
+                ${options}
+              </select>
+            </label>
+          `;
+        }).join("")}
+      </div>
+    </fieldset>
+  `).join("");
 }
 
 function syncControls() {
@@ -892,12 +891,16 @@ function renderDirectory(modules) {
           <span data-label="Form factor">${escapeHtml(module.formFactorFamily)}</span>
           <span data-label="Status" class="badge" style="--badge-color:${colorForValue(module.lifecycle)}">${escapeHtml(module.lifecycle)}</span>
           <span data-label="Partner program" class="badge" style="--badge-color:${colorForValue(module.partnerProgram)}">${escapeHtml(module.partnerProgram)}</span>
-          <span class="directory-spec" data-label="DDR">${escapeHtml(module.ddr)}</span>
+          <span class="directory-spec" data-label="RAM">${escapeHtml(ramSpecification(module.ddr))}</span>
           <span class="directory-spec" data-label="Flash">${escapeHtml(module.flash)}</span>
         </article>
       `).join("")}
     </div>
   `;
+}
+
+function ramSpecification(value) {
+  return value && value.trim().toUpperCase() !== "RAM" ? value : "Not published";
 }
 
 function moduleCard(module) {
@@ -907,7 +910,7 @@ function moduleCard(module) {
       <span class="module-name">${escapeHtml(module.name)}</span>
       <span class="module-meta">${escapeHtml(module.device)} / ${escapeHtml(module.formFactorFamily)} / ${escapeHtml(module.lifecycle)}</span>
       <span class="mobile-module-specs">
-        <span>DDR: ${escapeHtml(module.ddr)}</span>
+        <span>RAM: ${escapeHtml(ramSpecification(module.ddr))}</span>
         <span>Flash: ${escapeHtml(module.flash)}</span>
       </span>
     </button>
@@ -969,6 +972,7 @@ function openDrawer(moduleId, trigger) {
   dom.drawer.setAttribute("aria-hidden", "false");
   syncOverlayAccessibility();
   dom.drawer.scrollTop = 0;
+  dom.drawerContent.scrollTop = 0;
   if (mobileLayout.matches) dom.drawerClose.focus({ preventScroll: true });
 }
 
@@ -1215,7 +1219,7 @@ function colorForModule(module) {
 }
 
 function borderForModule(module) {
-  if (["Registered", "Preferred", "Premium"].includes(module.partnerProgram)) return "#cc0000";
+  if (["Registered", "Preferred", "Premium"].includes(module.partnerProgram)) return palette[module.partnerProgram];
   if (module.lifecycle === "Concept") return "#990000";
   return "#333333";
 }

@@ -39,9 +39,10 @@ const partnerLevelLabels = {
 };
 
 const palette = {
-  Premium: "#990000",
-  Preferred: "#137f8c",
-  Registered: "#cc0000",
+  // Match the solid tones in TI's official partner badge SVGs.
+  Premium: "#c42912",
+  Preferred: "#1e5465",
+  Registered: "#383838",
   Unknown: "#808080",
 };
 
