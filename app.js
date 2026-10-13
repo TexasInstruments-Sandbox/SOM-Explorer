@@ -8,6 +8,8 @@ const { ramSummary, flashSummary } = window.TI_SOM_MEMORY;
 const mobileLayout = window.matchMedia("(max-width: 767px), (max-width: 980px) and (max-height: 520px)");
 let filterReturnFocus = null;
 let detailReturnFocus = null;
+let desktopFiltersOpen = true;
+let lastFocusedElement = null;
 
 const dimensions = {
   device: { label: "Device", plural: "devices", get: (m) => m.device },
@@ -124,15 +126,27 @@ const dom = {
   mobileFilterCount: document.querySelector("#mobileFilterCount"),
   mobileFiltersClose: document.querySelector("#mobileFiltersClose"),
   mobileApplyFilters: document.querySelector("#mobileApplyFilters"),
+  desktopActions: document.querySelector(".desktop-explorer-actions"),
+  desktopViewControls: document.querySelector("#desktopViewTypes"),
+  desktopViewButtons: [...document.querySelectorAll("#desktopViewTypes [data-view-mode]")],
+  desktopFiltersButton: document.querySelector("#desktopFiltersButton"),
+  desktopFilterCount: document.querySelector("#desktopFilterCount"),
+  desktopFiltersTab: document.querySelector("#desktopFiltersTab"),
+  desktopTabCount: document.querySelector("#desktopTabCount"),
+  desktopFiltersClose: document.querySelector("#desktopFiltersClose"),
   filterBackdrop: document.querySelector("#filterBackdrop"),
   controlRail: document.querySelector("#explorerControls"),
   workspace: document.querySelector(".workspace"),
+  workspaceContent: document.querySelector(".workspace-content"),
   workbench: document.querySelector(".workbench"),
+  appShell: document.querySelector(".app-shell"),
   topbar: document.querySelector(".topbar"),
   footer: document.querySelector(".site-footer"),
 };
 
 async function init() {
+  syncResponsivePlacement();
+  syncOverlayAccessibility();
   state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
   state.modules = state.metadata.modules.map((module) => ({
     ...module,
@@ -154,6 +168,7 @@ async function init() {
 }
 
 function bindEvents() {
+  document.addEventListener("focusin", (event) => { lastFocusedElement = event.target; });
   dom.homeLink.addEventListener("click", goHome);
 
   [dom.searchInput, dom.mobileSearchInput].forEach((input) => {
@@ -171,6 +186,13 @@ function bindEvents() {
   dom.mobileApplyFilters.addEventListener("click", closeFilters);
   dom.filterBackdrop.addEventListener("click", closeFilters);
   dom.mobileViewMode.addEventListener("change", (event) => selectViewMode(event.target.value));
+  dom.desktopViewControls.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-view-mode]");
+    if (button) selectViewMode(button.dataset.viewMode);
+  });
+  dom.desktopFiltersButton.addEventListener("click", () => setDesktopFiltersOpen(!desktopFiltersOpen));
+  dom.desktopFiltersTab.addEventListener("click", () => setDesktopFiltersOpen(true));
+  dom.desktopFiltersClose.addEventListener("click", () => setDesktopFiltersOpen(false));
   mobileLayout.addEventListener("change", handleLayoutChange);
 
   dom.groupBy.addEventListener("change", (event) => {
@@ -183,12 +205,6 @@ function bindEvents() {
     state.colorBy = event.target.value;
     updateUrl();
     render();
-  });
-
-  document.querySelectorAll("[data-view-mode]").forEach((button) => {
-    button.addEventListener("click", () => {
-      selectViewMode(button.dataset.viewMode);
-    });
   });
 
   dom.filterStack.addEventListener("change", (event) => {
@@ -304,8 +320,13 @@ function bindEvents() {
   dom.drawerClose.addEventListener("click", closeDrawer);
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
+      // Closing a panel must not also trigger the search input's native Escape clear.
+      if (dom.drawer.classList.contains("is-open") || document.body.classList.contains("filters-open") || (!mobileLayout.matches && desktopFiltersOpen)) {
+        event.preventDefault();
+      }
       if (dom.drawer.classList.contains("is-open")) closeDrawer();
       else if (document.body.classList.contains("filters-open")) closeFilters();
+      else if (!mobileLayout.matches && desktopFiltersOpen) setDesktopFiltersOpen(false);
       return;
     }
     if (event.key === "Tab" && mobileLayout.matches) {
@@ -325,13 +346,43 @@ function selectViewMode(viewMode) {
   render();
 }
 
-function renderMobileControls(modules) {
+function syncViewControls() {
+  dom.mobileViewMode.value = state.viewMode;
+  dom.desktopViewButtons.forEach((button) => {
+    const selected = button.dataset.viewMode === state.viewMode;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+function renderExplorerControls(modules) {
   const activeCount = Object.values(state.filters).filter((value) => value !== "All").length;
   dom.mobileFilterCount.hidden = activeCount === 0;
   dom.mobileFilterCount.textContent = activeCount;
   dom.mobileFiltersButton.setAttribute("aria-label", `Filters${activeCount ? `, ${activeCount} active ${pluralize("filter", activeCount)}` : ""}`);
   dom.mobileApplyFilters.textContent = `Show ${modules.length} ${pluralize("module", modules.length)}`;
-  dom.mobileViewMode.value = state.viewMode;
+  syncViewControls();
+  dom.desktopFilterCount.hidden = activeCount === 0;
+  dom.desktopFilterCount.textContent = activeCount;
+  dom.desktopTabCount.hidden = activeCount === 0;
+  dom.desktopTabCount.textContent = activeCount;
+  const filterLabel = `Filters${activeCount ? `, ${activeCount} active ${pluralize("filter", activeCount)}` : ""}`;
+  dom.desktopFiltersButton.setAttribute("aria-label", filterLabel);
+  dom.desktopFiltersTab.setAttribute("aria-label", `Open ${filterLabel.toLowerCase()}`);
+}
+
+function setDesktopFiltersOpen(open) {
+  if (mobileLayout.matches) return;
+  if (!open && dom.controlRail.contains(document.activeElement)) {
+    dom.desktopFiltersTab.hidden = false;
+    dom.desktopFiltersTab.focus({ preventScroll: true });
+  }
+  desktopFiltersOpen = open;
+  syncOverlayAccessibility();
+  if (open) {
+    dom.controlRail.scrollTop = 0;
+    dom.filterStack.querySelector("select")?.focus({ preventScroll: true });
+  }
 }
 
 function openFilters() {
@@ -357,11 +408,16 @@ function closeFilters({ restoreFocus = true } = {}) {
 
 function syncOverlayAccessibility() {
   const filterOpen = mobileLayout.matches && document.body.classList.contains("filters-open");
+  const desktopOpen = !mobileLayout.matches && desktopFiltersOpen;
   const drawerOpen = dom.drawer.classList.contains("is-open");
   const modalDetails = mobileLayout.matches && drawerOpen;
   dom.mobileFiltersButton.setAttribute("aria-expanded", String(filterOpen));
+  dom.desktopFiltersButton.setAttribute("aria-expanded", String(desktopOpen));
+  dom.desktopFiltersTab.hidden = mobileLayout.matches || desktopOpen;
+  dom.desktopFiltersTab.setAttribute("aria-expanded", String(desktopOpen));
+  document.body.classList.toggle("desktop-filters-open", desktopOpen);
   dom.filterBackdrop.hidden = !filterOpen;
-  dom.controlRail.inert = modalDetails || (mobileLayout.matches && !filterOpen);
+  dom.controlRail.inert = modalDetails || !(filterOpen || desktopOpen);
   dom.workspace.inert = filterOpen || modalDetails;
   dom.workbench.inert = modalDetails;
   dom.topbar.inert = filterOpen || modalDetails;
@@ -376,7 +432,7 @@ function syncOverlayAccessibility() {
   } else {
     dom.controlRail.removeAttribute("role");
     dom.controlRail.removeAttribute("aria-labelledby");
-    dom.controlRail.removeAttribute("aria-hidden");
+    dom.controlRail.setAttribute("aria-hidden", String(!desktopOpen));
   }
   if (filterOpen) dom.controlRail.setAttribute("aria-modal", "true");
   else dom.controlRail.removeAttribute("aria-modal");
@@ -406,9 +462,37 @@ function trapOverlayFocus(event, overlay) {
   }
 }
 
+function syncResponsivePlacement() {
+  const headerParent = mobileLayout.matches ? dom.workspaceContent : dom.appShell;
+  if (dom.topbar.parentElement !== headerParent) {
+    const focusedControl = dom.topbar.contains(document.activeElement) ? document.activeElement : null;
+    headerParent.prepend(dom.topbar);
+    if (focusedControl?.getClientRects().length) {
+      focusedControl.focus({ preventScroll: true });
+      if (mobileLayout.matches) focusedControl.scrollIntoView({ block: "nearest" });
+    }
+  }
+  const parent = mobileLayout.matches ? dom.workspace : dom.appShell;
+  if (dom.footer.parentElement === parent) return;
+  const focusedLink = dom.footer.contains(document.activeElement) ? document.activeElement : null;
+  parent.append(dom.footer);
+  if (focusedLink) {
+    focusedLink.focus({ preventScroll: true });
+    // A desktop footer link moves below the results when folding to a phone.
+    if (mobileLayout.matches) focusedLink.scrollIntoView({ block: "nearest" });
+  }
+}
+
 function handleLayoutChange() {
+  // Hiding a responsive control can blur it before the media-query event runs.
+  const focusedElement = document.activeElement === document.body ? lastFocusedElement : document.activeElement;
   const wasFilterOpen = document.body.classList.contains("filters-open");
-  const focusWasInRail = dom.controlRail.contains(document.activeElement);
+  const focusWasInRail = dom.controlRail.contains(focusedElement);
+  const focusWasInDesktopActions = dom.desktopActions.contains(focusedElement);
+  const focusWasInDesktopView = dom.desktopViewControls.contains(focusedElement);
+  const focusWasInDesktopSearch = focusedElement === dom.searchInput;
+  const focusWasInDesktopTab = focusedElement === dom.desktopFiltersTab;
+  syncResponsivePlacement();
   if (!mobileLayout.matches) document.body.classList.remove("filters-open");
   syncOverlayAccessibility();
   // Retain the current view, filters, search, and selected module when a phone unfolds.
@@ -417,8 +501,18 @@ function handleLayoutChange() {
     if (!dom.drawer.contains(document.activeElement)) dom.drawerClose.focus({ preventScroll: true });
   } else if (mobileLayout.matches && focusWasInRail && !wasFilterOpen) {
     dom.mobileFiltersButton.focus({ preventScroll: true });
-  } else if (!mobileLayout.matches && wasFilterOpen && document.activeElement.getClientRects().length === 0) {
-    dom.groupBy.focus({ preventScroll: true });
+  } else if (mobileLayout.matches && (focusWasInDesktopActions || focusWasInDesktopTab || focusWasInDesktopView)) {
+    const target = focusWasInDesktopView ? dom.mobileViewMode : focusWasInDesktopSearch ? dom.mobileSearchInput : dom.mobileFiltersButton;
+    target.focus({ preventScroll: true });
+  } else if (!mobileLayout.matches && focusWasInRail) {
+    if (!desktopFiltersOpen) dom.desktopFiltersButton.focus({ preventScroll: true });
+    else if (document.activeElement === document.body || focusedElement.getClientRects().length === 0) dom.searchInput.focus({ preventScroll: true });
+  } else if (!mobileLayout.matches && focusedElement === dom.mobileFiltersButton) {
+    dom.desktopFiltersButton.focus({ preventScroll: true });
+  } else if (!mobileLayout.matches && focusedElement === dom.mobileSearchInput) {
+    dom.searchInput.focus({ preventScroll: true });
+  } else if (!mobileLayout.matches && focusedElement === dom.mobileViewMode) {
+    dom.desktopViewButtons.find((button) => button.dataset.viewMode === state.viewMode)?.focus();
   }
 }
 
@@ -490,12 +584,9 @@ function buildFilterControls() {
 function syncControls() {
   dom.searchInput.value = state.search;
   dom.mobileSearchInput.value = state.search;
-  dom.mobileViewMode.value = state.viewMode;
+  syncViewControls();
   dom.groupBy.value = state.groupBy;
   dom.colorBy.value = state.colorBy;
-  document.querySelectorAll("[data-view-mode]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.viewMode === state.viewMode);
-  });
   Object.entries(state.filters).forEach(([key, value]) => {
     const select = dom.filterStack.querySelector(`[data-filter="${key}"]`);
     if (select) select.value = value;
@@ -557,7 +648,7 @@ function render() {
   renderFilterStatus(modules);
   renderKpis(modules);
   renderLegend(modules);
-  renderMobileControls(modules);
+  renderExplorerControls(modules);
 
   if (modules.length === 0) {
     dom.visualization.innerHTML = `<div class="empty-state">No modules match the current filters.</div>`;

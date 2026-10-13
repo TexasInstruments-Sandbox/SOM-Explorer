@@ -30,13 +30,17 @@ Open:
 http://localhost:5173
 ```
 
+## Desktop controls
+
+Desktop filters start expanded. Search stays in the header beside the Filters button. A labeled View type button group sits above the module, partner, device, and form-factor counters, showing the selected view directly. At expanded widths from 768 to 980 pixels, the six views use a three-column layout. Hide or Escape collapses the filter panel without clearing selections, leaving a vertical Filters tab and active-filter count beside the results. Reopening the panel focuses its first filter. Desktop expansion is retained while resizing between phone and expanded layouts; it is independent of the phone filter sheet and defaults to expanded on reload.
+
 ## Mobile Explorer
 
 Phones open the module directory by default, with search, a view picker, and a Filters button above the results. The filter sheet uses two columns grouped into Partner details, Technical specs, and Display options; Partner and Form factor span both columns to keep longer values readable. Below 360 pixels, Partner details and Display options use one column so longer selections fit beside the inset dropdown arrows. Module details open in a full-screen panel. Visit TI.com and Close share a bottom action row across phone, expanded, and desktop layouts. Both phone panels contain keyboard focus and restore it when closed, with Close staying within reach while their content scrolls. Shared URLs retain the selected view and filters.
 
 The phone layout applies below 768 CSS pixels, and to short landscape screens up to 980 pixels wide. Expanded screens from 768 to 980 pixels use a compact side-by-side filter rail and workspace. Resizing between these layouts preserves the current search, filters, view, and selected module. Safe-area padding and dynamic viewport heights support iPhone layouts. Foldable support adapts to available width; physical hinge positioning is not inferred from the device name.
 
-The header and policy footer stay in the viewport while results scroll within the workspace. Filters and module details have their own scroll areas, preserving the results position when opened or closed.
+On phones, the brand header scrolls away while search, view, and filter controls stay within reach. The policy footer follows the results and becomes visible when scrolling to the bottom, including short or empty result sets. The top safe area remains clear on notched displays. Desktop layouts keep the header and footer in the viewport. Filters and module details have their own scroll areas, preserving the results position when opened or closed.
 
 On phones, tapping anywhere on a module directory card opens its details. Details slide in from the side, and the filter sheet slides up with a fading backdrop; both animate on close. Reduced-motion preferences disable these transitions.
 
