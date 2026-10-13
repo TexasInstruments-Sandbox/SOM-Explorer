@@ -1,6 +1,6 @@
 # TI SOM Explorer
 
-Interactive web app for exploring the SOM workbook by device, region, partner, form factor, lifecycle status, and partner program.
+Interactive web app for exploring the SOM workbook by device, region, partner, form factor, DDR type, lifecycle status, partner program, and onboard wireless.
 
 ## GitHub Pages
 
@@ -38,7 +38,9 @@ The app reads `data/soms.json`. The initial catalog was generated from:
 TI-SOM-List-Dec11-Rev01.xlsx (not committed)
 ```
 
-The catalog was refreshed against TI.com and primary manufacturer sources through September 1, 2026. Each matched module includes a TI tool ID and its last-verification date. DDR, onboard flash, and wireless values include a specification source and verification date. Normalized form-factor families are included alongside the source form-factor value.
+The catalog was refreshed against TI.com and primary manufacturer sources through September 1, 2026, with targeted October 13 updates for CarbonAM67, VAR-SOM-AM62P, and the separate Octavo OSD62x and OSD62x-PM families. Each matched module includes a TI tool ID and its last-verification date. DDR, onboard flash, and wireless values include a specification source and verification date. Normalized form-factor families are included alongside the source form-factor value.
+
+The DDR type filter uses `ddrTypes`, generated from each module's published `ddr` specification by the shared `ddr-types.js` helper. DDR3L is distinct from DDR3, and LPDDR4 is distinct from DDR4. A module offering multiple memory types matches each applicable type while counting once in the results. Generic RAM/SDRAM or an unconfirmed generation appears under `Unknown`. The local editor regenerates these types when DDR specifications change, and shared URLs preserve the selected `ddrType`.
 
 Wireless values describe radios mounted on the SOM itself:
 

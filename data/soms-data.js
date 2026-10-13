@@ -2,9 +2,9 @@ window.TI_SOM_DATA = {
   "appName": "TI SOM Explorer",
   "sourceWorkbook": "TI-SOM-List-Dec11-Rev01.xlsx (not committed)",
   "sourceSheet": "Sheet1",
-  "generatedOn": "2026-09-01",
+  "generatedOn": "2026-10-13",
   "summary": {
-    "modules": 77,
+    "modules": 78,
     "vendors": 28,
     "devices": 14,
     "regions": 4,
@@ -38,7 +38,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "EZURI-3P-CARBONAM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/EZURI-3P-CARBONAM62",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "carbonam67-ezurio-am67",
@@ -51,16 +54,19 @@ window.TI_SOM_DATA = {
       "tiLink": "https://www.ti.com/tool/EZURI-3P-CARBONAM67",
       "partnerProgram": "Preferred",
       "wireless": "Optional",
-      "flash": "16 GB eMMC default; up to 128 GB",
+      "flash": "16 GB eMMC",
       "ddr": "4 GB / 8 GB LPDDR4",
-      "released": "Yes",
-      "lifecycle": "Production",
+      "released": "No",
+      "lifecycle": "Preview",
       "sourceRow": 3,
-      "searchText": "carbonam67 ezurio am67 osm-mf osm north america preferred optional 16 gb emmc default; up to 128 gb 4 gb / 8 gb lpddr4 production ezuri-3p-carbonam67",
+      "searchText": "carbonam67 ezurio am67 osm-mf osm north america preferred optional 16 gb emmc 4 gb / 8 gb lpddr4 preview ezuri-3p-carbonam67",
       "tiToolId": "EZURI-3P-CARBONAM67",
       "lastVerified": "2026-07-30",
-      "specSource": "https://www.ti.com/tool/EZURI-3P-CARBONAM67",
-      "specVerified": "2026-07-30"
+      "specSource": "https://www.ezurio.com/system-on-module/osm-som/carbon-am67-som",
+      "specVerified": "2026-10-13",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "ig-g69m-iwave-am62l",
@@ -82,7 +88,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "IWAVE-3P-OSM-LF-AM62LX",
       "lastVerified": "2026-07-30",
       "specSource": "https://iwave-global.com/product/ti-am62lx-size-sf-osm/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "iw-rainbow-g55m-iwave-am62a",
@@ -104,7 +113,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "IWAVE-3P-OSM-LF-AM62A",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.iwavesystems.com/product/ti-am62ax-based-osm-lf-module/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "m62xx-t-zlg-am62",
@@ -126,7 +138,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "ZLG-3P-M62XX",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.zlg.cn/ipc/ipc/product/id/336.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "m64xx-zlg-am64",
@@ -148,7 +163,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "ZLG-3P-M6442",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.zlg.cn/ipc/ipc/product/id/335.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "m65xx-zlg-am65",
@@ -170,7 +188,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "ZLG-3P-M65XX",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.zlg.cn/ipc/ipc/product/id/315.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3L"
+      ]
     },
     {
       "id": "m335x-t-zlg-am335",
@@ -192,7 +213,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "",
       "lastVerified": "",
       "specSource": "https://www.zlg.cn/data/upload/software/Public/Industrial_Internet.pdf",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "wtc-am6254s-weathink-am62",
@@ -214,7 +238,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "WEATH-3P-WTC-AM6254S",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.weathink.cn/products/hexinban/11.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "var-som-am62-variscite-am62",
@@ -236,7 +263,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "VAR-3P-SOM-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/VAR-3P-SOM-AM62",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "var-som-am62p-variscite-am62p",
@@ -250,15 +280,18 @@ window.TI_SOM_DATA = {
       "partnerProgram": "Preferred",
       "wireless": "Optional",
       "flash": "8 GB–128 GB eMMC",
-      "ddr": "512 MB–4 GB LPDDR4",
+      "ddr": "1 GB–8 GB LPDDR4",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 12,
-      "searchText": "var-som-am62p variscite am62p so-dimm so-dimm emea preferred optional 8 gb–128 gb emmc 512 mb–4 gb lpddr4 production var-3p-som-am62p",
+      "searchText": "var-som-am62p variscite am62p so-dimm so-dimm emea preferred optional 8 gb–128 gb emmc 1 gb–8 gb lpddr4 production var-3p-som-am62p",
       "tiToolId": "VAR-3P-SOM-AM62P",
       "lastVerified": "2026-07-30",
-      "specSource": "https://www.ti.com/tool/VAR-3P-SOM-AM62P",
-      "specVerified": "2026-07-30"
+      "specSource": "https://variscite.com/system-on-module-som/ti-sitara-am62/ti-sitara-am62px/var-som-am62p/",
+      "specVerified": "2026-10-13",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "vanws-vgateway-vanteon-am335",
@@ -280,7 +313,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "VANWS-3P-VGATEWAY",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/VANWS-3P-VGATEWAY",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "Unknown"
+      ]
     },
     {
       "id": "som-tl62x-tronlong-am62",
@@ -302,7 +338,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TRONL-3P-SOM-TL62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tronlong.com/index.php/productinfo174.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "som-tl64x-tronlong-am64",
@@ -324,7 +363,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TRONL-3P-SOM-TL64",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tronlong.com/productinfo182.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "som-am335-tronlong-am335",
@@ -346,7 +388,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "",
       "lastVerified": "",
       "specSource": "https://www.tronlong.com/productinfo93.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "som-am437-tronlong-am437",
@@ -368,7 +413,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "",
       "lastVerified": "",
       "specSource": "https://www.tronlong.com/productinfo94.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "tqma65xx-tq-am65",
@@ -390,7 +438,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SOM-TQMA65XX",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma65xx/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "tqma243xl-tq-am243",
@@ -412,7 +463,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SOM-TQMA243XL",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma243xl/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "Unknown"
+      ]
     },
     {
       "id": "tqma62xx-tq-am62",
@@ -434,7 +488,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SOM-TQMA62XX",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma62xx/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "tqma64xxl-tq-am64",
@@ -456,7 +513,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SOM-TQMA64XXL",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma64xxl/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "tqma335x-tq-am335",
@@ -478,7 +538,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SITARASOMS",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma335x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3L"
+      ]
     },
     {
       "id": "tqma57xx-tq-am57",
@@ -500,7 +563,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TQ-3P-SITARASOMS",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma57xx/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3L"
+      ]
     },
     {
       "id": "verdin-am62-toradex-am62",
@@ -522,7 +588,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TRDX-3P-VERDIN-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://docs.toradex.com/113758-verdin-am62-datasheet.pdf",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "verdin-am62p-toradex-am62p",
@@ -544,7 +613,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TRDX-3P-VERDIN-AM62P",
       "lastVerified": "2026-08-04",
       "specSource": "https://docs.toradex.com/117145-verdin_am62p_datasheet.pdf?v=3",
-      "specVerified": "2026-08-04"
+      "specVerified": "2026-08-04",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "aquila-am69-toradex-am69",
@@ -566,7 +638,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TRDX-3P-AQUILA-AM69",
       "lastVerified": "2026-07-30",
       "specSource": "https://docs.toradex.com/115514-aquila_am69_datasheet.pdf?v=2",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "axon-am62x-technexion-am62",
@@ -588,7 +663,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TECHN-3P-SOM-AXON-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/TECHN-3P-SOM-AXON-AM62",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "Unknown"
+      ]
     },
     {
       "id": "rovy-4vm-technexion-tda4vm",
@@ -610,7 +688,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "TECHN-3P-SOM-ROVY-4VM",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/content/dam/videos/external-videos/en-us/10/3816841626001/build-cost-effective-robots-faster-rovy-4vm.mp4/subassets/build-cost-effective-robots-faster-rovy-4vm-presentation.pdf",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phycore-am62x-phytec-am62",
@@ -632,7 +713,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-KIT-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am62x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "phycore-am62x-dsc-phytec-am62",
@@ -654,7 +738,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-KIT-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am62x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "phycore-am67x-phytec-am67",
@@ -676,7 +763,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-PHYCORE-AM67",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am67x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phycore-am62a-phytec-am62a",
@@ -698,7 +788,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-PHYCORE-AM62A",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am62a/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phycore-am64x-phytec-am64",
@@ -720,7 +813,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-KIT-AM64",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am64x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "phycore-am57x-phytec-am57",
@@ -742,7 +838,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-PHYCORE-AM57X",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am57x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "phycore-am335x-phytec-am335",
@@ -764,29 +863,35 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-PHYCORE-AM335X",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am335x/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "osd62x-octavo-am62",
       "name": "OSD62X",
       "vendor": "Octavo",
       "device": "AM62",
-      "formFactorRaw": "SIP",
+      "formFactorRaw": "SiP, 21 × 21 mm BGA",
       "formFactorFamily": "Solder down",
       "region": "North America",
       "tiLink": "https://www.ti.com/tool/OCTVO-3P-OSD62X",
       "partnerProgram": "Registered",
       "wireless": "No",
       "flash": "No onboard flash",
-      "ddr": "1 GB / 2 GB DDR4",
-      "released": "Yes",
-      "lifecycle": "Production",
+      "ddr": "Not published; memory type unconfirmed",
+      "released": "No",
+      "lifecycle": "Preview",
       "sourceRow": 35,
-      "searchText": "osd62x octavo am62 sip solder down north america registered no no onboard flash 1 gb / 2 gb ddr4 production octvo-3p-osd62x",
+      "searchText": "osd62x octavo am62 sip, 21 × 21 mm bga solder down north america registered no no onboard flash not published; memory type unconfirmed preview octvo-3p-osd62x",
       "tiToolId": "OCTVO-3P-OSD62X",
       "lastVerified": "2026-07-30",
-      "specSource": "https://octavosystems.com/app_notes/osd62x-pm-power-application-note/",
-      "specVerified": "2026-07-30"
+      "specSource": "https://octavosystems.com/octavo_products/osd62x/",
+      "specVerified": "2026-10-13",
+      "ddrTypes": [
+        "Unknown"
+      ]
     },
     {
       "id": "m2a-am62xx-tessolve-am62",
@@ -808,7 +913,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "",
       "lastVerified": "",
       "specSource": "https://www.tessolve.com/wp-content/uploads/2023/01/TI-Module-Datasheet.pdf",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "be-am6254-bytesatwork-am62",
@@ -830,7 +938,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "BYTES-3P-BE-AM6254",
       "lastVerified": "2026-07-30",
       "specSource": "https://bytesatwork.io/wp-content/uploads/2023/09/Datasheet_byteENGINE_AM62xx_v1.2.pdf",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "fet6254-c-forlinx-am62",
@@ -852,7 +963,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "FORLX-3P-FET6254-C",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.forlinx.net/product/am625x-system-on-module-127.html",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "osm-lf-am62-iesy-am62",
@@ -874,7 +988,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "IESY-3P-OSM-LF-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/IESY-3P-OSM-LF-AM62",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mitysom-am62-critical-link-am62",
@@ -896,7 +1013,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "CRLNK-3P-MITYSOM-AM62",
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-am62/",
-      "specVerified": "2026-09-01"
+      "specVerified": "2026-09-01",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "mitysom-am62a-critical-link-am62a",
@@ -918,7 +1038,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "CRLNK-3P-MITYSOM-AM62A",
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-am62a/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mitysom-am62p-critical-link-am62p",
@@ -940,7 +1063,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "CRLNK-3P-MITYSOM-AM62P",
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-am62p-system-on-module/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mitysom-am57x-critical-link-am57",
@@ -962,7 +1088,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "CRLNK-3P-SOMS",
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-am57/",
-      "specVerified": "2026-09-01"
+      "specVerified": "2026-09-01",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "beacon-am62l-beacon-embedded-am62l",
@@ -984,7 +1113,11 @@ window.TI_SOM_DATA = {
       "tiToolId": "BEACN-3P-AM62L-SOM",
       "lastVerified": "2026-07-30",
       "specSource": "https://beaconembedded.com/project/am62l-som/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4",
+        "LPDDR4"
+      ]
     },
     {
       "id": "i-core-am62x-engicam-am62",
@@ -1006,7 +1139,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "ENGCM-3P-ICORE-AM62X",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/ENGCM-3P-ICORE-AM62X",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "pico-am62-aaeon-am62",
@@ -1028,7 +1164,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "AAEON-3P-PICOAM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.aaeon.com/en/product/detail/gateway-boardexpansion-board-pico-am62/specification",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "g405-vantron-am64",
@@ -1050,7 +1189,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "VANTRON-3P-AM6411",
       "lastVerified": "2026-08-14",
       "specSource": "https://vantrontech.us/product/3249",
-      "specVerified": "2026-08-14"
+      "specVerified": "2026-08-14",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "beaglemod-am62-beagleboard-am62",
@@ -1072,7 +1214,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "BEAGL-3P-BEAGLEMOD-AM62",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/BEAGL-3P-BEAGLEMOD-AM62",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "smarc-sam67-kontron-am67",
@@ -1094,7 +1239,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "",
       "lastVerified": "",
       "specSource": "https://www.kontron.com/landingpages/cn/products/smarc-sam67/p186374",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phyflex-am62l-phytec-am62l",
@@ -1116,7 +1264,10 @@ window.TI_SOM_DATA = {
       "tiToolId": "PHYTC-3P-PHYFLEX-AM62L",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.eu/en/produkte/system-on-modules/phyflex-am62lx-fpsc/",
-      "specVerified": "2026-07-30"
+      "specVerified": "2026-07-30",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "carbonam62l-ezurio-am62l",
@@ -1138,7 +1289,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/EZURI-3P-CARBONAM62L",
       "specVerified": "2026-07-30",
-      "searchText": "carbonam62l ezurio am62l osm-sf osm north america preferred optional emmc 512 mb / 1 gb / 2 gb lpddr4 production ezuri-3p-carbonam62l"
+      "searchText": "carbonam62l ezurio am62l osm-sf osm north america preferred optional emmc 512 mb / 1 gb / 2 gb lpddr4 production ezuri-3p-carbonam62l",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "rchd-am62-conclusive-engineering-am62",
@@ -1160,7 +1314,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://conclusive.tech/products/rchd-am62-industrial-som/",
       "specVerified": "2026-07-30",
-      "searchText": "rchd-am62 conclusive engineering am62 so-dimm so-dimm emea registered yes 4 gb–64 gb emmc 512 mb–8 gb ddr4 production concl-3p-rchd-am62"
+      "searchText": "rchd-am62 conclusive engineering am62 so-dimm so-dimm emea registered yes 4 gb–64 gb emmc 512 mb–8 gb ddr4 production concl-3p-rchd-am62",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "hz-core-am62x-hzhytech-am62",
@@ -1182,7 +1339,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.ti.com/tool/HZHYT-3P-HZ-CORE-AM62X",
       "specVerified": "2026-07-30",
-      "searchText": "hz-core-am62x hzhytech am62 solder-down stamp module solder down china registered no 8 gb emmc 2 gb ddr4 production hzhyt-3p-hz-core-am62x"
+      "searchText": "hz-core-am62x hzhytech am62 solder-down stamp module solder down china registered no 8 gb emmc 2 gb ddr4 production hzhyt-3p-hz-core-am62x",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "myc-ym62x-myir-am62",
@@ -1204,7 +1364,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.myirtech.com/list.asp?id=730",
       "specVerified": "2026-07-30",
-      "searchText": "myc-ym62x myir am62 not specified proprietary connector china registered no 8 gb emmc; up to 128 gb supported 1 gb / 2 gb ddr4; up to 4 gb supported production myir-3p-ym62x"
+      "searchText": "myc-ym62x myir am62 not specified proprietary connector china registered no 8 gb emmc; up to 128 gb supported 1 gb / 2 gb ddr4; up to 4 gb supported production myir-3p-ym62x",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "tqma67xx-tq-am67",
@@ -1226,7 +1389,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma67xx/",
       "specVerified": "2026-07-30",
-      "searchText": "tqma67xx / tqma67xxl tq am67 hdi / lga proprietary connector emea premium no up to 128 gb emmc; up to 256 mb nor up to 8 gb lpddr4 production tq-3p-som-tqma67xx"
+      "searchText": "tqma67xx / tqma67xxl tq am67 hdi / lga proprietary connector emea premium no up to 128 gb emmc; up to 256 mb nor up to 8 gb lpddr4 production tq-3p-som-tqma67xx",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phycore-am68a-phytec-am68",
@@ -1248,7 +1414,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am68a/",
       "specVerified": "2026-07-30",
-      "searchText": "phycore-am68a phytec am68 high-density board-to-board connectors proprietary connector emea premium no up to 256 gb emmc; 64 mb qspi nor up to 2 × 8 gb lpddr4 production phytc-3p-phycore-am68"
+      "searchText": "phycore-am68a phytec am68 high-density board-to-board connectors proprietary connector emea premium no up to 256 gb emmc; 64 mb qspi nor up to 2 × 8 gb lpddr4 production phytc-3p-phycore-am68",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "conga-stda4-congatec-tda4vm",
@@ -1270,7 +1439,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-07-30",
       "specSource": "https://www.congatec.com/en/products/smarc/conga-stda4/",
       "specVerified": "2026-07-30",
-      "searchText": "conga-stda4 congatec tda4vm smarc smarc emea registered optional 32 gb emmc default; up to 128 gb emmc 5.1 up to 8 gb lpddr4 production conga-3p-stda4"
+      "searchText": "conga-stda4 congatec tda4vm smarc smarc emea registered optional 32 gb emmc default; up to 128 gb emmc 5.1 up to 8 gb lpddr4 production conga-3p-stda4",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "byteengine-am62l-osm-bytesatwork-am62l",
@@ -1292,7 +1464,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://bytesatwork.io/en/shop/produkte/925048-byteENGINE-AM62L-OSM.php",
       "specVerified": "2026-09-01",
-      "searchText": "byteengine am62l osm bytesatwork am62l osm size s (30 × 30 mm) osm emea registered no 8 gb–128 gb emmc 512 mb–2 gb lpddr4 production"
+      "searchText": "byteengine am62l osm bytesatwork am62l osm size s (30 × 30 mm) osm emea registered no 8 gb–128 gb emmc 512 mb–2 gb lpddr4 production",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "byteengine-am62p54-bytesatwork-am62p",
@@ -1314,7 +1489,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://bytesatwork.io/en/shop/produkte/700719-byteENGINE-AM62P54.php",
       "specVerified": "2026-09-01",
-      "searchText": "byteengine am62p54 bytesatwork am62p board-to-board module (30 × 40 mm) proprietary connector emea registered no 8 gb–128 gb emmc up to 8 gb lpddr4 production"
+      "searchText": "byteengine am62p54 bytesatwork am62p board-to-board module (30 × 40 mm) proprietary connector emea registered no 8 gb–128 gb emmc up to 8 gb lpddr4 production",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "som-tl62lx-tronlong-am62l",
@@ -1336,7 +1514,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://www.tronlong.com/productinfo267.html",
       "specVerified": "2026-09-01",
-      "searchText": "som-tl62lx tronlong am62l 180-pin lcc/lga solder-down (45 × 45 mm) solder down china registered no 256 mb nand or 4 gb / 8 gb emmc 512 mb / 1 gb ddr4 production"
+      "searchText": "som-tl62lx tronlong am62l 180-pin lcc/lga solder-down (45 × 45 mm) solder down china registered no 256 mb nand or 4 gb / 8 gb emmc 512 mb / 1 gb ddr4 production",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "myc-ym62lx-myir-am62l",
@@ -1358,7 +1539,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://www.myirtech.com/list.asp?id=844",
       "specVerified": "2026-09-01",
-      "searchText": "myc-ym62lx myir am62l 164-pin lcc solder-down (43 × 45 mm) solder down china registered no 8 gb emmc or 512 mb nand; 4 kb eeprom 512 mb / 1 gb ddr4 production"
+      "searchText": "myc-ym62lx myir am62l 164-pin lcc solder-down (43 × 45 mm) solder down china registered no 8 gb emmc or 512 mb nand; 4 kb eeprom 512 mb / 1 gb ddr4 production",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "vosm62l-vantron-am62l",
@@ -1380,7 +1564,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://vantrontech.us/product/3375-VOSM62LTIAM62L32Module",
       "specVerified": "2026-09-01",
-      "searchText": "vosm62l vantron am62l osm size l (45 × 45 mm) osm north america registered no 16 gb emmc 1 gb ddr4 production"
+      "searchText": "vosm62l vantron am62l osm size l (45 × 45 mm) osm north america registered no 16 gb emmc 1 gb ddr4 production",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "phycore-am62p-phytec-am62p",
@@ -1402,7 +1589,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.phytec.com/product/phycore-am62px/",
       "specVerified": "2026-09-01",
-      "searchText": "phycore-am62p phytec am62p 2 × 140-pin board-to-board connectors (35 × 50 mm) proprietary connector emea premium no up to 128 gb emmc; 64 mb ospi nor up to 8 gb lpddr4 production phytc-3p-phycore-am62p"
+      "searchText": "phycore-am62p phytec am62p 2 × 140-pin board-to-board connectors (35 × 50 mm) proprietary connector emea premium no up to 128 gb emmc; 64 mb ospi nor up to 8 gb lpddr4 production phytc-3p-phycore-am62p",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "phyflex-am62p-phytec-am62p",
@@ -1424,7 +1614,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.phytec.com/product/phyflex-am62px/",
       "specVerified": "2026-09-01",
-      "searchText": "phyflex-am62p phytec am62p fpsc solder-down (37 × 40 mm) proprietary connector emea premium no up to 128 gb emmc up to 8 gb lpddr4 preview phytc-3p-phyflex-am62p"
+      "searchText": "phyflex-am62p phytec am62p fpsc solder-down (37 × 40 mm) proprietary connector emea premium no up to 128 gb emmc up to 8 gb lpddr4 preview phytc-3p-phyflex-am62p",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "tqma62lxxoa-s-tq-am62l",
@@ -1446,7 +1639,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://www.tq-group.com/en/products/tq-embedded/cpu-families/arm-architecture/tqma62lxxoa-s/",
       "specVerified": "2026-09-01",
-      "searchText": "tqma62lxxoa-s tq am62l osm size s (30 × 30 mm) osm emea premium no up to 256 gb emmc up to 2 gb lpddr4 preview"
+      "searchText": "tqma62lxxoa-s tq am62l osm size s (30 × 30 mm) osm emea premium no up to 256 gb emmc up to 2 gb lpddr4 preview",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "osm-s-am62l-kontron-am62l",
@@ -1468,7 +1664,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://www.kontron.com/en/products/som-osm-s-am62l/p189468",
       "specVerified": "2026-09-01",
-      "searchText": "osm-s am62l kontron am62l osm size s (30 × 30 mm) osm emea registered no 4 gb emmc default; up to 128 gb emmc 512 mb–2 gb lpddr4 preview"
+      "searchText": "osm-s am62l kontron am62l osm size s (30 × 30 mm) osm emea registered no 4 gb emmc default; up to 128 gb emmc 512 mb–2 gb lpddr4 preview",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mitysom-335x-critical-link-am335",
@@ -1490,7 +1689,11 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-335x/",
       "specVerified": "2026-09-01",
-      "searchText": "mitysom-335x critical link am335 204-pin so-dimm (67.6 × 38.1 mm) so-dimm north america preferred no up to 1 gb nand; up to 16 mb optional nor up to 1 gb ddr3 or 256 mb ddr2 production crlnk-3p-soms"
+      "searchText": "mitysom-335x critical link am335 204-pin so-dimm (67.6 × 38.1 mm) so-dimm north america preferred no up to 1 gb nand; up to 16 mb optional nor up to 1 gb ddr3 or 256 mb ddr2 production crlnk-3p-soms",
+      "ddrTypes": [
+        "DDR2",
+        "DDR3"
+      ]
     },
     {
       "id": "mitysom-am57f-critical-link-am57",
@@ -1512,7 +1715,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.criticallink.com/product/mitysom-am57f/",
       "specVerified": "2026-09-01",
-      "searchText": "mitysom-am57f critical link am57 mxm plus board-to-board connectors (88 × 69.41 mm) proprietary connector north america preferred no up to 32 mb nor; no onboard emmc up to 2 gb ddr3 production crlnk-3p-soms"
+      "searchText": "mitysom-am57f critical link am57 mxm plus board-to-board connectors (88 × 69.41 mm) proprietary connector north america preferred no up to 32 mb nor; no onboard emmc up to 2 gb ddr3 production crlnk-3p-soms",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "beaglebadge-beagleboard-am62l",
@@ -1534,7 +1740,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/beaglebadge",
       "specVerified": "2026-09-01",
-      "searchText": "beaglebadge beagleboard am62l single-board computer board north america preferred yes 4 gb emmc; 32 mb ospi nor; 32 kb eeprom; microsd 256 mb lpddr4 production beagle-badge"
+      "searchText": "beaglebadge beagleboard am62l single-board computer board north america preferred yes 4 gb emmc; 32 mb ospi nor; 32 kb eeprom; microsd 256 mb lpddr4 production beagle-badge",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "pocketbeagle-2-beagleboard-am62",
@@ -1556,7 +1765,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/pocketbeagle-2",
       "specVerified": "2026-09-01",
-      "searchText": "pocketbeagle 2 beagleboard am62 single-board computer board north america preferred no microsd 512 mb ddr4 production beagl-pocketbeagle-2"
+      "searchText": "pocketbeagle 2 beagleboard am62 single-board computer board north america preferred no microsd 512 mb ddr4 production beagl-pocketbeagle-2",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "beagley-ai-beagleboard-am67",
@@ -1578,7 +1790,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/beagley-ai",
       "specVerified": "2026-09-01",
-      "searchText": "beagley-ai beagleboard am67 single-board computer board north america preferred yes microsd 4 gb lpddr4 production beagley-ai"
+      "searchText": "beagley-ai beagleboard am67 single-board computer board north america preferred yes microsd 4 gb lpddr4 production beagley-ai",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "beagleplay-beagleboard-am62",
@@ -1600,7 +1815,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/beagleplay",
       "specVerified": "2026-09-01",
-      "searchText": "beagleplay beagleboard am62 single-board computer board north america preferred yes 16 gb emmc; microsd 2 gb ddr4 production beagl-play-sbc"
+      "searchText": "beagleplay beagleboard am62 single-board computer board north america preferred yes 16 gb emmc; microsd 2 gb ddr4 production beagl-play-sbc",
+      "ddrTypes": [
+        "DDR4"
+      ]
     },
     {
       "id": "beaglebone-black-beagleboard-am335",
@@ -1622,7 +1840,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/beaglebone-black",
       "specVerified": "2026-09-01",
-      "searchText": "beaglebone black beagleboard am335 single-board computer board north america preferred no 4 gb emmc; microsd 512 mb ddr3l production beagl-bone-black"
+      "searchText": "beaglebone black beagleboard am335 single-board computer board north america preferred no 4 gb emmc; microsd 512 mb ddr3l production beagl-bone-black",
+      "ddrTypes": [
+        "DDR3L"
+      ]
     },
     {
       "id": "beaglebone-black-industrial-beagleboard-am335",
@@ -1644,7 +1865,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "",
       "specSource": "https://www.beagleboard.org/boards/beaglebone-black-industrial",
       "specVerified": "2026-09-01",
-      "searchText": "beaglebone black industrial beagleboard am335 single-board computer board north america preferred no 4 gb emmc; microsd 512 mb ddr3 production"
+      "searchText": "beaglebone black industrial beagleboard am335 single-board computer board north america preferred no 4 gb emmc; microsd 512 mb ddr3 production",
+      "ddrTypes": [
+        "DDR3"
+      ]
     },
     {
       "id": "beaglebone-ai-64-beagleboard-tda4vm",
@@ -1666,7 +1890,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.beagleboard.org/boards/beaglebone-ai-64",
       "specVerified": "2026-09-01",
-      "searchText": "beaglebone ai-64 beagleboard tda4vm single-board computer board north america preferred no 16 gb emmc; microsd 4 gb lpddr4 production beagl-bone-ai-64"
+      "searchText": "beaglebone ai-64 beagleboard tda4vm single-board computer board north america preferred no 16 gb emmc; microsd 4 gb lpddr4 production beagl-bone-ai-64",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mo-62a-inhand-am62a",
@@ -1688,7 +1915,10 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.inhand.com/en/products/ai-edge-computers/mo-62a/",
       "specVerified": "2026-09-01",
-      "searchText": "mo 62a inhand am62a single-board computer (85 × 56 mm) board china registered yes microsd; no onboard emmc 2 gb / 4 gb / 8 gb lpddr4 production inhand-3p-mo62a"
+      "searchText": "mo 62a inhand am62a single-board computer (85 × 56 mm) board china registered yes microsd; no onboard emmc 2 gb / 4 gb / 8 gb lpddr4 production inhand-3p-mo62a",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
     },
     {
       "id": "mo-68a-inhand-am68",
@@ -1710,7 +1940,35 @@ window.TI_SOM_DATA = {
       "lastVerified": "2026-09-01",
       "specSource": "https://www.inhand.com/en/products/ai-edge-computers/mo-68a",
       "specVerified": "2026-09-01",
-      "searchText": "mo 68a inhand am68 single-board computer (85 × 56 mm) board china registered no microsd; no onboard emmc 4 gb / 8 gb lpddr4 production inhand-3p-mo68a"
+      "searchText": "mo 68a inhand am68 single-board computer (85 × 56 mm) board china registered no microsd; no onboard emmc 4 gb / 8 gb lpddr4 production inhand-3p-mo68a",
+      "ddrTypes": [
+        "LPDDR4"
+      ]
+    },
+    {
+      "id": "osd62x-pm-octavo-am62",
+      "name": "OSD62x-PM",
+      "vendor": "Octavo",
+      "device": "AM62",
+      "formFactorRaw": "SiP, 9 × 14 mm BGA",
+      "formFactorFamily": "Solder down",
+      "region": "North America",
+      "tiLink": "https://www.ti.com/tool/OCTVO-3P-OSD62X",
+      "partnerProgram": "Registered",
+      "wireless": "No",
+      "flash": "No onboard flash",
+      "ddr": "1 GB DDR4",
+      "released": "Yes",
+      "lifecycle": "Production",
+      "sourceRow": 80,
+      "tiToolId": "OCTVO-3P-OSD62X",
+      "lastVerified": "2026-10-13",
+      "specSource": "https://octavosystems.com/octavo_products/osd62x-pm/",
+      "specVerified": "2026-10-13",
+      "ddrTypes": [
+        "DDR4"
+      ],
+      "searchText": "osd62x-pm octavo am62 sip, 9 × 14 mm bga solder down north america registered no no onboard flash 1 gb ddr4 production octvo-3p-osd62x"
     }
   ],
   "source": "Original TI SOM workbook, refreshed against TI.com and primary manufacturer sources",

@@ -1,3 +1,5 @@
+const { deriveDdrTypes } = window.TI_SOM_DDR;
+
 const fieldNames = [
   "name",
   "vendor",
@@ -381,6 +383,7 @@ function normalizeModule(module) {
   module.wireless = validChoice(module.wireless, choiceFields.wireless, "Unknown");
   module.flash = module.flash || "";
   module.ddr = module.ddr || "";
+  module.ddrTypes = deriveDdrTypes(module.ddr);
   module.released = validChoice(module.released, choiceFields.released, "Unknown");
   module.lifecycle = validChoice(module.lifecycle, choiceFields.lifecycle, "Preview");
   module.sourceRow = Number(module.sourceRow) || "";

@@ -3,6 +3,7 @@ const LOGO_MANIFEST_URL = "./assets/logos/manifest.json";
 const PARTNER_BADGE_MANIFEST_URL = "./assets/partner-badges/manifest.json";
 const FORM_FACTOR_MANIFEST_URL = "./assets/form-factors/manifest.json";
 const PARTNERS_URL = "./data/partners.json";
+const { DDR_TYPES, deriveDdrTypes } = window.TI_SOM_DDR;
 
 const dimensions = {
   device: { label: "Device", plural: "devices", get: (m) => m.device },
@@ -21,6 +22,7 @@ const orders = {
   lifecycle: ["Concept", "Preview", "Production"],
   partnerProgram: ["Premium", "Preferred", "Registered", "Unknown"],
   wireless: ["Yes", "Optional", "No", "Unknown"],
+  ddrType: DDR_TYPES,
 };
 
 const palette = {
@@ -90,6 +92,7 @@ const state = {
     lifecycle: "All",
     partnerProgram: "All",
     wireless: "All",
+    ddrType: "All",
   },
 };
 
@@ -115,7 +118,11 @@ const dom = {
 async function init() {
   syncThemeToggle();
   state.metadata = await loadJson(DATA_URL, "TI_SOM_DATA");
-  state.modules = state.metadata.modules;
+  state.modules = state.metadata.modules.map((module) => ({
+    ...module,
+    // Keep older catalogs usable before their generated fields are refreshed.
+    ddrTypes: Array.isArray(module.ddrTypes) && module.ddrTypes.length ? module.ddrTypes : deriveDdrTypes(module.ddr),
+  }));
   [state.companyLogos, state.partnerBadges, state.formFactorLogos, state.partners] = await Promise.all([
     loadLogoManifest(),
     loadPartnerBadgeManifest(),
@@ -332,6 +339,7 @@ function buildFilterControls() {
     ["device", "Device"],
     ["vendor", "Partner"],
     ["formFactorFamily", "Form factor"],
+    ["ddrType", "DDR type"],
     ["lifecycle", "Status"],
     ["partnerProgram", "Partner Program Status"],
     ["wireless", "Wireless"],
@@ -835,6 +843,7 @@ function filteredModules(ignoreFilters = []) {
 
 function matchesModuleFilter(module, key, value) {
   if (value === "All") return true;
+  if (key === "ddrType") return module.ddrTypes.includes(value);
   if (key === "wireless" && value === "Yes") return module.wireless === "Yes" || module.wireless === "Optional";
   if (key === "wireless" && value === "No") return module.wireless === "No";
   return module[key] === value;
@@ -854,6 +863,7 @@ function groupModules(modules, dimensionKey) {
 function uniqueValues(key) {
   if (key === "partnerProgram") return orders.partnerProgram;
   if (key === "wireless") return ["Yes", "No"];
+  if (key === "ddrType") return sortValues([...new Set(state.modules.flatMap((module) => module.ddrTypes))], key);
   return sortValues([...new Set(state.modules.map((module) => module[key] || "Unknown"))], key);
 }
 

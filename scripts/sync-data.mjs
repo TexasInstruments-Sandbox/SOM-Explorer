@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import ddrTypes from "../ddr-types.js";
+
+const { deriveDdrTypes } = ddrTypes;
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const jsonPath = path.join(projectRoot, "data", "soms.json");
@@ -44,6 +47,7 @@ function normalizeData(data, generatedOn = data.generatedOn) {
     module.lastVerified ||= "";
     module.specSource ||= "";
     module.specVerified ||= "";
+    module.ddrTypes = deriveDdrTypes(module.ddr);
     module.searchText = buildSearchText(module);
   });
   normalized.summary = {
