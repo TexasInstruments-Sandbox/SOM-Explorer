@@ -4,6 +4,7 @@ const PARTNER_BADGE_MANIFEST_URL = "./assets/partner-badges/manifest.json";
 const FORM_FACTOR_MANIFEST_URL = "./assets/form-factors/manifest.json";
 const PARTNERS_URL = "./data/partners.json";
 const { DDR_TYPES, deriveDdrTypes } = window.TI_SOM_DDR;
+const { ramSummary, flashSummary } = window.TI_SOM_MEMORY;
 const mobileLayout = window.matchMedia("(max-width: 767px), (max-width: 980px) and (max-height: 520px)");
 let filterReturnFocus = null;
 let detailReturnFocus = null;
@@ -880,16 +881,12 @@ function renderDirectory(modules) {
           <span data-label="Form factor">${escapeHtml(module.formFactorFamily)}</span>
           <span data-label="Status" class="badge" style="--badge-color:${colorForValue(module.lifecycle)}">${escapeHtml(module.lifecycle)}</span>
           <span data-label="Partner program" class="badge" style="--badge-color:${colorForValue(module.partnerProgram)}">${escapeHtml(module.partnerProgram)}</span>
-          <span class="directory-spec" data-label="RAM">${escapeHtml(ramSpecification(module.ddr))}</span>
-          <span class="directory-spec" data-label="Flash">${escapeHtml(module.flash)}</span>
+          <span class="directory-spec" data-label="RAM">${escapeHtml(ramSummary(module.ddr))}</span>
+          <span class="directory-spec" data-label="Flash">${escapeHtml(flashSummary(module.flash))}</span>
         </article>
       `).join("")}
     </div>
   `;
-}
-
-function ramSpecification(value) {
-  return value && value.trim().toUpperCase() !== "RAM" ? value : "Not published";
 }
 
 function moduleCard(module) {
@@ -899,8 +896,8 @@ function moduleCard(module) {
       <span class="module-name">${escapeHtml(module.name)}</span>
       <span class="module-meta">${escapeHtml(module.device)} / ${escapeHtml(module.formFactorFamily)} / ${escapeHtml(module.lifecycle)}</span>
       <span class="mobile-module-specs">
-        <span>RAM: ${escapeHtml(ramSpecification(module.ddr))}</span>
-        <span>Flash: ${escapeHtml(module.flash)}</span>
+        <span>RAM: ${escapeHtml(ramSummary(module.ddr))}</span>
+        <span>Flash: ${escapeHtml(flashSummary(module.flash))}</span>
       </span>
     </button>
   `;
@@ -949,8 +946,8 @@ function openDrawer(moduleId, trigger) {
       ${detailItem("Region", module.region)}
       ${detailItem("Partner Program Status", module.partnerProgram)}
       ${detailItem("Wireless", module.wireless)}
-      ${detailItem("DDR", module.ddr)}
-      ${detailItem("Flash", module.flash)}
+      ${detailItem("RAM", ramSummary(module.ddr))}
+      ${detailItem("Flash", flashSummary(module.flash))}
       ${detailItem("Released", module.released)}
       ${detailItem("TI tool ID", module.tiToolId)}
     </dl>

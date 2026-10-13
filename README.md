@@ -38,6 +38,8 @@ The phone layout applies below 768 CSS pixels, and to short landscape screens up
 
 The header and policy footer stay in the viewport while results scroll within the workspace. Filters and module details have their own scroll areas, preserving the results position when opened or closed.
 
+On phones, tapping anywhere on a module directory card opens its details. Details slide in from the side, and the filter sheet slides up with a fading backdrop; both animate on close. Reduced-motion preferences disable these transitions.
+
 ## Data
 
 The app reads `data/soms.json`. The initial catalog was generated from:
@@ -50,7 +52,7 @@ The catalog was refreshed against TI.com and primary manufacturer sources throug
 
 The DDR type filter uses `ddrTypes`, generated from each module's published `ddr` specification by the shared `ddr-types.js` helper. DDR3L is distinct from DDR3, and LPDDR4 is distinct from DDR4. A module offering multiple memory types matches each applicable type while counting once in the results. Generic RAM/SDRAM or an unconfirmed generation appears under `Unknown`. The local editor regenerates these types when DDR specifications change, and shared URLs preserve the selected `ddrType`.
 
-Phone card summaries show the published memory specification under RAM, combining capacity and DDR type when available, such as `Up to 4 GB DDR3L`. This preserves ranges, custom configurations, and ECC qualifiers.
+Module cards and details summarize RAM and flash with a single capacity and memory type. Fixed capacities remain a single value, such as `512 MB DDR3L`; ranges and configuration options show the published maximum, such as `Up to 4 GB DDR4` or `Up to 128 GB eMMC`. RAM bank capacities are combined, and ECC qualifiers remain visible. Flash summaries use the largest storage device without adding smaller NOR or EEPROM devices. Sources that publish only a lower bound use `8 GB+ eMMC`, and unspecified capacities stay unspecified. The full published specifications remain in the catalog, search, and data editor.
 
 The phyCORE-AM57x memory entry shows `Up to 4 GB DDR3 (optional ECC)`. Its default RAM is 2 GB; the separately listed ECC storage holds error-correction check bits on one bank and is not an additional application-RAM capacity. See [PHYTEC's specifications](https://www.phytec.com/product/phycore-am57x/) and [hardware manual, section 6.1](https://www.phytec.de/fileadmin/legacy/downloads/Manuals/L-815e_4.pdf#page=37).
 
