@@ -116,8 +116,7 @@ const dom = {
   drawer: document.querySelector("#detailDrawer"),
   drawerContent: document.querySelector("#drawerContent"),
   drawerClose: document.querySelector("#drawerClose"),
-  drawerInner: document.querySelector(".drawer-inner"),
-  drawerCloseActions: document.querySelector("#drawerCloseActions"),
+  drawerTiLink: document.querySelector("#drawerTiLink"),
   mobileSearchInput: document.querySelector("#mobileSearchInput"),
   mobileViewMode: document.querySelector("#mobileViewMode"),
   mobileFiltersButton: document.querySelector("#mobileFiltersButton"),
@@ -389,16 +388,6 @@ function syncOverlayAccessibility() {
     dom.drawer.removeAttribute("aria-modal");
     dom.drawer.removeAttribute("aria-labelledby");
   }
-  syncDrawerClosePlacement();
-}
-
-function syncDrawerClosePlacement() {
-  const wasFocused = document.activeElement === dom.drawerClose;
-  const target = mobileLayout.matches ? dom.drawerInner.lastElementChild : dom.drawerInner.firstElementChild;
-  if (target === dom.drawerCloseActions) return;
-  if (mobileLayout.matches) dom.drawerInner.append(dom.drawerCloseActions);
-  else dom.drawerInner.prepend(dom.drawerCloseActions);
-  if (wasFocused && dom.drawer.classList.contains("is-open")) dom.drawerClose.focus({ preventScroll: true });
 }
 
 function trapOverlayFocus(event, overlay) {
@@ -965,8 +954,10 @@ function openDrawer(moduleId, trigger) {
       ${detailItem("Released", module.released)}
       ${detailItem("TI tool ID", module.tiToolId)}
     </dl>
-    ${link ? `<div class="drawer-actions"><a class="drawer-link" href="${escapeAttr(link)}" target="_blank" rel="noreferrer">Visit TI.com</a></div>` : ""}
   `;
+  dom.drawerTiLink.hidden = !link;
+  if (link) dom.drawerTiLink.href = link;
+  else dom.drawerTiLink.removeAttribute("href");
   dom.drawer.dataset.openModuleId = moduleId;
   dom.drawer.classList.add("is-open");
   dom.drawer.setAttribute("aria-hidden", "false");

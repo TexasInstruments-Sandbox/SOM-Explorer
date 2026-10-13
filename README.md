@@ -32,9 +32,11 @@ http://localhost:5173
 
 ## Mobile Explorer
 
-Phones open the module directory by default, with search, a view picker, and a Filters button above the results. The filter sheet uses two columns grouped into Partner details, Technical specs, and Display options; Partner and Form factor span both columns to keep longer values readable. Below 360 pixels, Partner details and Display options use one column so longer selections fit beside the inset dropdown arrows. Module details open in a full-screen panel. Both panels keep Close at the bottom within reach while their content scrolls, contain keyboard focus, and restore it when closed. Shared URLs retain the selected view and filters.
+Phones open the module directory by default, with search, a view picker, and a Filters button above the results. The filter sheet uses two columns grouped into Partner details, Technical specs, and Display options; Partner and Form factor span both columns to keep longer values readable. Below 360 pixels, Partner details and Display options use one column so longer selections fit beside the inset dropdown arrows. Module details open in a full-screen panel. Visit TI.com and Close share a bottom action row across phone, expanded, and desktop layouts. Both phone panels contain keyboard focus and restore it when closed, with Close staying within reach while their content scrolls. Shared URLs retain the selected view and filters.
 
 The phone layout applies below 768 CSS pixels, and to short landscape screens up to 980 pixels wide. Expanded screens from 768 to 980 pixels use a compact side-by-side filter rail and workspace. Resizing between these layouts preserves the current search, filters, view, and selected module. Safe-area padding and dynamic viewport heights support iPhone layouts. Foldable support adapts to available width; physical hinge positioning is not inferred from the device name.
+
+The header and policy footer stay in the viewport while results scroll within the workspace. Filters and module details have their own scroll areas, preserving the results position when opened or closed.
 
 ## Data
 
@@ -49,6 +51,8 @@ The catalog was refreshed against TI.com and primary manufacturer sources throug
 The DDR type filter uses `ddrTypes`, generated from each module's published `ddr` specification by the shared `ddr-types.js` helper. DDR3L is distinct from DDR3, and LPDDR4 is distinct from DDR4. A module offering multiple memory types matches each applicable type while counting once in the results. Generic RAM/SDRAM or an unconfirmed generation appears under `Unknown`. The local editor regenerates these types when DDR specifications change, and shared URLs preserve the selected `ddrType`.
 
 Phone card summaries show the published memory specification under RAM, combining capacity and DDR type when available, such as `Up to 4 GB DDR3L`. This preserves ranges, custom configurations, and ECC qualifiers.
+
+The phyCORE-AM57x memory entry shows `Up to 4 GB DDR3 (optional ECC)`. Its default RAM is 2 GB; the separately listed ECC storage holds error-correction check bits on one bank and is not an additional application-RAM capacity. See [PHYTEC's specifications](https://www.phytec.com/product/phycore-am57x/) and [hardware manual, section 6.1](https://www.phytec.de/fileadmin/legacy/downloads/Manuals/L-815e_4.pdf#page=37).
 
 Wireless values describe radios mounted on the SOM itself:
 

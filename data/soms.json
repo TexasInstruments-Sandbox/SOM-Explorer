@@ -830,15 +830,15 @@
       "partnerProgram": "Premium",
       "wireless": "No",
       "flash": "4 GB–32 GB eMMC or up to 4 GB NAND",
-      "ddr": "2 GB–4 GB DDR3; 256 MB DDR3 ECC",
+      "ddr": "Up to 4 GB DDR3 (optional ECC)",
       "released": "Yes",
       "lifecycle": "Production",
       "sourceRow": 33,
-      "searchText": "phycore-am57x phytec am57 not specified proprietary connector emea premium no 4 gb–32 gb emmc or up to 4 gb nand 2 gb–4 gb ddr3; 256 mb ddr3 ecc production phytc-3p-phycore-am57x",
+      "searchText": "phycore-am57x phytec am57 not specified proprietary connector emea premium no 4 gb–32 gb emmc or up to 4 gb nand up to 4 gb ddr3 (optional ecc) production phytc-3p-phycore-am57x",
       "tiToolId": "PHYTC-3P-PHYCORE-AM57X",
       "lastVerified": "2026-07-30",
       "specSource": "https://www.phytec.com/product/phycore-am57x/",
-      "specVerified": "2026-07-30",
+      "specVerified": "2026-10-13",
       "ddrTypes": [
         "DDR3"
       ]

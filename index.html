@@ -7,7 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="./assets/ti-bug.svg?v=20260730-logo-status-fix">
     <link rel="preload" href="./assets/fonts/roboto-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./fonts.css?v=20261013-ti-typography">
-    <link rel="stylesheet" href="./styles.css?v=20261013-light-only">
+    <link rel="stylesheet" href="./styles.css?v=20261013-contained-scroll">
   </head>
   <body>
     <div class="app-shell">
@@ -120,10 +120,11 @@
       <button id="filterBackdrop" type="button" tabindex="-1" aria-hidden="true" hidden></button>
       <aside class="detail-drawer" id="detailDrawer" aria-label="Module details" aria-hidden="true">
         <div class="drawer-inner">
-          <div class="drawer-close-actions" id="drawerCloseActions">
+          <div id="drawerContent" role="region" aria-labelledby="moduleDetailsTitle" tabindex="0"></div>
+          <div class="drawer-actions">
+            <a class="drawer-link" id="drawerTiLink" target="_blank" rel="noreferrer" hidden>Visit TI.com</a>
             <button class="drawer-close" id="drawerClose" type="button" aria-label="Close details">Close</button>
           </div>
-          <div id="drawerContent"></div>
         </div>
       </aside>
     </div>
@@ -139,13 +140,13 @@
     </footer>
 
     <noscript>TI SOM Explorer requires JavaScript.</noscript>
-    <script src="./data/soms-data.js?v=20261013-ddr-filter"></script>
+    <script src="./data/soms-data.js?v=20261013-am57-memory"></script>
     <script src="./ddr-types.js?v=20261013-ram-inline"></script>
     <script src="./assets/logos/manifest-data.js?v=20260901-catalog-refresh"></script>
     <script src="./assets/partner-badges/manifest-data.js?v=20260730-logo-status-fix"></script>
     <script src="./assets/form-factors/manifest-data.js"></script>
     <script src="./data/partners-data.js?v=20260901-catalog-refresh"></script>
-    <script src="./app.js?v=20261013-light-only" defer></script>
+    <script src="./app.js?v=20261013-detail-actions" defer></script>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "065d709d-d587-46d7-bccf-224148861c48"}'></script><!-- End Cloudflare Web Analytics -->
   </body>
 </html>
